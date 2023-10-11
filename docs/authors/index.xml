@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on TradeMall</title>
-    <link>http://trademall.com/authors/</link>
+    <link>https://trademall.github.io/authors/</link>
     <description>Recent content in Authors on TradeMall</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 01 Aug 2021 21:29:20 +0200</lastBuildDate><atom:link href="http://trademall.com/authors/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Aug 2021 21:29:20 +0200</lastBuildDate><atom:link href="https://trademall.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>John Doe</title>
-      <link>http://trademall.com/authors/john-doe/</link>
+      <link>https://trademall.github.io/authors/john-doe/</link>
       <pubDate>Sun, 01 Aug 2021 21:29:20 +0200</pubDate>
       
-      <guid>http://trademall.com/authors/john-doe/</guid>
+      <guid>https://trademall.github.io/authors/john-doe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Jane Doe</title>
-      <link>http://trademall.com/authors/jane-doe/</link>
+      <link>https://trademall.github.io/authors/jane-doe/</link>
       <pubDate>Fri, 02 Oct 2015 21:49:20 +0200</pubDate>
       
-      <guid>http://trademall.com/authors/jane-doe/</guid>
+      <guid>https://trademall.github.io/authors/jane-doe/</guid>
       <description></description>
     </item>
     
