@@ -8,6 +8,7 @@ googleAnalytics: ""
 summaryLength: 40
 paginate: 10
 pluralizelisttitles: false
+publishDir: docs
 
 menu:
   main:
