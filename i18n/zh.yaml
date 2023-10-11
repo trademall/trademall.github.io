@@ -1,0 +1,128 @@
+- id: home
+  translation: "主页"
+
+- id: templateBy
+  translation: "模板来自"
+
+- id: portedBy
+  translation: "移植自"
+
+- id: contactGoTo
+  translation: "联系我们"
+
+- id: contactAddrTitle
+  translation: "联系地址"
+
+- id: contactTitle
+  translation: "联系"
+
+- id: contactForm
+  translation: "联系表单"
+
+- id: contactName
+  translation: "你的名字"
+
+- id: contactMail
+  translation: "你的 Email"
+
+- id: contactMessage
+  translation: "你的信息"
+
+- id: contactSend
+  translation: "发送信息"
+
+- id: navHome
+  translation: "回到主页"
+
+- id: navToggle
+  translation: "切换导航"
+
+- id: categoriesTitle
+  translation: "分类"
+
+- id: searchTitle
+  translation: "搜索"
+
+- id: tagsTitle
+  translation: "标签"
+
+- id: continueReading
+  translation: "继续阅读"
+
+- id: readMore
+  translation: "阅读更多"
+
+- id: authorBy
+  translation: "由"
+
+- id: recentPosts
+  translation: "最新博客"
+
+- id: aboutUs
+  translation: "关于我们"
+
+- id: newer
+  translation: "更新"
+
+- id: older
+  translation: "更早"
+
+- id: publishedOn
+  translation: "在"
+
+- id: 404Error
+  translation: "Error 404: Page not found"
+
+- id: 404Message
+  translation: "页面走丢了"
+
+- id: 404NavHome
+  translation: "回到主页"
+
+- id: January
+  translation: 1 月
+
+- id: February
+  translation: 2 月
+
+- id: March
+  translation: 3 月
+
+- id: April
+  translation: 4 月
+
+- id: May
+  translation: 5 月
+
+- id: June
+  translation: 6 月
+
+- id: July
+  translation: 7 月
+
+- id: August
+  translation: 8 月
+
+- id: September
+  translation:  9 月
+
+- id: October
+  translation: 10 月
+
+- id: November
+  translation: 11 月
+
+- id: December
+  translation: 12 月
+
+- id: loginForm
+  translation: "登录"
+
+- id: loginName
+  translation: "用户名/邮箱"
+
+- id: loginPassword
+  translation: "密码"
+
+- id: loginButton
+  translation: "登录"
