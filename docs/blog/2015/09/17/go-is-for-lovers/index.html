@@ -40,7 +40,7 @@
 
 
 
-<link href="/css/custom.css?1697012453" rel="stylesheet">
+<link href="/css/custom.css?1697075575" rel="stylesheet">
 
 
 
@@ -113,6 +113,52 @@
 <meta name="twitter:description" content="Site template made by Devcows using Hugo">
 
     
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY&v=3.exp"></script>
+<script src="/js/hpneo.gmaps.js"></script>
+<script src="/js/gmaps.init.js"></script>
+
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.navbar .dropdown').hover(function () {
+            $(this).addClass("open");
+            $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300, "swing");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "true");
+        }, function () {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideUp(500, "swing", function () {
+                $(this).parent().removeClass("open");
+            });
+            $(this).removeClass("open");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "false");
+        });
+
+        $('.navbar .dropdown > a').click(function () {
+            
+            $('.navbar .dropdown > a').off('click.dropdown');
+            location.href = this.href;
+        });
+    });
+</script>
+
   </head>
 
   <body>
@@ -217,17 +263,17 @@
                     
                     
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></a>
+                        <a href="/services/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></a>
                         
                         <ul class="dropdown-menu">
                             
-                            <li><a href="">KITTING</a></li>
+                            <li><a href="/services/kitting/">KITTING</a></li>
                             
-                            <li><a href="">idea to product</a></li>
+                            <li><a href="/services/idea-to-product/">idea to product</a></li>
                             
-                            <li><a href="">packaage design</a></li>
+                            <li><a href="/services/package-design/">package design</a></li>
                             
-                            <li><a href="">drop shipping</a></li>
+                            <li><a href="/services/drop-shipping/">drop shipping</a></li>
                             
                         </ul>
                         
@@ -847,29 +893,5 @@ so, such as in this example:</p>
 
     </div>
     
-
-    
-<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
-
-<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY&v=3.exp"></script>
-<script src="/js/hpneo.gmaps.js"></script>
-<script src="/js/gmaps.init.js"></script>
-
-
-<script src="/js/front.js"></script>
-
-
-<script src="/js/owl.carousel.min.js"></script>
-
   </body>
 </html>

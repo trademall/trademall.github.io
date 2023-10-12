@@ -55,6 +55,42 @@ menu = &amp;quot;main&amp;quot;Lorem ipsum dolor sit amet, consectetur adipisci
     </item>
     
     <item>
+      <title></title>
+      <link>https://trademall.github.io/services/drop-shipping/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/services/drop-shipping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://trademall.github.io/services/idea-to-product/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/services/idea-to-product/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://trademall.github.io/services/kitting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/services/kitting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://trademall.github.io/services/package-design/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/services/package-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Contact</title>
       <link>https://trademall.github.io/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -88,6 +124,24 @@ menu = &amp;quot;main&amp;quot;Lorem ipsum dolor sit amet, consectetur adipisci
       
       <guid>https://trademall.github.io/blog/1/01/01/migrate-from-jekyll/</guid>
       <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like</description>
+    </item>
+    
+    <item>
+      <title>products</title>
+      <link>https://trademall.github.io/products/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/products/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>services</title>
+      <link>https://trademall.github.io/services/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://trademall.github.io/services/</guid>
+      <description></description>
     </item>
     
   </channel>

@@ -25,3 +25,27 @@
 
 <!-- owl carousel -->
 <script src="{{ "js/owl.carousel.min.js" | relURL }}"></script>
+
+{{ if .Site.Params.enableDropdownFix }}
+<script>
+    $(document).ready(function () {
+        $('.navbar .dropdown').hover(function () {
+            $(this).addClass("open");
+            $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300, "swing");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "true");
+        }, function () {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideUp(500, "swing", function () {
+                $(this).parent().removeClass("open");
+            });
+            $(this).removeClass("open");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "false");
+        });
+
+        $('.navbar .dropdown > a').click(function () {
+            // remove other click event listeners
+            $('.navbar .dropdown > a').off('click.dropdown');
+            location.href = this.href;
+        });
+    });
+</script>
+{{ end }}

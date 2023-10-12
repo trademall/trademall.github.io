@@ -7,7 +7,7 @@
 <meta name="googlebot" content="index,follow,snippet,archive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Login</title>
+<title></title>
 <meta name="author" content="" />
 
 
@@ -70,9 +70,9 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="TradeMall">
-<meta property="og:title" content="Login">
+<meta property="og:title" content="">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://trademall.github.io/login/" />
+<meta property="og:url" content="https://trademall.github.io/services/package-design/" />
 <meta property="og:description" content="Site template made by Devcows using Hugo">
 <meta property="og:image" content="https://trademall.github.io/img/sharing-default.png">
 <meta property="og:image:type" content="image/png">
@@ -91,18 +91,65 @@
     content="summary">
 
 <meta name="twitter:site" content="@GoHugoIO">
-<meta name="twitter:title" content="Login">
+<meta name="twitter:title" content="">
 
 <meta name="twitter:image" content="https://trademall.github.io/img/sharing-default.png">
 
 <meta name="twitter:description" content="Site template made by Devcows using Hugo">
 
     
+    
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY&v=3.exp"></script>
+<script src="/js/hpneo.gmaps.js"></script>
+<script src="/js/gmaps.init.js"></script>
+
+
+<script src="/js/front.js"></script>
+
+
+<script src="/js/owl.carousel.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.navbar .dropdown').hover(function () {
+            $(this).addClass("open");
+            $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300, "swing");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "true");
+        }, function () {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideUp(500, "swing", function () {
+                $(this).parent().removeClass("open");
+            });
+            $(this).removeClass("open");
+            $(this).find('a.dropdown-toggle').attr("aria-expanded", "false");
+        });
+
+        $('.navbar .dropdown > a').click(function () {
+            
+            $('.navbar .dropdown > a').off('click.dropdown');
+            location.href = this.href;
+        });
+    });
+</script>
+
   </head>
 
   <body>
 
     <div id="all">
+
         
 <header>
   <div id="top">
@@ -139,10 +186,10 @@
             <div class="navbar-header">
                 <a class="navbar-brand home" href="/">
                     
-                      <img src="/img/logo.png" alt="Login logo" class="hidden-xs hidden-sm" />
-                      <img src="/img/logo-small.png" alt="Login logo" class="visible-xs visible-sm" />
+                      <img src="/img/logo.png" alt=" logo" class="hidden-xs hidden-sm" />
+                      <img src="/img/logo-small.png" alt=" logo" class="visible-xs visible-sm" />
                     
-                    <span class="sr-only">Login - go to homepage</span>
+                    <span class="sr-only"> - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
@@ -194,13 +241,15 @@
                   
 
                   
+                    
+                  
 
                   
 
                   
                     
                     
-                    <li class="dropdown ">
+                    <li class="dropdown active">
                         <a href="/services/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></a>
                         
                         <ul class="dropdown-menu">
@@ -252,23 +301,13 @@
                   
 
                   
-                    
-                  
 
                   
 
                   
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                  
 
                   
-                  <li class="dropdown active">
+                  <li class="dropdown ">
                     <a href="/login/">Login</a>
                   </li>
                   
@@ -299,7 +338,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Login</h1>
+                <h1></h1>
             </div>
         </div>
     </div>
@@ -307,69 +346,153 @@
 
 
         <div id="content">
-            
+            <div class="container">
 
-              <div class="container" id="login">
+                <div class="row">
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+                    
 
-            <section>
+                    <div class="col-md-9" id="blog-post">
 
-                
-
-                
-
-                <div class="heading">
-                    <h3>Login</h3>
-                </div>
-
-                <div id="login-message"></div>
-
-                <form 
-                    method="post" action="https://formspree.io/sample/of/endpoint">
-                    <div class="row col-md-12">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="form-group">
-                                <label for="name">Username</label>
-                                <input type="text" class="form-control" name="name" id="name" required>
-                            </div>
-                        </div>
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" autocomplete="password" class="form-control" name="password" id="password"
-                                    required>
-                            </div>
-                        </div>
                         
 
-                        <div class="checkbox col-md-10 col-md-offset-1">
-                            <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                            </label>
+                        <div id="post-content">
+                          
                         </div>
+                        
+                        
 
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="form-group text-center">
-                                <input type="hidden" name="redirect_to" value="https://trademall.github.io/login/">
-                            <button type="submit" class="btn btn-lg btn-template-main">Log in</button>
-                            </div>
-                        </div>
                     </div>
                     
-                </form>
 
-                
+                    
 
-            </section>
+                    
 
-        </div>
+                    <div class="col-md-3">
 
+                        
+
+                        
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Search</h3>
     </div>
-    
+
+    <div class="panel-body">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
+            <div class="input-group">
+                <input type="search" name="q" class="form-control" placeholder="Search">
+                <input type="hidden" name="sitesearch" value="https://trademall.github.io/">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
 </div>
 
+
+
+
+
+
+
+<div class="panel panel-default sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Categories</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            
+            
+            <li>
+                <a href="/categories/lorem">LOREM (2)</a>
+            </li>
+            
+            <li>
+                <a href="/categories/programming">PROGRAMMING (3)</a>
+            </li>
+            
+            <li>
+                <a href="/categories/pseudo">PSEUDO (2)</a>
+            </li>
+            
+            <li>
+                <a href="/categories/starting">STARTING (1)</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="panel sidebar-menu">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Tags</h3>
+    </div>
+
+    <div class="panel-body">
+        <ul class="tag-cloud">
+            
+            
+            <li >
+                <a href="/tags/go"><i class="fas fa-tags"></i> go</a>
+            </li>
+            
+            <li >
+                <a href="/tags/golang"><i class="fas fa-tags"></i> golang</a>
+            </li>
+            
+            <li >
+                <a href="/tags/hugo"><i class="fas fa-tags"></i> hugo</a>
+            </li>
+            
+            <li >
+                <a href="/tags/ipsum"><i class="fas fa-tags"></i> ipsum</a>
+            </li>
+            
+            <li >
+                <a href="/tags/programming"><i class="fas fa-tags"></i> programming</a>
+            </li>
+            
+            <li >
+                <a href="/tags/theme"><i class="fas fa-tags"></i> theme</a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
             
         </div>
         
@@ -490,53 +613,5 @@
 
     </div>
     
-
-    
-<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
-
-<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY&v=3.exp"></script>
-<script src="/js/hpneo.gmaps.js"></script>
-<script src="/js/gmaps.init.js"></script>
-
-
-<script src="/js/front.js"></script>
-
-
-<script src="/js/owl.carousel.min.js"></script>
-
-
-<script>
-    $(document).ready(function () {
-        $('.navbar .dropdown').hover(function () {
-            $(this).addClass("open");
-            $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300, "swing");
-            $(this).find('a.dropdown-toggle').attr("aria-expanded", "true");
-        }, function () {
-            $(this).find('.dropdown-menu').first().stop(true, true).slideUp(500, "swing", function () {
-                $(this).parent().removeClass("open");
-            });
-            $(this).removeClass("open");
-            $(this).find('a.dropdown-toggle').attr("aria-expanded", "false");
-        });
-
-        $('.navbar .dropdown > a').click(function () {
-            
-            $('.navbar .dropdown > a').off('click.dropdown');
-            location.href = this.href;
-        });
-    });
-</script>
-
-
   </body>
 </html>

@@ -85,6 +85,9 @@
 - id: publishedOn
   translation: "on"
 
+- id: productList
+  translation: "Product list"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 

@@ -1,4 +1,4 @@
-<div class="container" id="contact">
+<div class="container" id="login">
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -31,13 +31,7 @@
                                     required>
                             </div>
                         </div>
-                        {{/*  <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="message">{{ i18n "contactMessage" }}</label>
-                                <textarea id="message" class="form-control" name="message" required></textarea>
-                            </div>
-                        </div>  */}}
-                        {{ if and .Site.Params.enableRecaptchaInContactForm .Site.Params.googleRecaptchaKey }}
+                        {{ if and .Site.Params.enableRecaptchaInLoginForm .Site.Params.googleRecaptchaKey }}
                         <div class="col-md-10 col-md-offset-1">
                             <div class="g-recaptcha" data-sitekey="{{ .Site.Params.googleRecaptchaKey }}"></div>
                             <br />

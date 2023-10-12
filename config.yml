@@ -27,24 +27,24 @@ menu:
       url: /services/
       weight: 3
     - name: KITTING
-      url: ""
-      weight: 1
+      url: "/services/kitting/"
+      weight: 100
       parent: menu.services
     - name: idea to product
-      url: ""
-      weight: 2
+      url: "/services/idea-to-product/"
+      weight: 200
       parent: menu.services
-    - name: packaage design
-      url: ""
-      weight: 3
+    - name: package design
+      url: "/services/package-design/"
+      weight: 300
       parent: menu.services
     - name: drop shipping
-      url: ""
-      weight: 4
+      url: "/services/drop-shipping/"
+      weight: 400
       parent: menu.services
 
     - name: FAQ
-      identifier: menu.faq
+      identifier: faq
       url: /faq/
       weight: 4
 
@@ -104,6 +104,7 @@ params:
   contact_form_ajax: false
 
   enableRecaptchaInContactForm: false
+  enableRecaptchaInLoginForm: false
   googleRecaptchaKey: site_key_for_google_recaptcha
 
   about_us: <p>Pellentesque habitant morbi tristique senectus et netus et
@@ -112,6 +113,7 @@ params:
   date_format: January 2, 2006
 
   dropdown_mouse_over: false
+  enableDropdownFix: true
 
   disabled_logo: false
   logo_text: Universal

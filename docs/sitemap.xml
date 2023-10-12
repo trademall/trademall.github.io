@@ -65,6 +65,14 @@
     <loc>https://trademall.github.io/categories/starting/</loc>
     <lastmod>2015-06-24T13:50:46+02:00</lastmod>
   </url><url>
+    <loc>https://trademall.github.io/services/drop-shipping/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/services/idea-to-product/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/services/kitting/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/services/package-design/</loc>
+  </url><url>
     <loc>https://trademall.github.io/contact/</loc>
   </url><url>
     <loc>https://trademall.github.io/faq/</loc>
@@ -74,5 +82,11 @@
     <loc>https://trademall.github.io/login/</loc>
   </url><url>
     <loc>https://trademall.github.io/blog/1/01/01/migrate-from-jekyll/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/products/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/services/</loc>
+  </url><url>
+    <loc>https://trademall.github.io/services/</loc>
   </url>
 </urlset>
