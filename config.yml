@@ -5,7 +5,7 @@ title: TradeMall
 theme: hugo-universal-theme
 
 googleAnalytics: ""
-summaryLength: 40
+summaryLength: 20
 paginate: 10
 pluralizelisttitles: false
 publishDir: docs
@@ -81,20 +81,21 @@ menu:
       pre: <i class='fas fa-2x fa-envelope'></i>
 
 params:
-  viewMorePostLink: /blog/
+  viewMorePostLink: /services/
   author: DevCows
   defaultKeywords:
     - devcows
     - hugo
     - go
   mainSections:
-    - blog
+    # - blog
+    - services
   defaultDescription: Site template made by Devcows using Hugo
   facebook_site: ""
   twitter_site: GoHugoIO
   default_sharing_image: img/sharing-default.png
 
-  enableGoogleMaps: true
+  enableGoogleMaps: false
   googleMapsApiKey: AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY
   latitude: "-12.043333"
   longitude: "-77.028333"
@@ -184,8 +185,8 @@ params:
     subtitle:
       We have prepared for you more than 40 different HTML pages, including
       5 variations of homepage.
-    link_url: "#"
-    link_text: Check other homepages
+    link_url: "/products/"
+    link_text: Go to our products
 
   clients:
     enable: true
@@ -194,20 +195,18 @@ params:
 
   recent_posts:
     enable: true
-    title: From our blog
+    title: Our Services
     subtitle:
-      Pellentesque habitant morbi tristique senectus et netus et malesuada
-      fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies
-      eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-      Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
     hide_summary: false
 
   footer:
     recent_posts:
-      enable: true
+      enable: false
 
 permalinks:
-  blog: /blog/:year/:month/:day/:filename/
+  # blog: /blog/:year/:month/:day/:filename/
+  services: /services/:filename/
 taxonomies:
   category: categories
   tag: tags

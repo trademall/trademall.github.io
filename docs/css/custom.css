@@ -1,3 +1,7 @@
+:root {
+  --radius: 6px;
+}
+
 .box-image-text .image {
   min-height: 190px;
   max-height: 190px;
@@ -13,17 +17,23 @@
 }
 
 input.form-control {
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 
 button.btn {
-  border-radius: 6px;
+  border-radius: var(--radius);
   margin: 6px;
 }
 
 a.btn {
-  border-radius: 6px;
+  border-radius: var(--radius);
   margin: 6px;
+}
+
+.input-group button.btn {
+  height: 34px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 0;
 }
 
 #top .social a {
@@ -39,10 +49,91 @@ a.btn {
 }
 
 .navbar-nav>li>.dropdown-menu {
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 var(--radius) var(--radius);
 }
 
 #copyright {
   font-size: unset;
   padding: 15px 0;
+}
+
+.box-image-text {
+  height: 400px;
+}
+
+.box-image-text .content p.read-more {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 50%;
+  padding-top: 10px;
+  margin-bottom: 0;
+  transform: translateX(-50%);
+  backdrop-filter: blur(20px);
+}
+
+p.lead {
+  text-align: justify;
+}
+
+.box-image-text.blog .intro {
+  text-align: justify;
+}
+
+.testimonials .item .testimonial .text {
+  text-align: justify;
+}
+
+.pager li>a,
+.pager li>span {
+  border-radius: var(--radius)
+}
+
+.testimonials .owl-carousel .owl-item {
+  height: 340px;
+}
+
+.testimonials .item {
+  border-radius: var(--radius);
+}
+
+.testimonials .item .testimonial .name-picture {
+  width: 85%;
+  position: absolute;
+}
+
+.testimonials .item .testimonial .bottom .icon {
+  font-size: 25px;
+}
+
+.testimonials .item .testimonial .name-picture img {
+  margin-right: -5px;
+}
+
+.owl-theme .owl-controls.clickable {
+  margin-top: 30px;
+}
+
+.customers {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.bar {
+  padding-bottom: 45px;
+}
+
+.commodity .image {
+  border-radius: var(--radius);
+  overflow: clip;
+}
+
+.commodity .image img {
+  min-width: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.commodity .image img:hover {
+  transform: scale(1.1);
 }
