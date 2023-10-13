@@ -1,0 +1,163 @@
+<div class="container" id="details">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <section>
+
+                {{ .Content }}
+
+                <div class="heading">
+                    <h3>{{ .Params.title }}</h3>
+                </div>
+                {{ $product:= index .Site.Data.products.products 1 }}
+
+                <div class="content">
+                    <div class="row details">
+
+                        <div class="row col-sm-6 col-md-6">
+                            <p class="text-uppercase col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
+                                item #{{ $product.id }}
+                            </p>
+
+                            <div class="img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
+                                <img src="{{ $product.image }}" alt="" class="img img-responsive">
+                            </div>
+
+                            <div class="description col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
+                                <h4>PRODUCT DETAILS.</h4>
+                                <p>
+                                    {{ $product.description }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <form class="col-sm-6 col-md-6 row" method="POST">
+                            <div id="customizer" class="card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
+
+                                <div class="card-header heading">
+                                    <h4>Product option.</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row selector color-select">
+                                        <div class="col-md-2">
+                                            <h4>Color: </h4>
+                                        </div>
+                                        <div class="btn-group col-md-10" data-toggle="buttons">
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="color" id="color1" autocomplete="off"> Red 
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="color" id="color2" autocomplete="off"> Blue
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="color" id="color3" autocomplete="off"> Green
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row selector size-select">
+                                        <div class="col-md-2">
+                                            <h4>Size: {{ $product.size }}</h4>
+                                        </div>
+                                        <div class="btn-group col-sm-10 col-md-10" data-toggle="buttons">
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="size" id="size1" autocomplete="off"> S
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="size" id="size2" autocomplete="off"> M
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="size" id="size3" autocomplete="off"> L
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row selector material-select">
+                                        <div class="col-md-2">
+                                            <h4>Material:{{ $product.material }}</h4>
+                                        </div>
+                                        <div class="btn-group col-md-10" data-toggle="buttons">
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="material" id="material1" autocomplete="off"> Cotton
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="material" id="material2" autocomplete="off"> Silk
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="material" id="material3" autocomplete="off"> Wool
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row selector weight-select">
+                                        <div class="col-md-2">
+                                            <h4>Weight: {{ $product.weight }}</h4>
+                                        </div>
+                                        <div class="btn-group col-md-10" data-toggle="buttons">
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="weight" id="weight1" autocomplete="off"> 100g
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="weight" id="weight2" autocomplete="off"> 200g
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="weight" id="weight3" autocomplete="off"> 300g
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row selector quantity-select">
+                                        <div class="col-md-2">
+                                            <h4>Quantity: {{ $product.quantity }}</h4>
+                                        </div>
+                                        <div class="btn-group col-md-10" data-toggle="buttons">
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="quantity" id="quantity1" autocomplete="off"> 1
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="quantity" id="quantity2" autocomplete="off"> 2
+                                            </label>
+                                            <label class="btn btn-default col-md-4">
+                                                <input type="radio" name="quantity" id="quantity3" autocomplete="off"> 3
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {{/*  extra message  */}}
+                                    <div class="row selector message-select">
+                                        <div class="col-md-2">
+                                            <h4>Notes: </h4>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <textarea name="message" id="message" cols="30" rows="3" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="row price">
+                                    <div class="col-md-12">
+                                        <h4>Price: {{ $product.price }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /#customizer -->
+                                <button type="submit" class="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12">
+                                    <i class="fa fa-shopping-cart"></i> Buy now!
+                                </button>
+                        </form>
+                    </div>
+                    <!-- /.details -->
+                </div>
+                <!-- /.content -->
+            </section>
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+
+<link rel="stylesheet" href="/css/details.css">

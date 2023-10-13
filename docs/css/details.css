@@ -1,0 +1,59 @@
+#details img {
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#details .description h4{
+    margin-top: 10px;
+    border-bottom: #ccc 1px solid;
+}
+
+#details .card {
+    border-radius: var(--radius);
+    border: 1px solid #ccc;
+}
+
+#details .card .card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#details .card .card-header h4 {
+    border-bottom: 0;
+}
+
+#details .card .row.selector {
+    margin-bottom: 10px;
+}
+
+#details .btn-default.active {
+    color: var(--button-border);
+    background-color: var(--pagination-bg);
+    border-color: var(--button-border);
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+    outline: none;
+}
+
+.details .btn-default {
+    border-radius: var(--radius);
+}
+
+#details textarea {
+    resize: vertical;
+    min-height: 36px;
+    max-height: 360px;
+    border-radius: var(--radius);
+}
+
+#details form .btn.col-xs-offset-1 {
+    margin-left: 8.33333333%;
+}
