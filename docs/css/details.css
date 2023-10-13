@@ -1,3 +1,11 @@
+:root {
+    --default-bg: #eee;
+    --active-bg: #ccf7ff;
+    --hover-bg: #dcf9ff;
+    --active-txt: #20616d;
+    --hover-txt: #2a7d8c;
+}
+
 #details img {
     width: auto;
     height: 100%;
@@ -29,8 +37,15 @@
 }
 
 #details .btn-default.active {
-    color: var(--button-border);
-    background-color: var(--pagination-bg);
+    color: var(--active-txt);
+    background-color: var(--active-bg);
+    border-color: var(--button-border);
+    box-shadow: 1px 1px 3px #ccc;
+}
+
+#details .btn-default:hover {
+    color: var(--hover-txt);
+    background-color: var(--hover-bg);
     border-color: var(--button-border);
 }
 
@@ -43,8 +58,14 @@
     outline: none;
 }
 
+#details .card .row.selector .btn {
+    border-radius: var(--radius);
+    margin-right: 10px;
+}
+
 .details .btn-default {
     border-radius: var(--radius);
+    background-color: var(--default-bg);
 }
 
 #details textarea {
@@ -56,4 +77,76 @@
 
 #details form .btn.col-xs-offset-1 {
     margin-left: 8.33333333%;
+}
+
+#details .quantity-with-price {
+    margin: 10px 0;
+}
+
+#details .form-inline .input-group {
+    width:100%;
+}
+
+#details .form-inline .input-group input {
+    z-index: 2;
+}
+
+#details .form-inline .input-group input:focus {
+    z-index: 4;
+}
+
+#details .input-group-addon {
+    position: relative;
+}
+
+#details .input-group-addon .arrow {
+    position: absolute;
+    left: -4.8px;
+    top: 50%;
+    width: 0;
+    height: 12px;
+    background-color: #eee;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+#details .input-group-addon .arrow:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #eee;
+    z-index: 2;
+}
+
+#details .input-group-addon .arrow:after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: -0.5px;
+    width: 0;
+    height: 0;
+    border-top: 6px;
+    border-bottom: 6px;
+    border-right: 6px;
+    border-color: transparent;
+    border-style: solid;
+    border-right-color: #ccc;
+    z-index: 1;
+}
+
+#details .btn-template-main:hover {
+    color: #eeeeee;
+    background-color: var(--button-border);
+    border-color: var(--button-border);
+}
+
+#details .btn-template-main {
+    color: #ffffff;
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
 }
