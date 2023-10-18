@@ -2,6 +2,10 @@
   --radius: 6px;
 }
 
+#all {
+  background-color: #f2f2f2;
+}
+
 .box-image-text .image {
   min-height: 190px;
   max-height: 190px;
@@ -125,8 +129,9 @@ p.lead {
 
 .commodity {
   margin: 10px 0;
-  border: #ccc 1.5px solid;
+  /* border: #ccc 1.5px solid; */
   border-radius: var(--radius);
+  background-color: white;
 }
 
 .commodity .image {
@@ -159,4 +164,8 @@ p.lead {
 
 .commodity #price {
   color: red;
+}
+
+.commodity #price .price-symbol {
+  font-size: 14px;
 }

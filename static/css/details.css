@@ -20,6 +20,7 @@
 #details .card {
     border-radius: var(--radius);
     border: 1px solid #ccc;
+    background-color: white;
 }
 
 #details .card .card-header {
