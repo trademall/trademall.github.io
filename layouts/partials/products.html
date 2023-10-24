@@ -13,26 +13,23 @@
 
                 <div class="content">
                     <div class="row commodities">
-
-                        {{ range .Site.Data.products.data.list }}
                         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                            <div class="commodity">
+                            <div class="commodity placeholder">
                                 <div class="image">
-                                    <a href="details?id={{.id}}">
-                                        <img src="{{ .image | relURL }}" alt="{{ .name }}" class="img-responsive">
+                                    <a href="details?id=">
+                                        <img src="" alt="" class="img-responsive">
                                     </a>
                                 </div>
                                 <!-- /.image -->
                                 <div class="text">
-                                    <h4><a href="details?id={{.id}}">{{ .name }}</a></h4>
-                                    <h4 class="price" id="price"><span class="price-symbol">$</span>{{ .price }}</h4>
+                                    <h4><a href="details?id=">&nbsp;</a></h4>
+                                    <h4 class="price" id="price"><span class="price-symbol">$</span></h4>
                                 </div>
                                 <!-- /.text -->
                             </div>
                             <!-- /.commodity -->
                         </div>
                         <!-- /.col-md-3 -->
-                        {{ end }}
 
                     </div>
                     <!-- /.commodities -->

@@ -136,6 +136,9 @@ p.lead {
 
 .commodity .image {
   border-radius: var(--radius);
+  min-width: 100%;
+  height: 200px;
+  background-color: #ccc;
   /* border-bottom: #333 1px solid; */
   overflow: clip;
 }
