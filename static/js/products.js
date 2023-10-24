@@ -98,13 +98,8 @@
 //     }
 // };
 
-const enableFeature = async () => {
-    await document.featurePolicy.requestPermission('interest-cohort');
-};
-enableFeature();
-
 var settings = {
-    "url": "https://54.79.139.73:80/productlist/4",
+    "url": "http://54.79.139.73:80/productlist/4",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -112,7 +107,6 @@ var settings = {
         "User-Agent": "Apifox/1.0.0 (https://apifox.com)",
         "Accept": "*/*",
         "Host": "54.79.139.73:80",
-        "Access-Control-Allow-Origin": "*",
         "Connection": "keep-alive"
     },
 };
