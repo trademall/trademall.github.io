@@ -16,17 +16,17 @@
                     <div class="row details">
 
                         <div class="row col-sm-6 col-md-6">
-                            <p class="text-uppercase col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
-                                item #{{ $product.id }}
+                            <p class="text-uppercase col-xs-10 col-xs-offset-1 col-sm-12 col-md-12" id="product-id">
+                                item #
                             </p>
 
                             <div class="img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
-                                <img src="{{ $product.image }}" alt="" class="img img-responsive">
+                                <img src="{{ $product.image }}" alt="" class="img img-responsive" id="product-image">
                             </div>
 
                             <div class="description col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
                                 <h4>PRODUCT DETAILS.</h4>
-                                <p>
+                                <p id="product-info">
                                     {{ $product.description }}
                                 </p>
                             </div>
