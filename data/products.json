@@ -1,88 +1,75 @@
 {
-    "products": [
-        {
-            "id": 1,
-            "name": "product 1",
-            "price": 100,
-            "description": "product 1 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 2,
-            "name": "product 2",
-            "price": 200,
-            "description": "product 2 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 3,
-            "name": "product 3",
-            "price": 300,
-            "description": "product 3 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 4,
-            "name": "product 4",
-            "price": 400,
-            "description": "product 4 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 5,
-            "name": "product 5",
-            "price": 500,
-            "description": "product 5 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 6,
-            "name": "product 6",
-            "price": 600,
-            "description": "product 6 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 7,
-            "name": "product 7",
-            "price": 700,
-            "description": "product 7 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 8,
-            "name": "product 8",
-            "price": 800,
-            "description": "product 8 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 9,
-            "name": "product 9",
-            "price": 900,
-            "description": "product 9 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 10,
-            "name": "product 10",
-            "price": 1000,
-            "description": "product 10 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 11,
-            "name": "product 11",
-            "price": 1100,
-            "description": "product 11 description",
-            "image": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 12,
-            "name": "product 12",
-            "price": 1200,
-            "description": "product 12 description",
-            "image": "https://picsum.photos/200/300"
-        }
-    ]
+    "code": 200,
+    "message": "GetProductList succeeded",
+    "data": {
+        "total": 3,
+        "list": [
+            {
+                "id": 286,
+                "productid": 323123,
+                "name": "kajlsd",
+                "detailinfo": "Product details go here",
+                "attributes": {
+                    "size": "medium",
+                    "color": "blue"
+                },
+                "status": 1,
+                "volume": "15 cubic inches",
+                "weight": "7 pounds",
+                "exclude": [],
+                "include": [
+                    1,
+                    2,
+                    3
+                ],
+                "creatorid": 123,
+                "created": "2023-10-23T00:55:20+08:00",
+                "updated": "2023-10-23T00:55:20+08:00"
+            },
+            {
+                "id": 287,
+                "productid": 321,
+                "name": "aksjdbc",
+                "detailinfo": "Product details go here",
+                "attributes": {
+                    "size": "medium",
+                    "color": "blue"
+                },
+                "status": 1,
+                "volume": "15 cubic inches",
+                "weight": "7 pounds",
+                "exclude": [],
+                "include": [
+                    1,
+                    2,
+                    3
+                ],
+                "creatorid": 123,
+                "created": "2023-10-22T22:24:24+08:00",
+                "updated": "2023-10-22T22:24:24+08:00"
+            },
+            {
+                "id": 288,
+                "productid": 321,
+                "name": "lkcajbsd",
+                "detailinfo": "Product details go here",
+                "attributes": {
+                    "size": "medium",
+                    "color": "blue"
+                },
+                "status": 1,
+                "volume": "15 cubic inches",
+                "weight": "7 pounds",
+                "exclude": [],
+                "include": [
+                    1,
+                    2,
+                    3
+                ],
+                "creatorid": 123,
+                "created": "2023-10-22T23:46:26+08:00",
+                "updated": "2023-10-22T23:46:26+08:00"
+            }
+        ]
+    }
 }

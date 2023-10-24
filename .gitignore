@@ -1,3 +1,5 @@
 
 themes/hugo-universal-theme/
 *.md
+/node_modules/
+*.apifox.json

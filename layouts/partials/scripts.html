@@ -13,6 +13,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0/jquery.counterup.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
 {{ if and .Site.Params.enableGoogleMaps .Site.Params.googleMapsApiKey }}
 <script src="//maps.googleapis.com/maps/api/js?key={{.Site.Params.googleMapsApiKey}}&v=3.exp"></script>
 <script src="{{ "js/hpneo.gmaps.js" | relURL }}"></script>
@@ -25,6 +27,14 @@
 
 <!-- owl carousel -->
 <script src="{{ "js/owl.carousel.min.js" | relURL }}"></script>
+
+{{ if eq .Page.Params.id "products" }}
+<script src="{{ "js/products.js" | relURL }}"></script>
+{{ end }}
+
+{{ if eq .Page.Params.id "details" }}
+<script src="{{ "js/details.js" | relURL }}"></script>
+{{ end }}
 
 {{ if .Site.Params.enableDropdownFix }}
 <script>
