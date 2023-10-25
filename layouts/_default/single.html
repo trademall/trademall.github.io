@@ -17,9 +17,9 @@
         {{ partial "breadcrumbs.html" . }}
 
         <div id="content">
-            {{ if isset .Params "layout" }}
+            {{ if isset .Params "id" }}
 
-              {{ partial .Params.layout . }}
+              {{ partial .Params.id . }}
 
             {{ else }}
             <div class="container">

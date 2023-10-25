@@ -29,11 +29,11 @@
 <script src="{{ "js/owl.carousel.min.js" | relURL }}"></script>
 
 <!-- js in products page -->
-{{ if eq .Page.Params.title "products" }}
+{{ if eq .Params.id "products" }}
 <script src="{{ "js/products.js" | relURL }}"></script>
 {{ end }}
 
-{{ if eq .Page.Params.title "details" }}
+{{ if eq .Params.id "details" }}
 <script src="{{ "js/details.js" | relURL }}"></script>
 {{ end }}
 

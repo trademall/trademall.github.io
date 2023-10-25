@@ -79,14 +79,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>products</title>
-      <link>https://trademall.github.io/products/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://trademall.github.io/products/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>

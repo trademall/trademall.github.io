@@ -3,7 +3,7 @@ function getProductList() {
     xhr.withCredentials = true;
 
 
-    xhr.open("GET", "https://54.79.139.73:80/productlist/0");
+    xhr.open("GET", "http://54.79.139.73:80/productlist/0");
     xhr.setRequestHeader("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxMjQiLCJleHAiOjM3Njk3NjMzMDY2LCJpc3MiOiJ1c2VyMTI0In0._MpcX7Gpli64erbFoS15U2vlDk8DcvcUZ5zBZqUzLec");
     xhr.setRequestHeader("Accept", "*/*");
 

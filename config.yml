@@ -12,50 +12,50 @@ publishDir: docs
 
 menu:
   main:
-    - name: Home
-      identifier: menu.home
-      url: /
+    - name: "Home"
+      identifier: "menu.home"
+      url: "/"
       weight: 1
 
-    - name: Products
-      identifier: menu.products
-      url: /products/
+    - name: "Products"
+      identifier: "menu.products"
+      url: "/products/"
       weight: 2
 
-    - name: Services
-      identifier: menu.services
-      url: /services/
+    - name: "services"
+      identifier: "menu.services"
+      url: "/services/"
       weight: 3
-    - name: KITTING
+    - name: "KITTING"
       url: "/services/kitting/"
       weight: 100
-      parent: menu.services
-    - name: idea to product
+      parent: "menu.services"
+    - name: "idea to product"
       url: "/services/idea-to-product/"
       weight: 200
-      parent: menu.services
-    - name: package design
+      parent: "menu.services"
+    - name: "package design"
       url: "/services/package-design/"
       weight: 300
-      parent: menu.services
-    - name: drop shipping
+      parent: "menu.services"
+    - name: "drop shipping"
       url: "/services/drop-shipping/"
       weight: 400
-      parent: menu.services
+      parent: "menu.services"
 
-    - name: FAQ
-      identifier: faq
-      url: /faq/
+    - name: "FAQ"
+      identifier: "faq"
+      url: "/faq/"
       weight: 4
 
-    - name: Contact
-      identifier: contact
-      url: /contact/
+    - name: "Contact"
+      identifier: "contact"
+      url: "/contact/"
       weight: 5
 
-    - name: Login
-      identifier: login
-      url: /login/
+    - name: "Login"
+      identifier: "login"
+      url: "/login/"
       weight: 6
 
   topbar:

@@ -1,6 +1,7 @@
 ---
 title: idea to product
 categories: ["services"]
+banner: "img/banners/3.jpg"
 ---
 
 ## Idea to Product

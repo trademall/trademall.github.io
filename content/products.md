@@ -1,4 +1,0 @@
----
-title: "products"
-id: "products"
----

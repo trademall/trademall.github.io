@@ -6,7 +6,7 @@ function getProductInfo() {
     var id = url.split('?')[1].split('=')[1];
     console.log(id);
 
-    var apiUrl = "https://54.79.139.73:80/product/" + id;
+    var apiUrl = "http://54.79.139.73:80/product/" + id;
 
     xhr.open("GET", apiUrl);
     xhr.setRequestHeader("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxMjQiLCJleHAiOjM3Njk3NjMzMDY2LCJpc3MiOiJ1c2VyMTI0In0._MpcX7Gpli64erbFoS15U2vlDk8DcvcUZ5zBZqUzLec");
