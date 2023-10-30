@@ -1,6 +1,21 @@
 {
+  "name": "trademall",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "babel ./static/js/src/*.jsx -d ./static/js/"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@types/react": "^18.2.32",
+    "@types/react-dom": "^18.2.14",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^9.1.3"
   }
 }
