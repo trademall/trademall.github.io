@@ -36,13 +36,9 @@ function Pid(props) {
 function Pimage(props) {
     var imageURL = "";
     try {
-        imageURL = props.product.attributes.image;
+        imageURL = props.product.image;
     } catch (error) {
-        try {
-            imageURL = props.product.images;
-        } catch (error) {
-            console.log(error);
-        }
+        console.log(error);
     }
     return (
         <div className="img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
@@ -131,7 +127,7 @@ function CustomizerFooter(props) {
             <div className="row">
                 <div className="col-md-12">
                     <h4>Total Price: </h4>
-                    <p className="total-price">{"$"+props.price}</p>
+                    <p className="total-price">{"$"+props.product.price}</p>
                 </div>
             </div>
         </div>
@@ -150,8 +146,9 @@ function addToCart(event) {
     event.preventDefault();
     console.log(localStorage.getItem("login-status"));
     if (!(localStorage.getItem("login-status")==="true")) {
-        alert("Please login first!");
-        window.open("/login", "_blank");
+        if (confirm("Please login first!")) {
+            window.open("/login", "_blank");
+        }
         return;
     }
 

@@ -127,6 +127,10 @@ p.lead {
   padding-bottom: 45px;
 }
 
+#commodities {
+  padding-bottom: 15px;
+}
+
 .commodity {
   margin: 10px 0;
   /* border: #ccc 1.5px solid; */
@@ -137,8 +141,8 @@ p.lead {
 .commodity .image {
   border-radius: var(--radius);
   min-width: 100%;
-  height: 200px;
-  background-color: #ccc;
+  min-height: 160px;
+  background-color: #dedede;
   /* border-bottom: #333 1px solid; */
   overflow: clip;
 }
@@ -171,4 +175,8 @@ p.lead {
 
 .commodity #price .price-symbol {
   font-size: 14px;
+}
+
+.panel.sidebar-menu {
+  background-color: unset;
 }

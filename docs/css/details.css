@@ -1,9 +1,9 @@
 :root {
     --default-bg: #eee;
-    --active-bg: #ccf7ff;
-    --hover-bg: #dcf9ff;
-    --active-txt: #20616d;
-    --hover-txt: #2a7d8c;
+    --active-bg: var(--navbar-focus);
+    --hover-bg: var(--pagination-bg);
+    --active-txt: var(--navbar-border-top);
+    --hover-txt: var(--link-focus);
 }
 
 #details img {
@@ -35,6 +35,10 @@
 
 #details .card .row.selector {
     margin-bottom: 10px;
+}
+
+#details .btn-default {
+    margin-bottom: 8px;
 }
 
 #details .btn-default.active {

@@ -34,13 +34,9 @@ function Pid(props) {
 function Pimage(props) {
   var imageURL = "";
   try {
-    imageURL = props.product.attributes.image;
+    imageURL = props.product.image;
   } catch (error) {
-    try {
-      imageURL = props.product.images;
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(error);
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12"
@@ -125,7 +121,7 @@ function CustomizerFooter(props) {
     className: "col-md-12"
   }, /*#__PURE__*/React.createElement("h4", null, "Total Price: "), /*#__PURE__*/React.createElement("p", {
     className: "total-price"
-  }, "$" + props.price))));
+  }, "$" + props.product.price))));
 }
 function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {
@@ -140,8 +136,9 @@ function addToCart(event) {
   event.preventDefault();
   console.log(localStorage.getItem("login-status"));
   if (!(localStorage.getItem("login-status") === "true")) {
-    alert("Please login first!");
-    window.open("/login", "_blank");
+    if (confirm("Please login first!")) {
+      window.open("/login", "_blank");
+    }
     return;
   }
 }
