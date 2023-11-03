@@ -1,13 +1,13 @@
 /* Themed colors */
 :root {
-  --primary-accent: #6e6e6e;
+  --primary-accent: #e5e5e5;
   --navbar-border-top: #e7483d;
   --button-border: #4e4e4e;
   --link-focus: rgb(80, 80, 80);
   --form-shadow: rgba(82, 82, 82, 0.6);
   --pagination-bg: #f4f4f4;
   --link-hover-bg: #696969;
-  --navbar-focus: #969696;
+  --navbar-focus: #b6b6b6;
 }
 
 .clearfix:before,
@@ -3104,7 +3104,7 @@ fieldset[disabled] .btn-template-primary.active {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #ffffff;
+  /* color: #ffffff; */
   background-color: var(--primary-accent);
 }
 .navbar-default .navbar-nav > .disabled > a,
