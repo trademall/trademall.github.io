@@ -1,0 +1,45 @@
+<div class="container" id="login">
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <section>
+
+                {{ .Content }}
+
+                <div class="heading">
+                    <h3>{{ i18n "signUp" }}</h3>
+                </div>
+
+                <form class="form-signup" method="post">
+                    <div class="row col-md-12">
+
+                        <div class="user-info" id="user-info">
+                        </div>
+
+                        {{ if and .Site.Params.enableRecaptchaInSignupForm .Site.Params.googleRecaptchaKey }}
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.googleRecaptchaKey }}"></div>
+                            <br />
+                        </div>
+                        {{ end }}
+
+                        <p id="signupErr" class="bg-danger"></p>
+
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="form-group text-center">
+                                <input type="hidden" name="redirect_to" value="{{ .Site.Params.baseURL }}/login">
+                                <button type="submit" class="btn btn-lg btn-template-main" id="signupBtn">{{ i18n
+                                    "signupButton" }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </form>
+
+            </section>
+
+        </div>
+    </div>
+    <!-- /.row -->
+</div>

@@ -8,7 +8,14 @@ function getProduct(type, id, callback, errorcallback=console.log) {
     else if (type == "info") {
         xhr.open("GET", "http://54.79.139.73:80/product/" + id);
     }
-    xhr.setRequestHeader("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxMjQiLCJleHAiOjM3Njk3NjMzMDY2LCJpc3MiOiJ1c2VyMTI0In0._MpcX7Gpli64erbFoS15U2vlDk8DcvcUZ5zBZqUzLec");
+    else {
+        return;
+    }
+
+    var token = localStorage.getItem("token");
+    if (token != null) {
+        xhr.setRequestHeader("token", token);
+    }
     xhr.setRequestHeader("Accept", "*/*");
 
     xhr.send();

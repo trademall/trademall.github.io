@@ -43,17 +43,29 @@
 - id: loginPassword
   translation: "Password"
 
+- id: logoutButton
+  translation: "Log out"
+
 - id: navHome
   translation: "go to homepage"
 
 - id: navToggle
   translation: "Toggle Navigation"
 
+- id: noAccount
+  translation: "Don't have an account?"
+
 - id: categoriesTitle
   translation: "Categories"
 
 - id: searchTitle
   translation: "Search"
+
+- id: signUp
+  translation: "Sign up"
+
+- id: signupButton
+  translation: "Sign Up!"
 
 - id: tagsTitle
   translation: "Tags"

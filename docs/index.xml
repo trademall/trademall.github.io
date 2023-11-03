@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>catalog</title>
+      <link>http://sunnycloudyang.top/catalog/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://sunnycloudyang.top/catalog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Contact</title>
       <link>http://sunnycloudyang.top/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -76,6 +85,15 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://sunnycloudyang.top/login/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sign Up</title>
+      <link>http://sunnycloudyang.top/signup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://sunnycloudyang.top/signup/</guid>
       <description></description>
     </item>
     

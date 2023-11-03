@@ -37,6 +37,14 @@
 <script src="{{ "js/details.js" | relURL }}" type="module"></script>
 {{ end }}
 
+{{ if eq .Params.id "login" }}
+<script src="{{ "js/login.js" | relURL }}" type="module"></script>
+{{ end }}
+
+{{ if eq .Params.id "signup" }}
+<script src="{{ "js/signup.js" | relURL }}" type="module"></script>
+{{ end }}
+
 {{ if .Site.Params.enableDropdownFix }}
 <script>
     $(document).ready(function () {

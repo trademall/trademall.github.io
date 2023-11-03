@@ -42,7 +42,7 @@ function ProductDiv(props) {
 function ProductList(props) {
     const products = props.products.list;
     const listItems = products.map((product) =>
-        <ProductDiv key={product.id} image={product.attributes.image} name={product.name} price={product.price} id={product.id} />
+        <ProductDiv key={product.id} image={product.image} name={product.name} price={product.price} id={product.id} />
     );
     return (
         <div className="commodities">

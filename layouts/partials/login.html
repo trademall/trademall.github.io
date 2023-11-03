@@ -7,55 +7,58 @@
 
                 {{ .Content }}
 
-                {{ if isset .Site.Params "formspree_action" }}
-
                 <div class="heading">
                     <h3>{{ i18n "loginForm" }}</h3>
                 </div>
 
                 <div id="login-message"></div>
 
-                <form {{ with .Site.Params.contact_form_ajax }}class="form-signin" {{ else }}{{ end }}
-                    method="post" action="{{ .Site.Params.formspree_action }}">
+                <form class="form-login" method="post">
                     <div class="row col-md-12">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="form-group">
-                                <label for="name">{{ i18n "loginName" }}</label>
-                                <input type="text" class="form-control" name="name" id="name" required>
+                        <div id="profile" class="col-md-10 col-md-offset-1 hidden"></div>
+                        <div class="input-boxes" id="login-input-boxes">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label for="username">{{ i18n "loginName" }}</label>
+                                    <input type="text" class="form-control" name="username" id="username" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="form-group">
-                                <label for="password">{{ i18n "loginPassword" }}</label>
-                                <input type="password" autocomplete="password" class="form-control" name="password" id="password"
-                                    required>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label for="password">{{ i18n "loginPassword" }}</label>
+                                    <input type="password" autocomplete="password" class="form-control" name="password"
+                                        id="password" required>
+                                </div>
                             </div>
-                        </div>
-                        {{ if and .Site.Params.enableRecaptchaInLoginForm .Site.Params.googleRecaptchaKey }}
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.googleRecaptchaKey }}"></div>
-                            <br />
-                        </div>
-                        {{ end }}
+                            {{ if and .Site.Params.enableRecaptchaInLoginForm .Site.Params.googleRecaptchaKey }}
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="g-recaptcha" data-sitekey="{{ .Site.Params.googleRecaptchaKey }}"></div>
+                                <br />
+                            </div>
+                            {{ end }}
 
-                        <div class="checkbox col-md-10 col-md-offset-1">
-                            <label>
-                                <input type="checkbox" value="remember-me"> {{ i18n "rememberMe" }}
-                            </label>
-                        </div>
+                            {{/* <div class="checkbox col-md-10 col-md-offset-1">
+                                <label>
+                                    <input type="checkbox" value="remember-me"> {{ i18n "rememberMe" }}
+                                </label>
+                            </div> */}}
 
+                            <p class="col-md-10 col-md-offset-1">{{ i18n "noAccount" }}
+                                <a href="{{ .Site.BaseURL }}/signup">{{ i18n
+                                    "signUp" }}</a>
+                            </p>
+                        </div>
                         <div class="col-md-10 col-md-offset-1">
                             <div class="form-group text-center">
-                                <input type="hidden" name="redirect_to" value="{{ .Permalink }}">
-                            <button type="submit" class="btn btn-lg btn-template-main">{{ i18n
-                                "loginButton" }}</button>
+                                <button type="submit" class="btn btn-lg btn-template-main" id="loginBtn">{{ i18n
+                                    "loginButton" }}</button>
+                                <button type="button" class="btn btn-lg btn-template-main hidden" id="logoutBtn">{{ i18n
+                                    "logoutButton" }}</button>
                             </div>
                         </div>
                     </div>
                     <!-- /.row -->
                 </form>
-
-                {{ end }}
 
             </section>
 

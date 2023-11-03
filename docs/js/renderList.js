@@ -53,7 +53,7 @@ function ProductList(props) {
   const products = props.products.list;
   const listItems = products.map(product => /*#__PURE__*/React.createElement(ProductDiv, {
     key: product.id,
-    image: product.attributes.image,
+    image: product.image,
     name: product.name,
     price: product.price,
     id: product.id
