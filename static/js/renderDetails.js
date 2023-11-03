@@ -130,9 +130,20 @@ function CustomizerFooter(props) {
 function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {
     type: "submit",
-    className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12"
+    className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12",
+    onClick: addToCart
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-cart-plus"
   }), " add to cart!");
+}
+function addToCart(event) {
+  event.preventDefault();
+  console.log(localStorage.getItem("login-status"));
+  if (!(localStorage.getItem("login-status") === "true")) {
+    alert("Please login first!");
+    //redirect to login page in a new tab
+    window.open("/login", "_blank");
+    return;
+  }
 }
 export { RenderDetails };

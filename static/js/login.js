@@ -38,8 +38,18 @@ function login(event) {
                 console.log(res.data);
 
                 showProfile();
-
-                window.location.replace("/");
+                setTimeout(function () {
+                    window.location.replace("/");
+                }, 3000);
+            }
+            else if (res.message == "user does not exist") {
+                const toSignUp = confirm("User does not exist. Do you want to sign up?");
+                if (toSignUp) {
+                    window.location.replace("/signup");
+                }
+            }
+            else if (res.message.startsWith("crypto")) {
+                alert("Wrong password, please check again");
             }
             else {
                 alert(res.message);
@@ -87,8 +97,15 @@ function logout() {
 function checkLogin() {
     const loginStatus = localStorage.getItem("login-status");
     if (loginStatus == "true") {
-        showProfile();
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
-checkLogin();
+if (checkLogin()) {
+    showProfile();
+}
+
+export { checkLogin };
