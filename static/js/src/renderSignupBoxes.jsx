@@ -21,4 +21,10 @@ function RenderBoxes() {
     );
 }
 
+function Avatar(props) {
+    return (
+        <img src={props.user.avatar} alt="" className="img img-responsive" id="avatar" />
+    );
+}
+
 export { RenderBoxes };

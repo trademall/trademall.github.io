@@ -50,4 +50,12 @@ function RenderBoxes() {
     className: "row"
   }, listItems), userInfo);
 }
+function Avatar(props) {
+  return /*#__PURE__*/React.createElement("img", {
+    src: props.user.avatar,
+    alt: "",
+    className: "img img-responsive",
+    id: "avatar"
+  });
+}
 export { RenderBoxes };

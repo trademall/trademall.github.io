@@ -15,6 +15,8 @@ signupForm.addEventListener("submit", (e) => {
     .value;
   const phone = document.querySelector("#phone").value;
   const address = document.querySelector("#address").value;
+  // const avatar = document.querySelector("#avatar").value;
+  const avatar = "";
 
   if (password !== passwordConfirm) {
     signupError.textContent = "Passwords do not match";
@@ -32,7 +34,7 @@ signupForm.addEventListener("submit", (e) => {
     body: JSON.stringify({
       "username": username,
       "password": password,
-      "avatar": "https://i.imgur.com/4oQWz3C.png",
+      "avatar": avatar,
       "phone": phone,
       "email": email,
       "address": address

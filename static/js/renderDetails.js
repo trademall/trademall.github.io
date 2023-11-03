@@ -141,7 +141,6 @@ function addToCart(event) {
   console.log(localStorage.getItem("login-status"));
   if (!(localStorage.getItem("login-status") === "true")) {
     alert("Please login first!");
-    //redirect to login page in a new tab
     window.open("/login", "_blank");
     return;
   }
