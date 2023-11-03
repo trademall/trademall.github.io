@@ -40,8 +40,17 @@ a.btn {
   margin: 0;
 }
 
+#top {
+  background-color: unset;
+}
+
 #top .social a {
   margin: 0 5px;
+}
+
+#top .social a:hover {
+  color: #555;
+  background-color: #dedede;
 }
 
 #top .col-xs-5 {
