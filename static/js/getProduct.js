@@ -22,7 +22,7 @@ function getProduct(type, id, callback, errorcallback=console.log) {
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            console.log(this.responseText);
+            // console.log(this.responseText);
             var products = JSON.parse(this.responseText);
             if (products.code == 200) {
                 callback(products.data);

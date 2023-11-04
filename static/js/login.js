@@ -27,6 +27,7 @@ function login(event) {
         contentType: "application/json",
         success: function (res) {
             if (res.code == 200) {
+                localStorage.setItem("id", res.data.id);
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("username", username);
                 localStorage.setItem("login-status", true);
@@ -84,6 +85,7 @@ function logout() {
     const inputBoxes = document.getElementById('login-input-boxes');
     const profile = document.getElementById('profile');
 
+    localStorage.removeItem("id");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.setItem("login-status", false);

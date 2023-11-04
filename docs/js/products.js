@@ -1,3 +1,6 @@
 import { getProduct } from "./getProduct.js";
 import { RenderList } from "./renderList.js";
-getProduct("list", 1, RenderList);
+
+// const uid = localStorage.getItem("id") || "0";
+const uid = 0;
+getProduct("list", uid, RenderList);

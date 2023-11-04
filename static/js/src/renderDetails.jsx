@@ -116,7 +116,7 @@ function CustomizerOption(props) {
 function CustomizerValue(props) {
     return (
         <label className="btn btn-default col-md-3">
-            <input type="radio" name="color" id="color1" autocomplete="off" /> {props.value}
+            <input type="radio" name={props.value} id={props.value} autocomplete="off" /> {props.value}
         </label>
     );
 }
@@ -136,7 +136,7 @@ function CustomizerFooter(props) {
 
 function SubmitButton() {
     return (
-        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12" onClick={addToCart}>
+        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12" id="submitBtn">
             <i className="fa fa-cart-plus"></i> add to cart!
         </button>
     );
@@ -156,18 +156,6 @@ function SubmitAlert() {
             <strong>Successfully added to cart!</strong>
         </div>
     );
-}
-
-function addToCart(event) {
-    event.preventDefault();
-    if (!(localStorage.getItem("login-status")=="true")) {
-        $('.alert-warning').removeClass('hidden');
-        return;
-    }
-    else {
-        $('.alert-success').removeClass('hidden');
-
-    }
 }
 
 export { RenderDetails };

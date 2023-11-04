@@ -105,8 +105,8 @@ function CustomizerValue(props) {
     className: "btn btn-default col-md-3"
   }, /*#__PURE__*/React.createElement("input", {
     type: "radio",
-    name: "color",
-    id: "color1",
+    name: props.value,
+    id: props.value,
     autocomplete: "off"
   }), " ", props.value);
 }
@@ -125,7 +125,7 @@ function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12",
-    onClick: addToCart
+    id: "submitBtn"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-cart-plus"
   }), " add to cart!");
@@ -143,14 +143,5 @@ function SubmitAlert() {
     className: "alert alert-success col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden",
     role: "alert"
   }, /*#__PURE__*/React.createElement("strong", null, "Successfully added to cart!"));
-}
-function addToCart(event) {
-  event.preventDefault();
-  if (!(localStorage.getItem("login-status") == "true")) {
-    $('.alert-warning').removeClass('hidden');
-    return;
-  } else {
-    $('.alert-success').removeClass('hidden');
-  }
 }
 export { RenderDetails };
