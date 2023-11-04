@@ -34,7 +34,7 @@ function login(event) {
                 resetLoginBtn();
                 showProfile(true);
                 setTimeout(function () {
-                    window.location.replace("/");
+                    window.history.back();
                 }, 1000);
             }
             else if (res.message == "user does not exist") {
@@ -67,7 +67,7 @@ function showProfile(showPrompt = false) {
     const inputBoxes = document.getElementById('login-input-boxes');
     const profile = document.getElementById('profile');
 
-    const redirectPrompt = `<p>Redirecting to home page...</p>`;
+    const redirectPrompt = `<p>Back to last page...</p>`;
 
     inputBoxes.classList.add('hidden');
     profile.innerHTML = `

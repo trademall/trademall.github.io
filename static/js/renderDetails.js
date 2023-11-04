@@ -60,7 +60,7 @@ function RightColumn(props) {
     method: "POST"
   }, /*#__PURE__*/React.createElement(Customizer, {
     product: props.product
-  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null));
+  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null));
 }
 function Customizer(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -79,8 +79,6 @@ function CustomizerHeader() {
 }
 function CustomizerBody(props) {
   const attrs = Object.keys(props.product.attributes);
-  console.log(attrs);
-  console.log(attrs[0]);
   return /*#__PURE__*/React.createElement("div", {
     className: "card-body"
   }, attrs.map(attr => /*#__PURE__*/React.createElement(CustomizerOption, {
@@ -140,12 +138,19 @@ function LoginAlert() {
     href: "/login"
   }, "LOGIN"), " first!"));
 }
+function SubmitAlert() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "alert alert-success col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden",
+    role: "alert"
+  }, /*#__PURE__*/React.createElement("strong", null, "Successfully added to cart!"));
+}
 function addToCart(event) {
   event.preventDefault();
-  console.log(localStorage.getItem("login-status"));
   if (!(localStorage.getItem("login-status") == "true")) {
-    $('.alert').removeClass('hidden');
+    $('.alert-warning').removeClass('hidden');
     return;
+  } else {
+    $('.alert-success').removeClass('hidden');
   }
 }
 export { RenderDetails };

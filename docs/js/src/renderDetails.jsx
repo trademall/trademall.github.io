@@ -64,6 +64,7 @@ function RightColumn(props) {
             <Customizer product={props.product} />
             <SubmitButton />
             <LoginAlert />
+            <SubmitAlert />
         </form>
     );
 }
@@ -88,8 +89,6 @@ function CustomizerHeader() {
 
 function CustomizerBody(props) {
     const attrs = Object.keys(props.product.attributes);
-    console.log(attrs);
-    console.log(attrs[0]);
     return (
         <div className="card-body">
             {attrs.map((attr) => (
@@ -151,12 +150,23 @@ function LoginAlert() {
     );
 }
 
+function SubmitAlert() {
+    return (
+        <div className="alert alert-success col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden" role="alert">
+            <strong>Successfully added to cart!</strong>
+        </div>
+    );
+}
+
 function addToCart(event) {
     event.preventDefault();
-    console.log(localStorage.getItem("login-status"));
     if (!(localStorage.getItem("login-status")=="true")) {
-        $('.alert').removeClass('hidden');
+        $('.alert-warning').removeClass('hidden');
         return;
+    }
+    else {
+        $('.alert-success').removeClass('hidden');
+
     }
 }
 
