@@ -61,6 +61,21 @@ a.btn {
   padding: 0 5px;
 }
 
+#catalog-icon {
+  font-size: 24px;
+  margin-left: 12px;
+  margin-right: 4px;
+  margin-top: 20px;
+}
+
+.collapsing #catalog-link {
+  display: none;
+}
+
+.in #catalog-link {
+  display: none;
+}
+
 .navbar-nav>li>.dropdown-menu {
   border-radius: 0 0 var(--radius) var(--radius);
 }

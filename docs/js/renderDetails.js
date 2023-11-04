@@ -4,6 +4,7 @@ function RenderDetails(data) {
   ReactDOM.render( /*#__PURE__*/React.createElement(ProductDetails, {
     product: data
   }), details);
+  initCustomizer();
 }
 function ProductDetails(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -144,4 +145,18 @@ function SubmitAlert() {
     role: "alert"
   }, /*#__PURE__*/React.createElement("strong", null, "Successfully added to cart!"));
 }
+function initCustomizer() {
+  const selectors = document.querySelectorAll('.selector');
+  for (let i = 0; i < selectors.length; i++) {
+    const selector = selectors[i];
+    const radios = selector.querySelectorAll('input[type="radio"]');
+    radios[0].checked = true;
+    radios[0].parentElement.classList.add('active');
+    for (let j = 0; j < radios.length; j++) {
+      const radio = radios[j];
+      radio.addEventListener('change', updatePrice);
+    }
+  }
+}
+function updatePrice() {}
 export { RenderDetails };
