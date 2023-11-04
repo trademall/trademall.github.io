@@ -63,6 +63,7 @@ function RightColumn(props) {
         <form className="col-sm-6 col-md-6 row" method="POST">
             <Customizer product={props.product} />
             <SubmitButton />
+            <LoginAlert />
         </form>
     );
 }
@@ -142,17 +143,21 @@ function SubmitButton() {
     );
 }
 
+function LoginAlert() {
+    return (
+        <div className="alert alert-warning col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden" role="alert">
+            <strong>Please <a href="/login">LOGIN</a> first!</strong>
+        </div>
+    );
+}
+
 function addToCart(event) {
     event.preventDefault();
     console.log(localStorage.getItem("login-status"));
-    if (!(localStorage.getItem("login-status")==="true")) {
-        if (confirm("Please login first!")) {
-            window.open("/login", "_blank");
-        }
+    if (!(localStorage.getItem("login-status")=="true")) {
+        $('.alert').removeClass('hidden');
         return;
     }
-
-    
 }
 
 export { RenderDetails };

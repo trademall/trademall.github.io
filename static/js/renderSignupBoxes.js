@@ -78,6 +78,6 @@ function ToLogin(props) {
     id: "back-to-login"
   }, "Already have an account? ", /*#__PURE__*/React.createElement("a", {
     href: "{{ .Site.BaseURL }}login"
-  }, "Log in"), "."));
+  }, "Log in")));
 }
 export { RenderBoxes };

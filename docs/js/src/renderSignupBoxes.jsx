@@ -31,7 +31,7 @@ function Avatar(props) {
 function ToLogin(props) {
     return (
         <div className="col-md-10 col-md-offset-1">
-            <p id="back-to-login">Already have an account? <a href="{{ .Site.BaseURL }}login">Log in</a>.</p>
+            <p id="back-to-login">Already have an account? <a href="{{ .Site.BaseURL }}login">Log in</a></p>
         </div>
     );
 }

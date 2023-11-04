@@ -60,7 +60,7 @@ function RightColumn(props) {
     method: "POST"
   }, /*#__PURE__*/React.createElement(Customizer, {
     product: props.product
-  }), /*#__PURE__*/React.createElement(SubmitButton, null));
+  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null));
 }
 function Customizer(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -132,13 +132,19 @@ function SubmitButton() {
     className: "fa fa-cart-plus"
   }), " add to cart!");
 }
+function LoginAlert() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "alert alert-warning col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden",
+    role: "alert"
+  }, /*#__PURE__*/React.createElement("strong", null, "Please ", /*#__PURE__*/React.createElement("a", {
+    href: "/login"
+  }, "LOGIN"), " first!"));
+}
 function addToCart(event) {
   event.preventDefault();
   console.log(localStorage.getItem("login-status"));
-  if (!(localStorage.getItem("login-status") === "true")) {
-    if (confirm("Please login first!")) {
-      window.open("/login", "_blank");
-    }
+  if (!(localStorage.getItem("login-status") == "true")) {
+    $('.alert').removeClass('hidden');
     return;
   }
 }
