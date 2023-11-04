@@ -11,6 +11,12 @@
                     <h3>{{ i18n "signUp" }}</h3>
                 </div>
 
+                <div class="hidden" id="success-prompt">
+                    <div class="alert alert-success" role="alert">
+                        <strong>{{ i18n "success" }}!</strong> {{ i18n "signupSuccess" }} You will be redirected to the login page...
+                    </div>
+                </div>
+
                 <form class="form-signup" method="post">
                     <div class="row col-md-12">
 
@@ -24,8 +30,7 @@
                         </div>
                         {{ end }}
 
-                        <p id="back-to-login">Already have an account? <a href="{{ .Site.BaseURL }}login">{{ i18n "loginButton" }}</a></p>
-                        <p id="signupErr" class="bg-danger"></p>
+                        <div id="signupErr" class="alert alert-danger hidden"></div>
 
                         <div class="col-md-10 col-md-offset-1">
                             <div class="form-group text-center">

@@ -5,6 +5,7 @@ RenderBoxes();
 const signupForm = document.querySelector(".form-signup");
 const signupButton = document.querySelector("#signupBtn");
 const signupError = document.querySelector("#signupErr");
+const successPrompt = document.querySelector("#success-prompt");
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -26,32 +27,38 @@ signupForm.addEventListener("submit", (e) => {
   signupButton.disabled = true;
   signupButton.textContent = "Signing up...";
 
-  fetch("http://54.79.139.73:80/user/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  $.ajax({
+    url: "http://54.79.139.73:80/user/signup",
+    type: "POST",
+    data: JSON.stringify({
       "username": username,
       "password": password,
-      "avatar": avatar,
-      "phone": phone,
       "email": email,
-      "address": address
+      "phone": phone,
+      "address": address,
+      "avatar": avatar
     }),
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        window.location.replace("/login");
+    dataType: "json",
+    contentType: "application/json",
+    success: function (res) {
+      if (res.code == 200) {
+        signupForm.classList.add("hidden");
+        successPrompt.classList.remove("hidden");
+        setTimeout(() => {
+          window.location.replace("/login");
+        }, 1000);
       } else {
-        signupError.textContent = "Error signing up";
+        signupError.classList.remove("hidden");
+        signupError.textContent = res.message;
         signupButton.disabled = false;
         signupButton.textContent = "Sign up";
       }
-    })
-    .catch((err) => {
-      signupError.textContent = "Error signing up";
+    },
+    error: function (res) {
+      signupError.classList.remove("hidden");
+      signupError.textContent = res.message;
       signupButton.disabled = false;
       signupButton.textContent = "Sign up";
-    });
+    }
+  });
 });

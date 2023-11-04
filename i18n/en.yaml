@@ -67,6 +67,12 @@
 - id: signupButton
   translation: "Sign Up!"
 
+- id: success
+  translation: "Success"
+
+- id: signupSuccess
+  translation: "You have successfully signed up!"
+
 - id: tagsTitle
   translation: "Tags"
 

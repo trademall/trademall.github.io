@@ -38,7 +38,7 @@
 
 
 
-<link href="/css/custom.css?1699028834" rel="stylesheet">
+<link href="/css/custom.css?1699075953" rel="stylesheet">
 
 
 
@@ -306,6 +306,12 @@
                     <h3>Sign up</h3>
                 </div>
 
+                <div class="hidden" id="success-prompt">
+                    <div class="alert alert-success" role="alert">
+                        <strong>Success!</strong> You have successfully signed up! You will be redirected to the login page...
+                    </div>
+                </div>
+
                 <form class="form-signup" method="post">
                     <div class="row col-md-12">
 
@@ -314,8 +320,7 @@
 
                         
 
-                        <p id="back-to-login">Already have an account? <a href="http://sunnycloudyang.top/login">Log in</a></p>
-                        <p id="signupErr" class="bg-danger"></p>
+                        <div id="signupErr" class="alert alert-danger hidden"></div>
 
                         <div class="col-md-10 col-md-offset-1">
                             <div class="form-group text-center">
