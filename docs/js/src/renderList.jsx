@@ -51,4 +51,4 @@ function ProductList(props) {
     );
 }
 
-export { RenderList };
+export { RenderList, ImgDiv, TextDiv, ProductDiv, ProductList };

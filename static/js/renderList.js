@@ -62,4 +62,4 @@ function ProductList(props) {
     className: "commodities"
   }, listItems);
 }
-export { RenderList };
+export { RenderList, ImgDiv, TextDiv, ProductDiv, ProductList };

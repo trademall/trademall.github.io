@@ -1,0 +1,15 @@
+.commodity .btn-template-main:hover {
+    color: #eeeeee;
+    background-color: var(--button-border);
+    border-color: var(--button-border);
+}
+
+.commodity .btn-template-main {
+    color: #ffffff;
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+}
+
+.commodity a {
+    color: unset;
+}
