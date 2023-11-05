@@ -1,8 +1,6 @@
 import { RenderCatalog } from "./renderCatalog.js";
 
 function getCatalog() {
-    const uid = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
     $.ajax({
         url: 'http://54.79.139.73:80/v1/catalog/' + uid,
         type: 'GET',
@@ -12,6 +10,10 @@ function getCatalog() {
         },
         success: function (res) {
             // console.log(res.data.list);
+            if (res.data.list.length == 0) {
+                $('#content').html('<h3 class="text-center">Catalog is empty</h3>');
+                return;
+            }
             RenderCatalog(res.data.list);
         },
         error: function (error) {
@@ -20,4 +22,12 @@ function getCatalog() {
     });
 }
 
-getCatalog();
+const uid = localStorage.getItem('id');
+const token = localStorage.getItem('token');
+
+if (!token) {
+    $('#content').html('<h3 class="text-center">Please login to view catalog</h3>');
+}
+else {
+    getCatalog();
+}
