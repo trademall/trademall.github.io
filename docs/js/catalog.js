@@ -26,7 +26,7 @@ const uid = localStorage.getItem('id');
 const token = localStorage.getItem('token');
 
 if (!token) {
-    $('#content').html('<h3 class="text-center">Please login to view catalog</h3>');
+    $('#content').html('<h3 class="text-center">Please <a href="/login">login</a> to view your catalog</h3>');
 }
 else {
     getCatalog();
