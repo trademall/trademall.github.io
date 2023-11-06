@@ -3,7 +3,7 @@ import { RenderDetails } from "./renderDetails.js";
 
 const uid = localStorage.getItem("id");
 const url = window.location.href;
-const pid = url.split('?')[1].split('=')[1].split('&')[0];
+const pid = url.split('?id=')[1].split('&')[0];
 const edit = url.split('?')[1].split('=')[2];
 // console.log(edit);
 
@@ -18,10 +18,14 @@ function renderProduct(data) {
 
 function submit(event) {
     event.preventDefault();
+
+    $('.alert').addClass('hidden');
+
     if (!(localStorage.getItem("login-status") == "true")) {
         showWarning(5000);
         return;
     } else {
+        disableBtn();
         $.ajax({
             url: "http://54.79.139.73:80/v1/catalog/" + uid,
             type: "GET",
@@ -46,6 +50,7 @@ function submit(event) {
             },
             error: function (res) {
                 console.log(res);
+                resetBtn();
             }
         });
     }
@@ -94,10 +99,12 @@ function addToCart() {
                 console.log(res);
                 showError(2500, res.message);
             }
+            resetBtn();
         },
         error: function (res) {
             console.log(res);
             showError(2500, res.message);
+            resetBtn();
         }
     });
 }
@@ -121,16 +128,29 @@ function updateCart() {
             else {
                 showError(2500, res.message);
             }
+            resetBtn();
         },
         error: function (res) {
             console.log(res);
             showError(2500, res.message);
+            resetBtn();
         }
     });
 }
 
+function disableBtn() {
+    $('#submitBtn').prop('disabled', true);
+    $('#submitBtn').text('Adding to cart...');
+}
+
+function resetBtn() {
+    $('#submitBtn').prop('disabled', false);
+    $('#submitBtn').text('Add to cart');
+}
+
 function showSuccess(time) {
     $('.alert-success').removeClass('hidden');
+    $('.alert-success').show();
     $('.alert-success').fadeOut(time);
     setTimeout(function () {
         $('.alert-success').addClass('hidden');
@@ -139,6 +159,7 @@ function showSuccess(time) {
 
 function showWarning(time) {
     $('.alert-warning').removeClass('hidden');
+    $('.alert-warning').show();
     $('.alert-warning').fadeOut(time);
     setTimeout(function () {
         $('.alert-warning').addClass('hidden');
@@ -147,6 +168,7 @@ function showWarning(time) {
 
 function showError(time, message) {
     $('.alert-danger').removeClass('hidden');
+    $('.alert-danger').show();
     $('.alert-danger').text(message);
     $('.alert-danger').fadeOut(time);
     setTimeout(function () {
