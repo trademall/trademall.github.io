@@ -9,9 +9,9 @@ function getCatalog() {
             'token': token
         },
         success: function (res) {
-            // console.log(res.data.list);
-            if (res.data.list.length == 0) {
-                $('#content').html('<h3 class="text-center">Catalog is empty</h3>');
+            console.log(res.data.list);
+            if (!res.data.list) {
+                $('.catalog').html('<h3 class="text-center">Catalog is empty. <a href="/products/">Browse our products!</a></h3>');
                 return;
             }
             RenderCatalog(res.data.list);

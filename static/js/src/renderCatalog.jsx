@@ -8,7 +8,7 @@ function RenderCatalog(data) {
 function TextDiv(props) {
     return (
         <div className="textDiv">
-            <h4><a href={"details?id=" + props.id}>{props.name}</a></h4>
+            <h4><a href={"/products/details/?id=" + props.id}>{props.name}</a></h4>
             <p>{Object.values(props.attributes).join(', ')}</p>
             <h4 className="price" id="price"><span className="price-symbol">$</span>{props.price}</h4>
         </div >
@@ -30,7 +30,7 @@ function ProductDiv(props) {
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div className="commodity">
                 <ImgDiv image={props.image} name={props.name} id={props.id} />
-                <TextDiv name={props.name} price={props.price} id={props.id} attributes={props.attributes} />
+                <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} />
                 <FootBtns id={props.id} />
             </div>
         </div>
@@ -40,7 +40,7 @@ function ProductDiv(props) {
 function ProductCatalog(props) {
     const catalog = props.catalog;
     const catalogItems = catalog.map((product) =>
-        <ProductDiv key={product.id} image={product.image} name={product.name} price={product.price} id={product.productid} attributes={ product.attributes } />
+        <ProductDiv key={product.id} image={product.image} name={product.attributes.name} price={product.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } />
     );
     return (
         <div className="commodities">

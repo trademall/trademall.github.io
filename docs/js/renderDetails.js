@@ -61,7 +61,7 @@ function RightColumn(props) {
     method: "POST"
   }, /*#__PURE__*/React.createElement(Customizer, {
     product: props.product
-  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null));
+  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
 }
 function Customizer(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -138,6 +138,12 @@ function LoginAlert() {
   }, /*#__PURE__*/React.createElement("strong", null, "Please ", /*#__PURE__*/React.createElement("a", {
     href: "/login"
   }, "LOGIN"), " first!"));
+}
+function ErrorAlert() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "alert alert-danger col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden",
+    role: "alert"
+  }, /*#__PURE__*/React.createElement("strong", null, "Something went wrong!"));
 }
 function SubmitAlert() {
   return /*#__PURE__*/React.createElement("div", {

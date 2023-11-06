@@ -1,39 +1,68 @@
 import { getProduct } from "./getProduct.js";
 import { RenderDetails } from "./renderDetails.js";
 
+const uid = localStorage.getItem("id");
 const url = window.location.href;
-const pid = url.split('?')[1].split('=')[1];
-// console.log(id);
-var name = "";
+const pid = url.split('?')[1].split('=')[1].split('&')[0];
+const edit = url.split('?')[1].split('=')[2];
+// console.log(edit);
 
+var product;
 getProduct("info", pid, renderProduct);
 
 function renderProduct(data) {
+    product = data;
     RenderDetails(data);
-    name = data.name;
     $('#submitBtn').click(submit);
 }
 
 function submit(event) {
     event.preventDefault();
     if (!(localStorage.getItem("login-status") == "true")) {
-        $('.alert-warning').removeClass('hidden');
+        showWarning(5000);
         return;
     } else {
-        addToCart();
+        $.ajax({
+            url: "http://54.79.139.73:80/v1/catalog/" + uid,
+            type: "GET",
+            headers: {
+                "token": localStorage.getItem("token"),
+                "Content-Type": "application/json"
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    if (!edit) {
+                        addToCart();
+                        return;
+                    }
+                    else {
+                        updateCart();
+                    }
+                }
+                else {
+                    addToCart();
+                    console.log("No cart found, creating new cart");
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
     }
 }
 
 function getSKU() {
-    var attributes = {
-        "name": [],
-    };
+    var attributes = {};
+
+    attributes["name"] = product.name;
+    attributes["pid"] = product.id;
+    attributes["attributes"] = {};
     const selectors = document.querySelectorAll('.selector');
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
         const name = selector.firstChild.textContent.replace(':', '');
         const value = selector.querySelector('input[type="radio"]:checked').id;
-        attributes[name] = [value];
+        attributes["attributes"][name] = [value];
     }
 
     const sku = {
@@ -48,7 +77,7 @@ function getSKU() {
 function addToCart() {
     const item = getSKU();
     const data = JSON.stringify(item);
-    // console.log(data);
+    console.log(data);
     $.ajax({
         url: "http://54.79.139.73:80/v1/catalog",
         type: "POST",
@@ -59,19 +88,68 @@ function addToCart() {
         data: data,
         success: function (res) {
             if (res.code == 200) {
-                $('.alert-success').removeClass('hidden');
-                $('.alert-success').fadeOut(2500);
-                setTimeout(function () {
-                    $('.alert-success').addClass('hidden');
-                }, 3000);
+                showSuccess(2500);
             }
             else {
-                $('.alert-danger').removeClass('hidden');
-                $('.alert-danger').text(res.message);
+                console.log(res);
+                showError(2500, res.message);
             }
         },
         error: function (res) {
             console.log(res);
+            showError(2500, res.message);
         }
     });
+}
+
+function updateCart() {
+    const item = getSKU();
+    const data = JSON.stringify(item);
+    // console.log(data);
+    $.ajax({
+        url: "http://54.79.139.73:80/v1/catalog",
+        type: "PUT",
+        headers: {
+            "token": localStorage.getItem("token"),
+            "Content-Type": "application/json"
+        },
+        data: data,
+        success: function (res) {
+            if (res.code == 200) {
+                showSuccess(2500);
+            }
+            else {
+                showError(2500, res.message);
+            }
+        },
+        error: function (res) {
+            console.log(res);
+            showError(2500, res.message);
+        }
+    });
+}
+
+function showSuccess(time) {
+    $('.alert-success').removeClass('hidden');
+    $('.alert-success').fadeOut(time);
+    setTimeout(function () {
+        $('.alert-success').addClass('hidden');
+    }, time + 500);
+}
+
+function showWarning(time) {
+    $('.alert-warning').removeClass('hidden');
+    $('.alert-warning').fadeOut(time);
+    setTimeout(function () {
+        $('.alert-warning').addClass('hidden');
+    }, time + 500);
+}
+
+function showError(time, message) {
+    $('.alert-danger').removeClass('hidden');
+    $('.alert-danger').text(message);
+    $('.alert-danger').fadeOut(time);
+    setTimeout(function () {
+        $('.alert-danger').addClass('hidden');
+    }, time + 500);
 }

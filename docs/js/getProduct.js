@@ -9,7 +9,7 @@ function getProduct(type, id, callback, errorcallback=console.log) {
         xhr.open("GET", "http://54.79.139.73:80/product/" + id);
     }
     else {
-        return;
+        return null;
     }
 
     var token = localStorage.getItem("token");
@@ -26,9 +26,11 @@ function getProduct(type, id, callback, errorcallback=console.log) {
             var products = JSON.parse(this.responseText);
             if (products.code == 200) {
                 callback(products.data);
+                return products.data;
             }
             else {
                 errorcallback(products.message);
+                return null;
             }
         }
     });

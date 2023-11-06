@@ -13,3 +13,12 @@
 .commodity a {
     color: unset;
 }
+
+.catalog .commodity .image {
+    width: 100%;
+    height: 300px;
+}
+
+.catalog .footBtn {
+    padding: 10px 0;
+}

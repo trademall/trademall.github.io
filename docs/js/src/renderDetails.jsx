@@ -66,6 +66,7 @@ function RightColumn(props) {
             <SubmitButton />
             <LoginAlert />
             <SubmitAlert />
+            <ErrorAlert />
         </form>
     );
 }
@@ -147,6 +148,14 @@ function LoginAlert() {
     return (
         <div className="alert alert-warning col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden" role="alert">
             <strong>Please <a href="/login">LOGIN</a> first!</strong>
+        </div>
+    );
+}
+
+function ErrorAlert() {
+    return (
+        <div className="alert alert-danger col-xs-10 col-xs-offset-1 col-sm-12 col-md-12 hidden" role="alert">
+            <strong>Something went wrong!</strong>
         </div>
     );
 }

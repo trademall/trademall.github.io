@@ -9,7 +9,7 @@ function TextDiv(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "textDiv"
   }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("a", {
-    href: "details?id=" + props.id
+    href: "/products/details/?id=" + props.id
   }, props.name)), /*#__PURE__*/React.createElement("p", null, Object.values(props.attributes).join(', ')), /*#__PURE__*/React.createElement("h4", {
     className: "price",
     id: "price"
@@ -44,7 +44,7 @@ function ProductDiv(props) {
   }), /*#__PURE__*/React.createElement(TextDiv, {
     name: props.name,
     price: props.price,
-    id: props.id,
+    id: props.pid,
     attributes: props.attributes
   }), /*#__PURE__*/React.createElement(FootBtns, {
     id: props.id
@@ -55,10 +55,10 @@ function ProductCatalog(props) {
   const catalogItems = catalog.map(product => /*#__PURE__*/React.createElement(ProductDiv, {
     key: product.id,
     image: product.image,
-    name: product.name,
+    name: product.attributes.name,
     price: product.price,
-    id: product.productid,
-    attributes: product.attributes
+    pid: product.attributes.pid,
+    attributes: product.attributes.attributes
   }));
   return /*#__PURE__*/React.createElement("div", {
     className: "commodities"
