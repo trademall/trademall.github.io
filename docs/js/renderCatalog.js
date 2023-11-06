@@ -40,14 +40,14 @@ function ProductDiv(props) {
   }, /*#__PURE__*/React.createElement(ImgDiv, {
     image: props.image,
     name: props.name,
-    id: props.id
+    id: props.pid
   }), /*#__PURE__*/React.createElement(TextDiv, {
     name: props.name,
     price: props.price,
     id: props.pid,
     attributes: props.attributes
   }), /*#__PURE__*/React.createElement(FootBtns, {
-    id: props.id
+    id: props.pid
   })));
 }
 function ProductCatalog(props) {

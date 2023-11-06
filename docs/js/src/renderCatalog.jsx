@@ -29,9 +29,9 @@ function ProductDiv(props) {
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div className="commodity">
-                <ImgDiv image={props.image} name={props.name} id={props.id} />
+                <ImgDiv image={props.image} name={props.name} id={props.pid} />
                 <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} />
-                <FootBtns id={props.id} />
+                <FootBtns id={props.pid} />
             </div>
         </div>
     );

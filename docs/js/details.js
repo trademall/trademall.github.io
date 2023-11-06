@@ -61,7 +61,7 @@ function getSKU() {
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
         const name = selector.firstChild.textContent.replace(':', '');
-        const value = selector.querySelector('input[type="radio"]:checked').id;
+        const value = selector.querySelector('label.active input').id;
         attributes["attributes"][name] = [value];
     }
 
