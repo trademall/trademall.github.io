@@ -20,5 +20,9 @@
 }
 
 .catalog .footBtn {
-    padding: 10px 0;
+    padding-bottom: 10px;
+}
+
+.catalog .textDiv {
+    padding: 6px 16px;
 }
