@@ -5,6 +5,7 @@
     <link>http://sunnycloudyang.top/authors/</link>
     <description>Recent content in Authors on TradeMall</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://sunnycloudyang.top/authors/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <atom:link href="http://sunnycloudyang.top/authors/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
