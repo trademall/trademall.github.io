@@ -138,8 +138,8 @@ function CustomizerFooter(props) {
 
 function SubmitButton() {
     return (
-        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12" id="submitBtn">
-            <i className="fa fa-cart-plus"></i> add to cart!
+        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1 col-sm-12" id="submitBtn">
+            <i className="fa fa-cart-plus"></i> <span> add to cart!</span>
         </button>
     );
 }

@@ -4,8 +4,9 @@ import { RenderDetails } from "./renderDetails.js";
 const uid = localStorage.getItem("id");
 const url = window.location.href;
 const pid = url.split('?id=')[1].split('&')[0];
-const edit = url.split('?')[1].split('=')[2];
+const edit = url.split('?')[1].match('edit=true');
 // console.log(edit);
+
 
 var product;
 getProduct("info", pid, renderProduct);
@@ -14,6 +15,9 @@ function renderProduct(data) {
     product = data;
     RenderDetails(data);
     $('#submitBtn').click(submit);
+    if (edit) {
+        $('#submitBtn > span').text(' Update cart');
+    }
 }
 
 function submit(event) {
@@ -60,8 +64,9 @@ function getSKU() {
     var attributes = {};
 
     attributes["name"] = product.name;
-    attributes["pid"] = product.id;
+    attributes["pid"] = Number(product.id);
     attributes["attributes"] = {};
+
     const selectors = document.querySelectorAll('.selector');
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
@@ -90,6 +95,7 @@ function addToCart() {
             "token": localStorage.getItem("token"),
             "Content-Type": "application/json"
         },
+        dataType: "json",
         data: data,
         success: function (res) {
             if (res.code == 200) {
@@ -110,16 +116,19 @@ function addToCart() {
 }
 
 function updateCart() {
+    const cid = url.split('?')[1].split('cid=')[1].split('&')[0];
     const item = getSKU();
+    item["id"] = Number(cid);
     const data = JSON.stringify(item);
-    // console.log(data);
+    console.log(data);
     $.ajax({
         url: "http://54.79.139.73:80/v1/catalog",
-        type: "PUT",
+        type: "PATCH",
         headers: {
             "token": localStorage.getItem("token"),
             "Content-Type": "application/json"
         },
+        dataType: "json",
         data: data,
         success: function (res) {
             if (res.code == 200) {
@@ -131,7 +140,7 @@ function updateCart() {
             resetBtn();
         },
         error: function (res) {
-            console.log(res);
+            // console.log(res);
             showError(2500, res.message);
             resetBtn();
         }
@@ -140,12 +149,12 @@ function updateCart() {
 
 function disableBtn() {
     $('#submitBtn').prop('disabled', true);
-    $('#submitBtn').text('Adding to cart...');
+    $('#submitBtn > span').text('Adding to cart...');
 }
 
 function resetBtn() {
     $('#submitBtn').prop('disabled', false);
-    $('#submitBtn').text('Add to cart');
+    $('#submitBtn > span').text(' Add to cart');
 }
 
 function showSuccess(time) {

@@ -125,11 +125,11 @@ function CustomizerFooter(props) {
 function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {
     type: "submit",
-    className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1  col-sm-12",
+    className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1 col-sm-12",
     id: "submitBtn"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-cart-plus"
-  }), " add to cart!");
+  }), " ", /*#__PURE__*/React.createElement("span", null, " add to cart!"));
 }
 function LoginAlert() {
   return /*#__PURE__*/React.createElement("div", {

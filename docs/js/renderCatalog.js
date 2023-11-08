@@ -59,7 +59,7 @@ function FootBtns(props) {
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-template-main"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "/products/details/?id=" + props.id + "&edit=true"
+    href: "/products/details/?id=" + props.id + "&edit=true&cid=" + props.cid
   }, "Edit")), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-default"
   }, /*#__PURE__*/React.createElement("a", {

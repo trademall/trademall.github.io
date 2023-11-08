@@ -56,7 +56,7 @@ function FootBtns(props) {
     return (
         <div className="footDiv">
             <div className="footBtn text-center operateBtn">
-                <button className="btn btn-template-main"><a href={"/products/details/?id=" + props.id + "&edit=true"}>Edit</a></button>
+                <button className="btn btn-template-main"><a href={"/products/details/?id=" + props.id + "&edit=true&cid=" + props.cid}>Edit</a></button>
                 <button className="btn btn-default"><a href={"/products/details/?id=" + props.id}>Details</a></button>
                 <button className="btn btn-danger" onClick={confirmDelete}>Delete</button>
             </div>
