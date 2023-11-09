@@ -38,6 +38,12 @@
 <!-- Custom stylesheet - for your changes -->
 <link href="{{ "css/custom.css" | relURL }}?{{ now.Unix }}" rel="stylesheet">
 
+{{ if isset .Params "css" }}
+{{ range .Params.css }}
+<link href="{{ . | relURL }}" rel="stylesheet">
+{{ end }}
+{{ end }}
+
 <!-- Responsivity for older IE -->
 {{ `
 <!--[if lt IE 9]>

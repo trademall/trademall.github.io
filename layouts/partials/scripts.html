@@ -49,6 +49,10 @@
 <script src="{{ "js/catalog.js" | relURL }}" type="module"></script>
 {{ end }}
 
+{{ if isset .Params "js" }}
+<script src="{{ .Params.js | relURL }}" type="module"></script>
+{{ end }}
+
 {{ if .Site.Params.enableDropdownFix }}
 <script>
     $(document).ready(function () {

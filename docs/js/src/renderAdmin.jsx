@@ -1,0 +1,130 @@
+import { UserList } from "./renderUserList.js";
+
+function renderAdmin() {
+    const container = $('#admin');
+    if (container.length) {
+        ReactDOM.render(
+            <Admin />,
+            container[0]
+        );
+    }
+}
+
+function Sidebar(props) {
+    return (
+        <div className="col-sm-3">
+            <div className="panel panel-default sidebar-menu">
+                <div className="panel-heading">
+                    <h4 className="sidebar-title">Pages</h4>
+                </div>
+                <div className="panel-body">
+                    <ul className="nav nav-pills nav-stacked">
+                        <li className="active">
+                            <a href="/admin/dashboard"><i className="fa fa-home"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="/admin/users"><i className="fa fa-user"></i> Users</a>
+                        </li>
+                        <li>
+                            <a href="/admin/products"><i className="fa fa-list"></i> Products</a>
+                        </li>
+                        <li>
+                            <a href="/admin/templates"><i className="fa fa-file"></i> Templates</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// Pages: User management, Product management, Template management
+function Admin(props) {
+    return (
+        <div className="container">
+            <div className="row">
+                <Sidebar />
+                <Dashboard />
+            </div>
+        </div>
+    );
+}
+
+function Dashboard(props) {
+    return (
+        <div className="col-sm-9">
+            <Welcome />
+            <ProductPanel />
+            <UserPanel />
+            <TemplatePanel />
+        </div>
+    );
+}
+
+function Welcome(props) {
+    return (
+        <div className="row">
+            <div className="col-sm-12">
+                <h1>Admin Dashboard</h1>
+            </div>
+        </div>
+    );
+}
+
+function ProductPanel(props) {
+    return (
+        <div className="row">
+            <div className="col-sm-12">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h4 className="panel-title">Products</h4>
+                    </div>
+                    <div className="panel-body">
+                        <p>Manage products</p>
+                        <a href="/admin/products" className="btn btn-primary"><i className="fa fa-list"></i> Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function UserPanel(props) {
+    return (
+        <div className="row">
+            <div className="col-sm-12">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h4 className="panel-title">Users</h4>
+                    </div>
+                    <div className="panel-body">
+                        <UserList />
+                    </div>
+                    <div className="panel-footer">
+                        <a href="/admin/users" className="btn btn-primary"><i className="fa fa-user"></i> User Management</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function TemplatePanel(props) {
+    return (
+        <div className="row">
+            <div className="col-sm-12">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h4 className="panel-title">Templates</h4>
+                    </div>
+                    <div className="panel-body">
+                        <p>Manage templates</p>
+                        <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Templates</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export { renderAdmin, Sidebar }

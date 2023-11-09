@@ -20,6 +20,8 @@
     <loc>http://sunnycloudyang.top/services/package-design/</loc>
     <lastmod>2018-01-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://sunnycloudyang.top/admin/</loc>
+  </url><url>
     <loc>http://sunnycloudyang.top/authors/</loc>
   </url><url>
     <loc>http://sunnycloudyang.top/catalog/</loc>
@@ -41,5 +43,9 @@
     <loc>http://sunnycloudyang.top/signup/</loc>
   </url><url>
     <loc>http://sunnycloudyang.top/tags/</loc>
+  </url><url>
+    <loc>http://sunnycloudyang.top/admin/users/edit/</loc>
+  </url><url>
+    <loc>http://sunnycloudyang.top/admin/users/</loc>
   </url>
 </urlset>
