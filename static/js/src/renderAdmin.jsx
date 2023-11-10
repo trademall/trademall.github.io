@@ -1,4 +1,5 @@
 import { UserList } from "./renderUserList.js";
+import { getUserList } from "./getUserList.js";
 
 function renderAdmin() {
     const container = $('#admin');
@@ -8,11 +9,22 @@ function renderAdmin() {
             container[0]
         );
     }
+    getUserList(1, 5, renderUserList);
+}
+
+function renderUserList(props) {
+    const userList = $('#user-list');
+    if (userList.length) {
+        ReactDOM.render(
+            <UserList users={props.list} />,
+            userList[0]
+        );
+    }
 }
 
 function Sidebar(props) {
     return (
-        <div className="col-sm-3">
+        <div className="col-sm-2">
             <div className="panel panel-default sidebar-menu">
                 <div className="panel-heading">
                     <h4 className="sidebar-title">Pages</h4>
@@ -44,7 +56,7 @@ function Admin(props) {
         <div className="container">
             <div className="row">
                 <Sidebar />
-                <Dashboard />
+                <Dashboard users={props.users} />
             </div>
         </div>
     );
@@ -52,10 +64,10 @@ function Admin(props) {
 
 function Dashboard(props) {
     return (
-        <div className="col-sm-9">
+        <div className="col-sm-10">
             <Welcome />
             <ProductPanel />
-            <UserPanel />
+            <UserPanel users={props.users} />
             <TemplatePanel />
         </div>
     );
@@ -97,8 +109,7 @@ function UserPanel(props) {
                     <div className="panel-heading">
                         <h4 className="panel-title">Users</h4>
                     </div>
-                    <div className="panel-body">
-                        <UserList />
+                    <div className="panel-body" id="user-list">
                     </div>
                     <div className="panel-footer">
                         <a href="/admin/users" className="btn btn-primary"><i className="fa fa-user"></i> User Management</a>

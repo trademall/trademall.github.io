@@ -72,7 +72,6 @@ function UserListTable(props) {
         <tr key={user.id}>
             <td>{user.id}</td>
             <td>{user.username}</td>
-            <td>{user.email}</td>
             <td>{user.role}</td>
             <td>{user.isactive ? 'Yes' : 'No'}</td>
             <td>
@@ -86,18 +85,17 @@ function UserListTable(props) {
     );
 
     return (
-        <div className="col-sm-12">
+        <div className="col-sm-12 row">
             <div className="row">
                 <div className="col-sm-12">
                     <div id="popup-edit"></div>
                 </div>
             </div>
-            <table className="table table-striped table-hover table-responsive text-center">
+            <table className="table table-striped table-hover table-responsive col-sm-12 text-center">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
-                        <th>Email</th>
                         <th>Role</th>
                         <th>Active</th>
                         <th>Operations</th>

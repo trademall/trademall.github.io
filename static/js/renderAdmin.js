@@ -1,13 +1,23 @@
 import { UserList } from "./renderUserList.js";
+import { getUserList } from "./getUserList.js";
 function renderAdmin() {
   const container = $('#admin');
   if (container.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(Admin, null), container[0]);
   }
+  getUserList(1, 5, renderUserList);
+}
+function renderUserList(props) {
+  const userList = $('#user-list');
+  if (userList.length) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+      users: props.list
+    }), userList[0]);
+  }
 }
 function Sidebar(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-3"
+    className: "col-sm-2"
   }, /*#__PURE__*/React.createElement("div", {
     className: "panel panel-default sidebar-menu"
   }, /*#__PURE__*/React.createElement("div", {
@@ -45,12 +55,16 @@ function Admin(props) {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "row"
-  }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement(Dashboard, null)));
+  }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement(Dashboard, {
+    users: props.users
+  })));
 }
 function Dashboard(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-9"
-  }, /*#__PURE__*/React.createElement(Welcome, null), /*#__PURE__*/React.createElement(ProductPanel, null), /*#__PURE__*/React.createElement(UserPanel, null), /*#__PURE__*/React.createElement(TemplatePanel, null));
+    className: "col-sm-10"
+  }, /*#__PURE__*/React.createElement(Welcome, null), /*#__PURE__*/React.createElement(ProductPanel, null), /*#__PURE__*/React.createElement(UserPanel, {
+    users: props.users
+  }), /*#__PURE__*/React.createElement(TemplatePanel, null));
 }
 function Welcome(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -91,8 +105,9 @@ function UserPanel(props) {
   }, /*#__PURE__*/React.createElement("h4", {
     className: "panel-title"
   }, "Users")), /*#__PURE__*/React.createElement("div", {
-    className: "panel-body"
-  }, /*#__PURE__*/React.createElement(UserList, null)), /*#__PURE__*/React.createElement("div", {
+    className: "panel-body",
+    id: "user-list"
+  }), /*#__PURE__*/React.createElement("div", {
     className: "panel-footer"
   }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/users",

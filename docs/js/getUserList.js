@@ -17,7 +17,7 @@ function getUserList(pageNum, pageSize, successCallback=console.log, errorCallba
                 successCallback(data.data);
             }
             else {
-                alert(data.message);
+                errorCallback(data.message);
             }
         },
         error: function (data) {

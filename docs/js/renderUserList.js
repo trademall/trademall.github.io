@@ -62,7 +62,7 @@ function UserListTable(props) {
   };
   const listItems = users.map(user => /*#__PURE__*/React.createElement("tr", {
     key: user.id
-  }, /*#__PURE__*/React.createElement("td", null, user.id), /*#__PURE__*/React.createElement("td", null, user.username), /*#__PURE__*/React.createElement("td", null, user.email), /*#__PURE__*/React.createElement("td", null, user.role), /*#__PURE__*/React.createElement("td", null, user.isactive ? 'Yes' : 'No'), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("td", null, user.id), /*#__PURE__*/React.createElement("td", null, user.username), /*#__PURE__*/React.createElement("td", null, user.role), /*#__PURE__*/React.createElement("td", null, user.isactive ? 'Yes' : 'No'), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-sm btn-primary",
     "data-toggle": "modal",
@@ -85,7 +85,7 @@ function UserListTable(props) {
     title: user.updated
   }, user.updated.slice(0, 10))));
   return /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-12"
+    className: "col-sm-12 row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -93,8 +93,8 @@ function UserListTable(props) {
   }, /*#__PURE__*/React.createElement("div", {
     id: "popup-edit"
   }))), /*#__PURE__*/React.createElement("table", {
-    className: "table table-striped table-hover table-responsive text-center"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Email"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
+    className: "table table-striped table-hover table-responsive col-sm-12 text-center"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
 }
 function PopupEdit(props) {
   const user = props.user;
