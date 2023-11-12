@@ -95,7 +95,7 @@ function UserListTable(props) {
                     <div id="popup-edit"></div>
                 </div>
             </div>
-            <table className="table table-bordered table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center">
+            <table className="table table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center">
                 <thead>
                     <tr>
                         <th>ID</th>

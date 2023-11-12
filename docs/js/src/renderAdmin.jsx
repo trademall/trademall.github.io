@@ -1,5 +1,7 @@
 import { UserList } from "./renderUserList.js";
+import { ProductList } from "./renderProductList.js";
 import { getUserList } from "./getUserList.js";
+import { getProduct } from "./getProduct.js";
 
 function renderAdmin() {
     const container = $('#admin');
@@ -10,6 +12,7 @@ function renderAdmin() {
         );
     }
     getUserList(1, 5, renderUserList);
+    getProduct("list", 0, renderProductList);
 }
 
 function renderUserList(props) {
@@ -18,6 +21,16 @@ function renderUserList(props) {
         ReactDOM.render(
             <UserList users={props.list} />,
             userList[0]
+        );
+    }
+}
+
+function renderProductList(props) {
+    const productList = $('#product-list');
+    if (productList.length) {
+        ReactDOM.render(
+            <ProductList products={props.list} />,
+            productList[0]
         );
     }
 }
@@ -40,8 +53,8 @@ function Sidebar(props) {
                         <li className={window.location.pathname === '/admin/products/' ? 'active' : ''}>
                             <a href="/admin/products/"><i className="fa fa-list">&nbsp;</i><span className="hidden-sm">Products</span></a>
                         </li>
-                        <li className={window.location.pathname === '/admin/templates' ? 'active' : ''}>
-                            <a href="/admin/templates"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Templates</span></a>
+                        <li className={window.location.pathname === '/admin/templates/' ? 'active' : ''}>
+                            <a href="/admin/templates/"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Templates</span></a>
                         </li>
                     </ul>
                 </div>
@@ -89,9 +102,10 @@ function ProductPanel(props) {
                     <div className="panel-heading">
                         <h4 className="panel-title">Products</h4>
                     </div>
-                    <div className="panel-body">
-                        <p>Manage products</p>
-                        <a href="/admin/products" className="btn btn-primary"><i className="fa fa-list"></i> Products</a>
+                    <div className="panel-body" id="product-list">
+                    </div>
+                    <div className="panel-footer">
+                        <a href="/admin/products" className="btn btn-primary"><i className="fa fa-list"></i> Product Management</a>
                     </div>
                 </div>
             </div>

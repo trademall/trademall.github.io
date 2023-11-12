@@ -1,11 +1,14 @@
 import { UserList } from "./renderUserList.js";
+import { ProductList } from "./renderProductList.js";
 import { getUserList } from "./getUserList.js";
+import { getProduct } from "./getProduct.js";
 function renderAdmin() {
   const container = $('#admin');
   if (container.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(Admin, null), container[0]);
   }
   getUserList(1, 5, renderUserList);
+  getProduct("list", 0, renderProductList);
 }
 function renderUserList(props) {
   const userList = $('#user-list');
@@ -13,6 +16,14 @@ function renderUserList(props) {
     ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
       users: props.list
     }), userList[0]);
+  }
+}
+function renderProductList(props) {
+  const productList = $('#product-list');
+  if (productList.length) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ProductList, {
+      products: props.list
+    }), productList[0]);
   }
 }
 function Sidebar(props) {
@@ -53,9 +64,9 @@ function Sidebar(props) {
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
   }, "Products"))), /*#__PURE__*/React.createElement("li", {
-    className: window.location.pathname === '/admin/templates' ? 'active' : ''
+    className: window.location.pathname === '/admin/templates/' ? 'active' : ''
   }, /*#__PURE__*/React.createElement("a", {
-    href: "/admin/templates"
+    href: "/admin/templates/"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-file"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
@@ -97,13 +108,16 @@ function ProductPanel(props) {
   }, /*#__PURE__*/React.createElement("h4", {
     className: "panel-title"
   }, "Products")), /*#__PURE__*/React.createElement("div", {
-    className: "panel-body"
-  }, /*#__PURE__*/React.createElement("p", null, "Manage products"), /*#__PURE__*/React.createElement("a", {
+    className: "panel-body",
+    id: "product-list"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "panel-footer"
+  }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/products",
     className: "btn btn-primary"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-list"
-  }), " Products")))));
+  }), " Product Management")))));
 }
 function UserPanel(props) {
   return /*#__PURE__*/React.createElement("div", {
