@@ -3,12 +3,18 @@ import { deleteUser } from "./users.js";
 import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
+import { Sidebar } from "./renderAdmin.js";
 
 function renderUserList(props) {
     const userList = $('#user-list');
     if (userList.length) {
         ReactDOM.render(
-            <UserList users={props.list} />,
+            <div className="row">
+                <Sidebar />
+                <div className="col-sm-10">
+                    <UserList users={props.list} />
+                </div>
+            </div>,
             userList[0]
         );
     }
@@ -16,12 +22,10 @@ function renderUserList(props) {
 
 function UserList(props) {
     return (
-        <div className="row">
-            <div className="col-sm-12">
-                <Heading />
-                <UserListTable users={props.users} />
-                <Pagination />
-            </div>
+        <div>
+            <Heading />
+            <UserListTable users={props.users} />
+            <Pagination />
         </div>
     );
 }
@@ -91,7 +95,7 @@ function UserListTable(props) {
                     <div id="popup-edit"></div>
                 </div>
             </div>
-            <table className="table table-striped table-hover table-responsive col-sm-12 text-center">
+            <table className="table table-bordered table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center">
                 <thead>
                     <tr>
                         <th>ID</th>

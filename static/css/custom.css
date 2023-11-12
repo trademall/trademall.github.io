@@ -209,4 +209,15 @@ p.lead {
 
 .panel.sidebar-menu {
   background-color: unset;
+  border: none;
+  border-right: #ddd 1px solid;
+  border-radius: 0;
+}
+
+.modal-header {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+th {
+  text-align: center;
 }

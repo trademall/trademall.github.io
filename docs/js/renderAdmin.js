@@ -17,47 +17,59 @@ function renderUserList(props) {
 }
 function Sidebar(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-2"
+    className: "col-sm-1 col-md-2 mysidebar"
   }, /*#__PURE__*/React.createElement("div", {
     className: "panel panel-default sidebar-menu"
   }, /*#__PURE__*/React.createElement("div", {
     className: "panel-heading"
   }, /*#__PURE__*/React.createElement("h4", {
-    className: "sidebar-title"
+    className: "sidebar-title hidden-sm"
   }, "Pages")), /*#__PURE__*/React.createElement("div", {
     className: "panel-body"
   }, /*#__PURE__*/React.createElement("ul", {
     className: "nav nav-pills nav-stacked"
   }, /*#__PURE__*/React.createElement("li", {
-    className: "active"
+    className: window.location.pathname === '/admin/' ? 'active' : ''
   }, /*#__PURE__*/React.createElement("a", {
-    href: "/admin/dashboard"
+    href: "/admin/"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-home"
-  }), " Home")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "/admin/users"
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Home"))), /*#__PURE__*/React.createElement("li", {
+    className: window.location.pathname === '/admin/users/' ? 'active' : ''
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/admin/users/"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-user"
-  }), " Users")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "/admin/products"
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Users"))), /*#__PURE__*/React.createElement("li", {
+    className: window.location.pathname === '/admin/products/' ? 'active' : ''
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/admin/products/"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-list"
-  }), " Products")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Products"))), /*#__PURE__*/React.createElement("li", {
+    className: window.location.pathname === '/admin/templates' ? 'active' : ''
+  }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/templates"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-file"
-  }), " Templates"))))));
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Templates")))))));
 }
 
 // Pages: User management, Product management, Template management
 function Admin(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement(Dashboard, {
     users: props.users
-  })));
+  }));
 }
 function Dashboard(props) {
   return /*#__PURE__*/React.createElement("div", {

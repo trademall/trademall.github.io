@@ -3,22 +3,23 @@ import { deleteUser } from "./users.js";
 import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
+import { Sidebar } from "./renderAdmin.js";
 function renderUserList(props) {
   const userList = $('#user-list');
   if (userList.length) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+    ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+      className: "row"
+    }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement("div", {
+      className: "col-sm-10"
+    }, /*#__PURE__*/React.createElement(UserList, {
       users: props.list
-    }), userList[0]);
+    }))), userList[0]);
   }
 }
 function UserList(props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-12"
-  }, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(UserListTable, {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(UserListTable, {
     users: props.users
-  }), /*#__PURE__*/React.createElement(Pagination, null)));
+  }), /*#__PURE__*/React.createElement(Pagination, null));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -93,7 +94,7 @@ function UserListTable(props) {
   }, /*#__PURE__*/React.createElement("div", {
     id: "popup-edit"
   }))), /*#__PURE__*/React.createElement("table", {
-    className: "table table-striped table-hover table-responsive col-sm-12 text-center"
+    className: "table table-bordered table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
 }
 function PopupEdit(props) {

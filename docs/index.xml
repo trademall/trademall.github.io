@@ -78,12 +78,5 @@
       <guid>http://sunnycloudyang.top/signup/</guid>
       <description></description>
     </item>
-    <item>
-      <title>User Edit</title>
-      <link>http://sunnycloudyang.top/admin/users/edit/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://sunnycloudyang.top/admin/users/edit/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>

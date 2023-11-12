@@ -24,24 +24,24 @@ function renderUserList(props) {
 
 function Sidebar(props) {
     return (
-        <div className="col-sm-2">
+        <div className="col-sm-1 col-md-2 mysidebar">
             <div className="panel panel-default sidebar-menu">
                 <div className="panel-heading">
-                    <h4 className="sidebar-title">Pages</h4>
+                    <h4 className="sidebar-title hidden-sm">Pages</h4>
                 </div>
                 <div className="panel-body">
                     <ul className="nav nav-pills nav-stacked">
-                        <li className="active">
-                            <a href="/admin/dashboard"><i className="fa fa-home"></i> Home</a>
+                        <li className={window.location.pathname === '/admin/' ? 'active' : ''}>
+                            <a href="/admin/"><i className="fa fa-home">&nbsp;</i><span className="hidden-sm">Home</span></a>
                         </li>
-                        <li>
-                            <a href="/admin/users"><i className="fa fa-user"></i> Users</a>
+                        <li className={window.location.pathname === '/admin/users/' ? 'active' : ''}>
+                            <a href="/admin/users/"><i className="fa fa-user">&nbsp;</i><span className="hidden-sm">Users</span></a>
                         </li>
-                        <li>
-                            <a href="/admin/products"><i className="fa fa-list"></i> Products</a>
+                        <li className={window.location.pathname === '/admin/products/' ? 'active' : ''}>
+                            <a href="/admin/products/"><i className="fa fa-list">&nbsp;</i><span className="hidden-sm">Products</span></a>
                         </li>
-                        <li>
-                            <a href="/admin/templates"><i className="fa fa-file"></i> Templates</a>
+                        <li className={window.location.pathname === '/admin/templates' ? 'active' : ''}>
+                            <a href="/admin/templates"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Templates</span></a>
                         </li>
                     </ul>
                 </div>
@@ -53,11 +53,9 @@ function Sidebar(props) {
 // Pages: User management, Product management, Template management
 function Admin(props) {
     return (
-        <div className="container">
-            <div className="row">
-                <Sidebar />
-                <Dashboard users={props.users} />
-            </div>
+        <div className="row">
+            <Sidebar />
+            <Dashboard users={props.users} />
         </div>
     );
 }
