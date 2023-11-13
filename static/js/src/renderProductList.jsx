@@ -74,8 +74,8 @@ function ProductListTable(props) {
 
     return (
         <div className="row">
-            <div className="col-sm-12">
-                <table className="table table-striped table-hover table-responsive text-center">
+            <div className="col-sm-12 table-responsive">
+                <table className="table table-striped table-hover text-center">
                     <thead>
                         <tr>
                             <th>ID</th>

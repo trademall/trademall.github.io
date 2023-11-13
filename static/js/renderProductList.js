@@ -64,9 +64,9 @@ function ProductListTable(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-12"
+    className: "col-sm-12 table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
-    className: "table table-striped table-hover table-responsive text-center"
+    className: "table table-striped table-hover text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, rows))));
 }
 function handlePreviousPage() {
