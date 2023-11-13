@@ -89,13 +89,13 @@ function UserListTable(props) {
     );
 
     return (
-        <div className="col-sm-12 row">
+        <div className="col-sm-12 row table-responsive">
             <div className="row">
                 <div className="col-sm-12">
                     <div id="popup-edit"></div>
                 </div>
             </div>
-            <table className="table table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center">
+            <table className="table table-striped table-hover col-sm-12 table-condensed text-center">
                 <thead>
                     <tr>
                         <th>ID</th>

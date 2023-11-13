@@ -86,7 +86,7 @@ function UserListTable(props) {
     title: user.updated
   }, user.updated.slice(0, 10))));
   return /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-12 row"
+    className: "col-sm-12 row table-responsive"
   }, /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -94,7 +94,7 @@ function UserListTable(props) {
   }, /*#__PURE__*/React.createElement("div", {
     id: "popup-edit"
   }))), /*#__PURE__*/React.createElement("table", {
-    className: "table table-striped table-hover table-responsive-sm col-sm-12 table-condensed text-center"
+    className: "table table-striped table-hover col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
 }
 function PopupEdit(props) {
