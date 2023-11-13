@@ -1,7 +1,9 @@
 import { UserList } from "./renderUserList.js";
 import { ProductList } from "./renderProductList.js";
+import { TemplateList } from "./renderTemplateList.js";
 import { getUserList } from "./getUserList.js";
 import { getProduct } from "./getProduct.js";
+import { getCTemplateList } from "./ctemplate.js";
 
 function renderAdmin() {
     const container = $('#admin');
@@ -13,6 +15,7 @@ function renderAdmin() {
     }
     getUserList(1, 5, renderUserList);
     getProduct("list", 0, renderProductList);
+    getCTemplateList(1, 5, renderCTemplateList, console.log);
 }
 
 function renderUserList(props) {
@@ -31,6 +34,16 @@ function renderProductList(props) {
         ReactDOM.render(
             <ProductList products={props.list} />,
             productList[0]
+        );
+    }
+}
+
+function renderCTemplateList(props) {
+    const templateList = $('#template-list');
+    if (templateList.length) {
+        ReactDOM.render(
+            <TemplateList templates={props.data.list} />,
+            templateList[0]
         );
     }
 }
@@ -140,9 +153,10 @@ function TemplatePanel(props) {
                     <div className="panel-heading">
                         <h4 className="panel-title">Templates</h4>
                     </div>
-                    <div className="panel-body">
-                        <p>Manage templates</p>
-                        <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Templates</a>
+                    <div className="panel-body" id="template-list">
+                    </div>
+                    <div className="panel-footer">
+                        <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Template Management</a>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,9 @@
 import { UserList } from "./renderUserList.js";
 import { ProductList } from "./renderProductList.js";
+import { TemplateList } from "./renderTemplateList.js";
 import { getUserList } from "./getUserList.js";
 import { getProduct } from "./getProduct.js";
+import { getCTemplateList } from "./ctemplate.js";
 function renderAdmin() {
   const container = $('#admin');
   if (container.length) {
@@ -9,6 +11,7 @@ function renderAdmin() {
   }
   getUserList(1, 5, renderUserList);
   getProduct("list", 0, renderProductList);
+  getCTemplateList(1, 5, renderCTemplateList, console.log);
 }
 function renderUserList(props) {
   const userList = $('#user-list');
@@ -24,6 +27,14 @@ function renderProductList(props) {
     ReactDOM.render( /*#__PURE__*/React.createElement(ProductList, {
       products: props.list
     }), productList[0]);
+  }
+}
+function renderCTemplateList(props) {
+  const templateList = $('#template-list');
+  if (templateList.length) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(TemplateList, {
+      templates: props.data.list
+    }), templateList[0]);
   }
 }
 function Sidebar(props) {
@@ -154,12 +165,15 @@ function TemplatePanel(props) {
   }, /*#__PURE__*/React.createElement("h4", {
     className: "panel-title"
   }, "Templates")), /*#__PURE__*/React.createElement("div", {
-    className: "panel-body"
-  }, /*#__PURE__*/React.createElement("p", null, "Manage templates"), /*#__PURE__*/React.createElement("a", {
+    className: "panel-body",
+    id: "template-list"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "panel-footer"
+  }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/templates",
     className: "btn btn-primary"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-file"
-  }), " Templates")))));
+  }), " Template Management")))));
 }
 export { renderAdmin, Sidebar };
