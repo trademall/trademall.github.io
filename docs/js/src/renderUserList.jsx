@@ -4,6 +4,7 @@ import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
 import { Sidebar } from "./renderAdmin.js";
+import { InputBox } from "./InputBox.js";
 
 function renderUserList(props) {
     const userList = $('#user-list');
@@ -68,7 +69,7 @@ function UserListTable(props) {
         console.log(user);
         ReactDOM.render(
             <PopupEdit user={user} />,
-            $('#popup-edit')[0]
+            $('#popup-edit-user')[0]
         );
     }
 
@@ -79,7 +80,7 @@ function UserListTable(props) {
             <td>{user.role}</td>
             <td>{user.isactive ? 'Yes' : 'No'}</td>
             <td>
-                <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal" onClick={handleEdit} data-id={user.id}>Edit</button>
+                <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#userEditModal" onClick={handleEdit} data-id={user.id}>Edit</button>
                 <button type="button" className={user.isactive ? 'btn btn-sm btn-warning' : 'btn btn-sm btn-success'} onClick={handleActive} data-id={user.id}>{user.isactive ? 'Deactivate' : 'Activate'}</button>
                 <button type="button" className="btn btn-sm btn-danger" onClick={handleDelete} data-id={user.id}>Delete</button>
             </td>
@@ -92,7 +93,7 @@ function UserListTable(props) {
         <div className="col-sm-12 row table-responsive">
             <div className="row">
                 <div className="col-sm-12">
-                    <div id="popup-edit"></div>
+                    <div id="popup-edit-user"></div>
                 </div>
             </div>
             <table className="table table-striped table-hover col-sm-12 table-condensed text-center">
@@ -131,7 +132,7 @@ function PopupEdit(props) {
         updateUser(data);
     }
     return (
-        <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="editModalLabel">
+        <div className="modal fade" id="userEditModal" tabIndex="-1" role="dialog" aria-labelledby="editModalLabel">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header bg-primary">
@@ -142,30 +143,12 @@ function PopupEdit(props) {
                     </div>
                     <div className="modal-body">
                         <form>
-                            <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <input type="text" className="form-control" id="username" defaultValue={user.username} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" className="form-control" id="password" defaultValue={user.password} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="email">Email address</label>
-                                <input type="email" className="form-control" id="email" defaultValue={user.email} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="phone">Phone</label>
-                                <input type="text" className="form-control" id="phone" defaultValue={user.phone} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="address">Address</label>
-                                <input type="text" className="form-control" id="address" defaultValue={user.address} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="profit">Profit</label>
-                                <input type="text" className="form-control" id="profit" defaultValue={user.profit} />
-                            </div>
+                            <InputBox id="username" label="Username" type="text" defaultValue={user.username} required={true} />
+                            <InputBox id="password" label="Password" type="password" defaultValue={user.password} required={true} />
+                            <InputBox id="email" label="Email" type="email" defaultValue={user.email} required={true} />
+                            <InputBox id="phone" label="Phone" type="text" defaultValue={user.phone} required={true} />
+                            <InputBox id="address" label="Address" type="text" defaultValue={user.address} required={true} />
+                            <InputBox id="profit" label="Profit" type="number" defaultValue={user.profit} required={true} />
                             <div className="form-group">
                                 <label htmlFor="role">Role</label>
                                 <select className="form-control" id="role" defaultValue={user.role}>

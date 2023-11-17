@@ -7,8 +7,3 @@
     border-radius: var(--radius) var(--radius) 0 0;
 }
 
-@media (min-width: 768px) {
-    #admin .col-sm-1.mysidebar {
-        width: unset;
-    }
-}

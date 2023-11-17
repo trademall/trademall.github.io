@@ -9,32 +9,38 @@ function renderAdmin() {
   if (container.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(Admin, null), container[0]);
   }
-  getUserList(1, 5, renderUserList);
-  getProduct("list", 0, renderProductList);
-  getCTemplateList(1, 5, renderCTemplateList, console.log);
+  getUserList(1, 5, renderUserPanel);
+  getProduct("list", 0, renderProductPanel);
+  getCTemplateList(1, 5, renderCTemplatePanel, console.log);
 }
-function renderUserList(props) {
+function renderUserPanel(props) {
   const userList = $('#user-list');
   if (userList.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
       users: props.list
     }), userList[0]);
+  } else {
+    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No users found."), $('#user-list')[0]);
   }
 }
-function renderProductList(props) {
+function renderProductPanel(props) {
   const productList = $('#product-list');
   if (productList.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(ProductList, {
       products: props.list
     }), productList[0]);
+  } else {
+    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No products found."), $('#product-list')[0]);
   }
 }
-function renderCTemplateList(props) {
+function renderCTemplatePanel(props) {
   const templateList = $('#template-list');
   if (templateList.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(TemplateList, {
       templates: props.data.list
     }), templateList[0]);
+  } else {
+    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No templates found."), $('#template-list')[0]);
   }
 }
 function Sidebar(props) {

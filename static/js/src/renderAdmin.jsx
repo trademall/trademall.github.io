@@ -13,12 +13,12 @@ function renderAdmin() {
             container[0]
         );
     }
-    getUserList(1, 5, renderUserList);
-    getProduct("list", 0, renderProductList);
-    getCTemplateList(1, 5, renderCTemplateList, console.log);
+    getUserList(1, 5, renderUserPanel);
+    getProduct("list", 0, renderProductPanel);
+    getCTemplateList(1, 5, renderCTemplatePanel, console.log);
 }
 
-function renderUserList(props) {
+function renderUserPanel(props) {
     const userList = $('#user-list');
     if (userList.length) {
         ReactDOM.render(
@@ -26,9 +26,15 @@ function renderUserList(props) {
             userList[0]
         );
     }
+    else {
+        ReactDOM.render(
+            <p>No users found.</p>,
+            $('#user-list')[0]
+        );
+    }
 }
 
-function renderProductList(props) {
+function renderProductPanel(props) {
     const productList = $('#product-list');
     if (productList.length) {
         ReactDOM.render(
@@ -36,14 +42,26 @@ function renderProductList(props) {
             productList[0]
         );
     }
+    else {
+        ReactDOM.render(
+            <p>No products found.</p>,
+            $('#product-list')[0]
+        );
+    }
 }
 
-function renderCTemplateList(props) {
+function renderCTemplatePanel(props) {
     const templateList = $('#template-list');
     if (templateList.length) {
         ReactDOM.render(
             <TemplateList templates={props.data.list} />,
             templateList[0]
+        );
+    }
+    else {
+        ReactDOM.render(
+            <p>No templates found.</p>,
+            $('#template-list')[0]
         );
     }
 }

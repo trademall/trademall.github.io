@@ -221,3 +221,9 @@ p.lead {
 th {
   text-align: center;
 }
+
+@media (min-width: 768px) {
+  .col-sm-1.mysidebar {
+    width: unset;
+  }
+}

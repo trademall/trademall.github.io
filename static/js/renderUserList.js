@@ -4,6 +4,7 @@ import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
 import { Sidebar } from "./renderAdmin.js";
+import { InputBox } from "./InputBox.js";
 function renderUserList(props) {
   const userList = $('#user-list');
   if (userList.length) {
@@ -59,7 +60,7 @@ function UserListTable(props) {
     console.log(user);
     ReactDOM.render( /*#__PURE__*/React.createElement(PopupEdit, {
       user: user
-    }), $('#popup-edit')[0]);
+    }), $('#popup-edit-user')[0]);
   };
   const listItems = users.map(user => /*#__PURE__*/React.createElement("tr", {
     key: user.id
@@ -67,7 +68,7 @@ function UserListTable(props) {
     type: "button",
     className: "btn btn-sm btn-primary",
     "data-toggle": "modal",
-    "data-target": "#editModal",
+    "data-target": "#userEditModal",
     onClick: handleEdit,
     "data-id": user.id
   }, "Edit"), /*#__PURE__*/React.createElement("button", {
@@ -92,7 +93,7 @@ function UserListTable(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-sm-12"
   }, /*#__PURE__*/React.createElement("div", {
-    id: "popup-edit"
+    id: "popup-edit-user"
   }))), /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
@@ -114,7 +115,7 @@ function PopupEdit(props) {
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
-    id: "editModal",
+    id: "userEditModal",
     tabIndex: "-1",
     role: "dialog",
     "aria-labelledby": "editModalLabel"
@@ -138,61 +139,43 @@ function PopupEdit(props) {
     id: "editModalLabel"
   }, "Edit User")), /*#__PURE__*/React.createElement("div", {
     className: "modal-body"
-  }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "username"
-  }, "Username"), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    className: "form-control",
+  }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputBox, {
     id: "username",
-    defaultValue: user.username
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "password"
-  }, "Password"), /*#__PURE__*/React.createElement("input", {
-    type: "password",
-    className: "form-control",
+    label: "Username",
+    type: "text",
+    defaultValue: user.username,
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
     id: "password",
-    defaultValue: user.password
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "email"
-  }, "Email address"), /*#__PURE__*/React.createElement("input", {
-    type: "email",
-    className: "form-control",
+    label: "Password",
+    type: "password",
+    defaultValue: user.password,
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
     id: "email",
-    defaultValue: user.email
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "phone"
-  }, "Phone"), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    className: "form-control",
+    label: "Email",
+    type: "email",
+    defaultValue: user.email,
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
     id: "phone",
-    defaultValue: user.phone
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "address"
-  }, "Address"), /*#__PURE__*/React.createElement("input", {
+    label: "Phone",
     type: "text",
-    className: "form-control",
+    defaultValue: user.phone,
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
     id: "address",
-    defaultValue: user.address
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "profit"
-  }, "Profit"), /*#__PURE__*/React.createElement("input", {
+    label: "Address",
     type: "text",
-    className: "form-control",
+    defaultValue: user.address,
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
     id: "profit",
-    defaultValue: user.profit
-  })), /*#__PURE__*/React.createElement("div", {
+    label: "Profit",
+    type: "number",
+    defaultValue: user.profit,
+    required: true
+  }), /*#__PURE__*/React.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "role"
