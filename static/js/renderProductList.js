@@ -126,20 +126,23 @@ function PopupEdit(props) {
     });
   }
   const attributes = Object.keys(product.attributes).map(key => /*#__PURE__*/React.createElement("div", {
-    className: "col-md-10 col-md-offset-1"
+    className: "col-sm-10 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "form-group col-sm-10 col-offset-1",
+    className: "form-group row",
     key: key
   }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: key
-  }, key), Object.values(product.attributes[key]).map(value => /*#__PURE__*/React.createElement("input", {
+    htmlFor: key,
+    className: "col-xs-12"
+  }, key), Object.values(product.attributes[key]).map(value => /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-6 col-sm-4 col-md-3"
+  }, /*#__PURE__*/React.createElement("input", {
     type: "text",
     className: "form-control",
     name: value,
     id: value,
     defaultValue: value,
     required: false
-  })))));
+  }))))));
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
     id: "productEditModal",

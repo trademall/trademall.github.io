@@ -156,11 +156,13 @@ function PopupEdit(props) {
     }
 
     const attributes = Object.keys(product.attributes).map((key) => (
-        <div className="col-md-10 col-md-offset-1">
-            <div className="form-group col-sm-10 col-offset-1" key={key}>
-                <label htmlFor={key}>{key}</label>
+        <div className="col-sm-10 col-sm-offset-1">
+            <div className="form-group row" key={key}>
+                <label htmlFor={key} className="col-xs-12">{key}</label>
                 {Object.values(product.attributes[key]).map((value) => (
-                    <input type="text" className="form-control" name={value} id={value} defaultValue={value} required={false} />
+                    <div className="col-xs-6 col-sm-4 col-md-3">
+                        <input type="text" className="form-control" name={value} id={value} defaultValue={value} required={false} />
+                    </div>
                 ))}
             </div>
         </div>
