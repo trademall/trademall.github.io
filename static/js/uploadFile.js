@@ -1,47 +1,80 @@
-class UploadFile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      progress: 0,
-      isUploading: false,
-      file: null
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(event) {
-    const file = event.target.files[0];
-    this.setState(() => ({
-      file
-    }));
-    this.handleUpload(file);
-  }
-  handleUpload(file) {
-    const storageRef = firebase.storage().ref(`images/${file.name}`);
-    const task = storageRef.put(file);
-    task.on('state_changed', snapshot => {
-      let percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-      this.setState(() => ({
-        progress: percentage,
-        isUploading: true
-      }));
-    }, error => {
-      console.log(error.message);
-    }, () => {
-      this.setState(() => ({
-        progress: 100,
-        isUploading: false
-      }));
-      task.snapshot.ref.getDownloadURL().then(downloadURL => {
-        console.log('File available at', downloadURL);
-      });
-    });
-  }
-  render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
-      type: "file",
-      onChange: this.handleChange
-    }), /*#__PURE__*/React.createElement("img", {
-      src: this.state.file
-    }));
-  }
+const server = "http://54.79.139.73:80";
+
+function uploadFile(formData, file, successCallback, errorCallback) {
+  $.ajax({
+    url: server + "/v1/upload",
+    type: "POST",
+    data: {
+      "file": file,
+    },
+    headers: {
+      "token": localStorage.getItem("token")
+    },
+    processData: false,
+    contentType: false,
+    success: function (data) {
+      successCallback(data);
+    },
+    error: function (data) {
+      errorCallback(data);
+    },
+  });
 }
+
+function uploadFileWithProgress(formData, file, successCallback, errorCallback, progressCallback) {
+  $.ajax({
+    url: server + "/v1/upload",
+    type: "POST",
+    data: {
+      "file": file,
+    },
+    headers: {
+      "token": localStorage.getItem("token")
+    },
+    processData: false,
+    contentType: false,
+    xhr: function () {
+      var xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function (evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = evt.loaded / evt.total;
+          progressCallback(percentComplete);
+        }
+      }, false);
+      return xhr;
+    },
+    success: function (data) {
+      successCallback(data);
+    },
+    error: function (data) {
+      errorCallback(data);
+    },
+  });
+}
+
+function uploadFileWithProgressAndCancel(formData, file, successCallback, errorCallback, progressCallback, cancelCallback) {
+  var xhr = new window.XMLHttpRequest();
+  xhr.open("POST", server + "/v1/upload");
+  xhr.setRequestHeader("token", localStorage.getItem("token"));
+  xhr.upload.addEventListener("progress", function (evt) {
+    if (evt.lengthComputable) {
+      var percentComplete = evt.loaded / evt.total;
+      progressCallback(percentComplete);
+    }
+  }, false);
+  xhr.onreadystatechange = function (oEvent) {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        successCallback(xhr.responseText);
+      } else {
+        errorCallback(xhr.responseText);
+      }
+    }
+  };
+  xhr.send(formData);
+  cancelCallback(function () {
+    xhr.abort();
+  });
+}
+
+export { uploadFile, uploadFileWithProgress, uploadFileWithProgressAndCancel };

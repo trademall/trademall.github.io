@@ -26,22 +26,22 @@ menu:
       identifier: "menu.services"
       url: "/services/"
       weight: 3
-    - name: "KITTING"
-      url: "/services/kitting/"
-      weight: 100
-      parent: "menu.services"
-    - name: "idea to product"
-      url: "/services/idea-to-product/"
-      weight: 200
-      parent: "menu.services"
-    - name: "package design"
-      url: "/services/package-design/"
-      weight: 300
-      parent: "menu.services"
-    - name: "drop shipping"
-      url: "/services/drop-shipping/"
-      weight: 400
-      parent: "menu.services"
+    # - name: "KITTING"
+    #   url: "/services/kitting/"
+    #   weight: 100
+    #   parent: "menu.services"
+    # - name: "idea to product"
+    #   url: "/services/idea-to-product/"
+    #   weight: 200
+    #   parent: "menu.services"
+    # - name: "package design"
+    #   url: "/services/package-design/"
+    #   weight: 300
+    #   parent: "menu.services"
+    # - name: "drop shipping"
+    #   url: "/services/drop-shipping/"
+    #   weight: 400
+    #   parent: "menu.services"
 
     - name: "FAQ"
       identifier: "faq"
@@ -60,26 +60,30 @@ menu:
 
   topbar:
     - weight: 1
+      name: Upload
+      url: /products/upload/
+      pre: <i class='fas fa-2x fa-upload'></i>
+    - weight: 2
       name: Admin
       url: /admin/
       pre: <i class='fas fa-2x fa-user'></i>
-    - weight: 1
+    - weight: 3
       name: Phone
       url: tel:+12 34 567 89 01
       pre: <i class='fas fa-2x fa-phone'></i>
-    - weight: 2
+    - weight: 4
       name: GitHub
       url: https://github.com/devcows/hugo-universal-theme
       pre: <i class='fab fa-2x fa-github'></i>
-    - weight: 3
+    - weight: 5
       name: Facebook
       url: http://facebook.com
       pre: <i class='fab fa-2x fa-facebook'></i>
-    - weight: 4
+    - weight: 6
       name: Twitter
       url: http://twitter.com
       pre: <i class='fab fa-2x fa-twitter'></i>
-    - weight: 5
+    - weight: 7
       name: Email
       url: mailto:hello@universal.com
       pre: <i class='fas fa-2x fa-envelope'></i>
@@ -147,10 +151,11 @@ params:
       \      </p>
       \      "
 
+  disableSidebar: true
   widgets:
-    categories: true
-    tags: true
-    search: true
+    categories: false
+    tags: false
+    search: false
 
   carouselCustomers:
     items: 6

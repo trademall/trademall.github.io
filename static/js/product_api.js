@@ -1,4 +1,4 @@
-const server = "http://54.79.139.73:80"
+const server = "http://54.79.139.73:80";
 
 function getProductInfo(id, callback, errorcallback = console.log) {
     $.ajax({

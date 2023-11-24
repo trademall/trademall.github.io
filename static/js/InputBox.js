@@ -14,4 +14,56 @@ function InputBox(props) {
     required: props.required
   }, props))));
 }
-export { InputBox };
+function ImageBox(props) {
+  const size = props.size || 200;
+  const text = props.text || 'select image';
+  const src = props.src || 'http://iph.href.lu/' + size + 'x' + size + '?text=' + text;
+  const alt = props.alt || 'upload file';
+  return /*#__PURE__*/React.createElement("div", {
+    className: " col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "image-upload"
+  }, "Product Image"), /*#__PURE__*/React.createElement("div", {
+    className: "image-upload"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "file-upload thumbnail"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "btn btn-default btn-file"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    className: "img-thumbnail"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "file",
+    style: {
+      display: 'none'
+    }
+  })), /*#__PURE__*/React.createElement("label", {
+    className: "btn btn-default btn-file"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    className: "img-thumbnail"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "file",
+    style: {
+      display: 'none'
+    }
+  })), /*#__PURE__*/React.createElement("label", {
+    className: "btn btn-default btn-file"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    className: "img-thumbnail"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "file",
+    style: {
+      display: 'none'
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "caption"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "text-center"
+  }, "The first picture is the main picture of the product"))));
+}
+export { InputBox, ImageBox };
