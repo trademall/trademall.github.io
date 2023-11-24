@@ -59,7 +59,7 @@ function CategorySelect(props) {
           <SelectBtn name="childcategory" options={props.childcategories} />
         </div>
         <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row">
-          <button className="btn btn-primary btn-lg col-xs-12">Confirm</button>
+          <button className="btn btn-primary btn-lg col-xs-12" id="confirm">Confirm</button>
         </div>
       </div>
     </div>
@@ -114,7 +114,15 @@ function UploadProduct() {
   );
 }
 
-// renderCategorySelect();
-renderUploadProduct();
+renderCategorySelect();
+$("#confirm").click(() => {
+  const category = $("#category").text();
+  const childcategory = $("#childcategory").text();
+  if (category !== "Category" && childcategory !== "Child Category") {
+    $("#upload-product").empty();
+    renderUploadProduct();
+  }
+});
+// renderUploadProduct();
 
 export { renderCategorySelect, renderUploadProduct };

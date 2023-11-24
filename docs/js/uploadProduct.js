@@ -57,7 +57,8 @@ function CategorySelect(props) {
   })), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-primary btn-lg col-xs-12"
+    className: "btn btn-primary btn-lg col-xs-12",
+    id: "confirm"
   }, "Confirm"))));
 }
 function SelectBtn(props) {
@@ -131,7 +132,15 @@ function UploadProduct() {
     onClick: createProduct
   }, "Upload"))));
 }
+renderCategorySelect();
+$("#confirm").click(() => {
+  const category = $("#category").text();
+  const childcategory = $("#childcategory").text();
+  if (category !== "Category" && childcategory !== "Child Category") {
+    $("#upload-product").empty();
+    renderUploadProduct();
+  }
+});
+// renderUploadProduct();
 
-// renderCategorySelect();
-renderUploadProduct();
 export { renderCategorySelect, renderUploadProduct };

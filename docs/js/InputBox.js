@@ -23,7 +23,7 @@ function ImageBox(props) {
     className: " col-md-10 col-md-offset-1"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "image-upload"
-  }, "Product Image"), /*#__PURE__*/React.createElement("div", {
+  }, "Product Image*"), /*#__PURE__*/React.createElement("div", {
     className: "image-upload"
   }, /*#__PURE__*/React.createElement("div", {
     className: "file-upload thumbnail"
