@@ -128,6 +128,7 @@ params:
   logo_text: Universal
   logo: img/logo.png
   logo_small: img/logo-small.png
+  bannerFullWidth: true
 
   contact_url: /contact
   address: "<p class=\"text-uppercase\"><strong>Universal Ltd.</strong>

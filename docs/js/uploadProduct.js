@@ -17,7 +17,17 @@ function renderCategorySelect() {
       ReactDOM.render( /*#__PURE__*/React.createElement(CategorySelect, {
         categories: categories,
         childcategories: childcategories
-      }), container[0]);
+      }), container[0], () => {
+        $("#confirm").click(() => {
+          const category = $("#category").text();
+          const childcategory = $("#childcategory").text();
+          console.log(category, childcategory);
+          if (category !== "Category" && childcategory !== "Child Category") {
+            // $("#upload-product").empty();
+            renderUploadProduct();
+          }
+        });
+      });
       $('.dropdown').on('click', '.dropdown-menu li a', function () {
         var target = $(this).html();
 
@@ -32,7 +42,7 @@ function renderCategorySelect() {
   });
 }
 function renderUploadProduct() {
-  const container = $("#upload-product");
+  const container = document.$("#upload-product");
   if (container.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(UploadProduct, null), container[0]);
   }
@@ -133,14 +143,6 @@ function UploadProduct() {
   }, "Upload"))));
 }
 renderCategorySelect();
-$("#confirm").click(() => {
-  const category = $("#category").text();
-  const childcategory = $("#childcategory").text();
-  if (category !== "Category" && childcategory !== "Child Category") {
-    $("#upload-product").empty();
-    renderUploadProduct();
-  }
-});
 // renderUploadProduct();
 
 export { renderCategorySelect, renderUploadProduct };

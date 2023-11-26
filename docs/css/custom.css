@@ -234,9 +234,10 @@ th {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 10px;
-  margin: 30px 0;
+  margin: 20px 0;
   margin-bottom: 30px;
-  border-radius: var(--radius);
+  border-radius: 24px;
+  transition: all 0.3s ease-in-out;
 }
 
 /* #blog-listing-medium section.post:nth-child(2n) .row{
@@ -251,15 +252,15 @@ th {
   position: absolute;
   width: 100%;
   /* bottom: 0; */
-  right: 0;
+  right: 12px;
   text-align: end;
   padding-top: 10px;
   margin-bottom: 0;
-  backdrop-filter: blur(20px);
+  /* backdrop-filter: blur(20px); */
 }
 
 #blog-listing-medium section.post .row .btn {
-  border-radius: 0;
+  border-radius: 12px;
   border-width: 2px;
 }
 
@@ -267,3 +268,80 @@ th {
   font-size: 30px;
   letter-spacing: 0.02em;
 }
+
+#blog-listing-medium .post .row {
+  position: relative;
+  padding: 0!important;
+  margin: 15px!important;
+}
+
+section.post {
+  position: relative;
+  height: 500px;
+  padding: 0;
+  /* margin: 0!important; */
+}
+
+#blog-listing-medium {
+  padding: 0;
+  margin: 0;
+}
+
+.banner-bg {
+  /* position: absolute; */
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 500px;
+  width: 100%;
+  position: relative;
+  border-radius: 24px;
+  box-shadow: #888 0px 0px 5px 0px;
+}
+
+#blog-listing-medium section.post .row:hover {
+  box-shadow: #888 0px 0px 10px 0px;
+}
+
+.banner-bg .image {
+  display: none;
+}
+
+.post:first-child .banner-bg {
+  margin-top: 0;
+  background-image: url("/img/banners/1.jpg");
+}
+
+.post:nth-child(2) .banner-bg {
+  margin-top: 0;
+  background-image: url("/img/banners/2.jpg");
+}
+
+.post:nth-child(3) .banner-bg {
+  margin-top: 0;
+  background-image: url("/img/banners/3.jpg");
+}
+
+.post:nth-child(4) .banner-bg {
+  margin-top: 0;
+  background-image: url("/img/banners/4.png");
+}
+
+.banner-text {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color:#333;
+  background-color: rgba(235, 235, 235, 0.5);
+  font-size: 16px;
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  padding-bottom: 80px;
+  border-radius: 0 0 24px 24px;
+}
+
+.banner-text .date-comments a {
+  color: #555!important;
+}
+

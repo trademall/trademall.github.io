@@ -18,7 +18,18 @@ function renderCategorySelect() {
     if (container.length) {
       ReactDOM.render(
         <CategorySelect categories={categories} childcategories={childcategories} />,
-        container[0]
+        container[0],
+        () => {
+          $("#confirm").click(() => {
+            const category = $("#category").text();
+            const childcategory = $("#childcategory").text();
+            console.log(category, childcategory);
+            if (category !== "Category" && childcategory !== "Child Category") {
+              // $("#upload-product").empty();
+              renderUploadProduct();
+            }
+          });
+        }
       );
 
       $('.dropdown').on('click', '.dropdown-menu li a', function () {
@@ -115,14 +126,6 @@ function UploadProduct() {
 }
 
 renderCategorySelect();
-$("#confirm").click(() => {
-  const category = $("#category").text();
-  const childcategory = $("#childcategory").text();
-  if (category !== "Category" && childcategory !== "Child Category") {
-    $("#upload-product").empty();
-    renderUploadProduct();
-  }
-});
 // renderUploadProduct();
 
 export { renderCategorySelect, renderUploadProduct };

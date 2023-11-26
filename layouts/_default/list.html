@@ -33,7 +33,11 @@
                         {{ range $paginator.Pages }}
                         <section class="post">
                             <div class="row">
+                                {{ if .Site.Params.bannerFullWidth }}
+                                <div class="col-xs-12 banner-bg">
+                                {{ else }}
                                 <div class="col-xs-6 col-sm-5">
+                                {{ end }}
                                   <div class="image">
                                       <a href="{{ .Permalink }}">
                                           {{ if .Params.banner }}
@@ -44,7 +48,11 @@
                                       </a>
                                   </div>
                                 </div>
+                                {{ if .Site.Params.bannerFullWidth }}
+                                <div class="col-xs-12 banner-text">
+                                {{ else }}
                                 <div class="col-xs-6 col-sm-7">
+                                {{ end }}
                                     <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
                                     <div class="clearfix">
                                         <p class="author-category">
