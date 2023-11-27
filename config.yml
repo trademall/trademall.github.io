@@ -14,7 +14,7 @@ menu:
   main:
     - name: "Home"
       identifier: "menu.home"
-      url: "/"
+      url: ""
       weight: 1
 
     - name: "Products"
