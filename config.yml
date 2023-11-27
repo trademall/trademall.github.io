@@ -102,13 +102,21 @@ menu:
       url: "/products/%40price%3C1"
       weight: 1000
       parent: "section.by-price"
-    - name: "$1 - $10"
-      url: "/products/%40price%3E1%26price%3C10"
+    - name: "$1 - $3"
+      url: "/products/%40price%3E1%26price%3C3"
       weight: 1100
+      parent: "section.by-price"
+    - name: "$3 - $5"
+      url: "/products/%40price%3E3%26price%3C5"
+      weight: 1200
+      parent: "section.by-price"
+    - name: "$5 - $10"
+      url: "/products/%40price%3E5%26price%3C10"
+      weight: 1900
       parent: "section.by-price"
     - name: "$10 or More"
       url: "/products/%40price%3E10"
-      weight: 1200
+      weight: 2000
       parent: "section.by-price"
 
 
