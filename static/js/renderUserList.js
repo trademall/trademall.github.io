@@ -20,7 +20,7 @@ function renderUserList(props) {
 function UserList(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(UserListTable, {
     users: props.users
-  }), /*#__PURE__*/React.createElement(Pagination, null));
+  }));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -64,7 +64,7 @@ function UserListTable(props) {
   };
   const listItems = users.map(user => /*#__PURE__*/React.createElement("tr", {
     key: user.id
-  }, /*#__PURE__*/React.createElement("td", null, user.id), /*#__PURE__*/React.createElement("td", null, user.username), /*#__PURE__*/React.createElement("td", null, user.role), /*#__PURE__*/React.createElement("td", null, user.isactive ? 'Yes' : 'No'), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("td", null, user.id), /*#__PURE__*/React.createElement("td", null, user.username), /*#__PURE__*/React.createElement("td", null, user.email), /*#__PURE__*/React.createElement("td", null, user.role), /*#__PURE__*/React.createElement("td", null, user.isactive ? 'Yes' : 'No'), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-sm btn-primary",
     "data-toggle": "modal",
@@ -81,11 +81,7 @@ function UserListTable(props) {
     className: "btn btn-sm btn-danger",
     onClick: handleDelete,
     "data-id": user.id
-  }, "Delete")), /*#__PURE__*/React.createElement("td", {
-    title: user.created
-  }, user.created.slice(0, 10)), /*#__PURE__*/React.createElement("td", {
-    title: user.updated
-  }, user.updated.slice(0, 10))));
+  }, "Delete"))));
   return /*#__PURE__*/React.createElement("div", {
     className: "col-sm-12 row table-responsive"
   }, /*#__PURE__*/React.createElement("div", {
@@ -96,7 +92,7 @@ function UserListTable(props) {
     id: "popup-edit-user"
   }))), /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover col-sm-12 table-condensed text-center"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Updated At"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Email"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
 }
 function PopupEdit(props) {
   const user = props.user;
@@ -176,7 +172,7 @@ function PopupEdit(props) {
     defaultValue: user.profit,
     required: true
   }), /*#__PURE__*/React.createElement("div", {
-    className: "form-group"
+    className: "form-group col-md-10 col-md-offset-1"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "role"
   }, "Role"), /*#__PURE__*/React.createElement("select", {

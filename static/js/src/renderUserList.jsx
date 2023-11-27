@@ -26,7 +26,7 @@ function UserList(props) {
         <div>
             <Heading />
             <UserListTable users={props.users} />
-            <Pagination />
+            {/* <Pagination /> */}
         </div>
     );
 }
@@ -77,6 +77,7 @@ function UserListTable(props) {
         <tr key={user.id}>
             <td>{user.id}</td>
             <td>{user.username}</td>
+            <td>{user.email}</td>
             <td>{user.role}</td>
             <td>{user.isactive ? 'Yes' : 'No'}</td>
             <td>
@@ -84,8 +85,8 @@ function UserListTable(props) {
                 <button type="button" className={user.isactive ? 'btn btn-sm btn-warning' : 'btn btn-sm btn-success'} onClick={handleActive} data-id={user.id}>{user.isactive ? 'Deactivate' : 'Activate'}</button>
                 <button type="button" className="btn btn-sm btn-danger" onClick={handleDelete} data-id={user.id}>Delete</button>
             </td>
-            <td title={user.created}>{user.created.slice(0, 10)}</td>
-            <td title={user.updated}>{user.updated.slice(0, 10)}</td>
+            {/* <td title={user.created}>{user.created.slice(0, 10)}</td>
+            <td title={user.updated}>{user.updated.slice(0, 10)}</td> */}
         </tr >
     );
 
@@ -101,11 +102,12 @@ function UserListTable(props) {
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
+                        <th>Email</th>
                         <th>Role</th>
                         <th>Active</th>
                         <th>Operations</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
+                        {/* <th>Created At</th>
+                        <th>Updated At</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -149,7 +151,7 @@ function PopupEdit(props) {
                             <InputBox id="phone" label="Phone" type="text" defaultValue={user.phone} required={true} />
                             <InputBox id="address" label="Address" type="text" defaultValue={user.address} required={true} />
                             <InputBox id="profit" label="Profit" type="number" defaultValue={user.profit} required={true} />
-                            <div className="form-group">
+                            <div className="form-group col-md-10 col-md-offset-1">
                                 <label htmlFor="role">Role</label>
                                 <select className="form-control" id="role" defaultValue={user.role}>
                                     <option value="admin">Admin</option>
