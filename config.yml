@@ -21,6 +21,38 @@ menu:
       identifier: "menu.products"
       url: "/products/"
       weight: 2
+    - name: "All"
+      url: "/products/"
+      weight: 100
+      parent: "menu.products"
+    - name: "Apparel"
+      url: "/products/%40category%3Dapparel"
+      weight: 200
+      parent: "menu.products"
+    - name: "Bags & Totes"
+      url: "/products/%40category%3Dbags-totes"
+      weight: 300
+      parent: "menu.products"
+    - name: "Drinkware"
+      url: "/products/%40category%3Ddrinkware"
+      weight: 400
+      parent: "menu.products"
+    - name: "Electronics"
+      url: "/products/%40category%3Delectronics"
+      weight: 500
+      parent: "menu.products"
+    - name: "Office"
+      url: "/products/%40category%3Doffice"
+      weight: 600
+      parent: "menu.products"
+    - name: "Writing"
+      url: "/products/%40category%3Dwriting"
+      weight: 700
+      parent: "menu.products"
+    - name: "Wellness"
+      url: "/products/%40category%3Dwellness"
+      weight: 800
+      parent: "menu.products"
 
     - name: "services"
       identifier: "menu.services"
@@ -129,6 +161,8 @@ params:
   logo: img/logo.png
   logo_small: img/logo-small.png
   bannerFullWidth: true
+
+  preserveTaxonomyNames: true
 
   contact_url: /contact
   address: "<p class=\"text-uppercase\"><strong>Universal Ltd.</strong>

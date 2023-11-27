@@ -172,4 +172,18 @@
   </div>
 </header>
 
+<script>
+  window.onload = () => {
+    let links = document.querySelectorAll(".dropdown-menu li a[href]");
+    // replace @ with ?
+    for (let i = 0; i < links.length; i++) {
+      let link = links[i];
+      let href = link.getAttribute("href");
+      if (href.includes("@")) {
+        link.setAttribute("href", href.replace("@", "?"));
+      }
+    }
+  }
+</script>
+
 <!-- *** NAVBAR END ***-->
