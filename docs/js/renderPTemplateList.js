@@ -82,17 +82,22 @@ function NewPTemplateModal() {
     const childCategory = $('#child-category').val();
     const profit = Number($('#profit').val());
     const status = $('#status').val() === 'on' ? 1 : 0;
-    const include = $('#include').val();
-    const exclude = $('#exclude').val();
+    const include = $('#include').val() || [];
+    const exclude = $('#exclude').val() || [];
+    const description = $('#description').val() || '';
+    const attributes = $('#attributes').val() || {};
     const data = {
-      templatename: templateName,
-      category: category,
-      childcategory: childCategory,
-      profit: profit,
-      isactive: status,
-      include: include,
-      exclude: exclude
+      "templatename": templateName,
+      "category": category,
+      "childcategory": childCategory,
+      "Profit": profit,
+      "isactive": status,
+      "include": include,
+      "exclude": exclude,
+      "description": description,
+      "attributes": attributes
     };
+    console.log(data);
     createPTemplate(data, () => {
       $('#info').html('<p class="text-success">New Product Template Created Successfully!</p>');
       setTimeout(() => {
