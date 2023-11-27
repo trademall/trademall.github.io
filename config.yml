@@ -33,6 +33,10 @@ menu:
       url: "/products/%40category%3Dbags-totes"
       weight: 300
       parent: "menu.products"
+    - name: "Clothes"
+      url: "/products/%40category%3Dclothes"
+      weight: 365
+      parent: "menu.products"
     - name: "Drinkware"
       url: "/products/%40category%3Ddrinkware"
       weight: 400
@@ -52,6 +56,25 @@ menu:
     - name: "Wellness"
       url: "/products/%40category%3Dwellness"
       weight: 800
+      parent: "menu.products"
+
+    - name: "By Price"
+      url: ""
+      role: separator
+      weight: 900
+      parent: "menu.products"
+
+    - name: "$1 or Less"
+      url: "/products/%40price%3C1"
+      weight: 1000
+      parent: "menu.products"
+    - name: "$1 - $10"
+      url: "/products/%40price%3E1%26price%3C10"
+      weight: 1100
+      parent: "menu.products"
+    - name: "$10 or More"
+      url: "/products/%40price%3E10"
+      weight: 1200
       parent: "menu.products"
 
     - name: "services"

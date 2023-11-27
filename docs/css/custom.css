@@ -345,3 +345,18 @@ section.post {
   color: #555!important;
 }
 
+.nav-seperator {
+  margin: 0 5px;
+}
+
+.dropdown-menu {
+  border-radius: var(--radius);
+}
+
+.sidebar.navbar-affixed-top {
+  width: 25%;
+  top: 80px;
+  margin-top: 10px;
+  box-shadow: none;
+  z-index: 998;
+}

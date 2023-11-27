@@ -141,8 +141,13 @@
             </ul>
             {{ else }}
             <ul class="dropdown-menu">
+              <li class="nav-seperator">By Category</li>
               {{ range .Children.ByWeight }}
+              {{ if eq .URL "" }}
+              <li class="nav-seperator">{{ .Name }}</li>
+              {{ else }}
               <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+              {{ end }}
               {{ end }}
             </ul>
             {{ end }}

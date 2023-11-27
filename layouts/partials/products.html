@@ -1,13 +1,17 @@
 <div class="container" id="commodities">
 
     <div class="row">
-        <div class="sidebar hidden-xs col-sm-3 col-md-2">
+        <div class="sidebar hidden-xs col-sm-3 col-md-2 navbar-affixed-top affix-top" data-spy="affix" data-offset-top="180">
             <div class="widget">
-                <h4>Category</h4>
+                <h4> By Category</h4>
                 <ul class="nav nav-pills nav-stacked">
                     {{ $products := (index .Site.Menus.main 1) }}
                     {{ range $products.Children.ByWeight }}
+                    {{ if eq .URL "" }}
+                    <h4 class="nav-seperator">{{ .Name }}</h4>
+                    {{ else }}
                     <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                    {{ end }}
                     {{ end }}
                 </ul>
             </div>
