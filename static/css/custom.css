@@ -363,10 +363,6 @@ section.post {
   overflow: auto;
 }
 
-.col-md-2.sidebar.navbar-affixed-top {
-  width: 16.6666%;
-}
-
 .img-thumbnail {
   max-height: 180px;
   max-width: 180px;
