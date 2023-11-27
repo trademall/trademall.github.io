@@ -71,18 +71,18 @@ menu:
       name: Phone
       url: tel:+12 34 567 89 01
       pre: <i class='fas fa-2x fa-phone'></i>
-    - weight: 4
-      name: GitHub
-      url: https://github.com/devcows/hugo-universal-theme
-      pre: <i class='fab fa-2x fa-github'></i>
-    - weight: 5
-      name: Facebook
-      url: http://facebook.com
-      pre: <i class='fab fa-2x fa-facebook'></i>
-    - weight: 6
-      name: Twitter
-      url: http://twitter.com
-      pre: <i class='fab fa-2x fa-twitter'></i>
+    # - weight: 4
+    #   name: GitHub
+    #   url: https://github.com/devcows/hugo-universal-theme
+    #   pre: <i class='fab fa-2x fa-github'></i>
+    # - weight: 5
+    #   name: Facebook
+    #   url: http://facebook.com
+    #   pre: <i class='fab fa-2x fa-facebook'></i>
+    # - weight: 6
+    #   name: Twitter
+    #   url: http://twitter.com
+    #   pre: <i class='fab fa-2x fa-twitter'></i>
     - weight: 7
       name: Email
       url: mailto:hello@universal.com
