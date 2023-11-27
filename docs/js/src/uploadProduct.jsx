@@ -5,58 +5,69 @@ import { uploadFile } from "./uploadFile.js";
 
 function renderCategorySelect() {
   const container = $("#upload-product");
-  PTemplate.getPTemplateList(1, 10, (ptemplates) => {
+
+  if (container.length) {
+    ReactDOM.render(
+      <CategorySelect />,
+      container[0],
+      () => {
+        $("#confirm").click(() => {
+          const category = $("#category").text();
+          const childcategory = $("#childcategory").text();
+          if (category !== "Category" && childcategory !== "Child Category") {
+            PTemplate.getPTemplate
+            ReactDOM.render(
+              <UploadProduct />,
+              container[0]
+            );
+          }
+        });
+      }
+    );
+  }
+
+  $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
+    var target = $(this).html();
+
+    //Adds active class to selected item
+    $(this).parents('.dropdown-menu').find('li').removeClass('active');
+    $(this).parent('li').addClass('active');
+
+    //Displays selected text on dropdown-toggle button
+    $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
+  });
+
+}
+
+function CategorySelect(props) {
+  const [category, setCategory] = React.useState([{
+    id: 0,
+    name: 'Loading...'
+  }]);
+  const [childcategory, setChildCategory] = React.useState([{
+    id: 0,
+    name: 'Please select a category'
+  }]);
+
+  const getAndSetCategory = (ptemplates) => {
     const categories = ptemplates.list.map((ptemplate) => ({
       id: ptemplate.id,
       name: ptemplate.category,
     }));
-    const childcategories = ptemplates.list.map((ptemplate) => ({
-      id: ptemplate.id,
-      name: ptemplate.childcategory,
-    }));
+    setCategory(categories);
+    $('#category').on('click', '.dropdown-menu li.able a', function () {
+      var target = $(this).html();
 
-    if (container.length) {
-      ReactDOM.render(
-        <CategorySelect categories={categories} childcategories={childcategories} />,
-        container[0],
-        () => {
-          $("#confirm").click(() => {
-            const category = $("#category").text();
-            const childcategory = $("#childcategory").text();
-            console.log(category, childcategory);
-            if (category !== "Category" && childcategory !== "Child Category") {
-              // $("#upload-product").empty();
-              renderUploadProduct();
-            }
-          });
-        }
-      );
-
-      $('.dropdown').on('click', '.dropdown-menu li a', function () {
-        var target = $(this).html();
-
-        //Adds active class to selected item
-        $(this).parents('.dropdown-menu').find('li').removeClass('active');
-        $(this).parent('li').addClass('active');
-
-        //Displays selected text on dropdown-toggle button
-        $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
-      });
-    }
-  });
-}
-
-function renderUploadProduct() {
-  const container = $("#upload-product");
-  if (container.length) {
-    ReactDOM.render(
-      <UploadProduct />,
-      container[0]
-    );
+      const childcategories = ptemplates.list.filter((ptemplate) => ptemplate.category === target).map((ptemplate) => ({
+        id: ptemplate.id,
+        name: ptemplate.childcategory,
+      }));
+      setChildCategory(childcategories);
+    });
   }
-}
 
-function CategorySelect(props) {
+  PTemplate.getPTemplateList(1, 10, getAndSetCategory);
+  
   return (
     <div className="row">
       <div className="col-md-10 col-md-offset-1">
@@ -64,10 +75,10 @@ function CategorySelect(props) {
           <h3>Select Category</h3>
         </div>
         <div className="col-xs-12 col-sm-5 col-sm-offset-1">
-          <SelectBtn name="category" options={props.categories} />
+          <SelectBtn name="category" options={category} />
         </div>
         <div className="col-xs-12 col-sm-5">
-          <SelectBtn name="childcategory" options={props.childcategories} />
+          <SelectBtn name="childcategory" options={childcategory} />
         </div>
         <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row">
           <button className="btn btn-primary btn-lg col-xs-12" id="confirm">Confirm</button>
@@ -86,7 +97,7 @@ function SelectBtn(props) {
       </button>
       <ul className="dropdown-menu" aria-labelledby={props.name}>
         {props.options.map((option) => (
-          <li key={option.id}><a>{option.name}</a></li>
+          <li key={option.id} className={option.id===0?'disabled':'able'}><a>{option.name}</a></li>
         ))}
       </ul>
     </div>
@@ -128,4 +139,4 @@ function UploadProduct() {
 renderCategorySelect();
 // renderUploadProduct();
 
-export { renderCategorySelect, renderUploadProduct };
+export { renderCategorySelect };
