@@ -22,7 +22,7 @@ function TemplateList(props) {
         <div>
             <Heading />
             <TemplateListTable templates={props.templates} />
-            <Pagination />
+            {/* <Pagination /> */}
         </div>
     );
 }
@@ -66,7 +66,6 @@ function TemplateListTable(props) {
                 <table className="table table-striped table-hover text-center">
                     <thead>
                         <tr>
-                            <th>Name</th>
                             <th>Merchant</th>
                             <th>Customer</th>
                             <th>Created At</th>
@@ -78,7 +77,6 @@ function TemplateListTable(props) {
                         {templates.map((template) => {
                             return (
                                 <tr key={template.id}>
-                                    <td>{template.name}</td>
                                     <td>{template.mname}</td>
                                     <td>{template.cname}</td>
                                     <td>{template.creat}</td>
@@ -97,4 +95,4 @@ function TemplateListTable(props) {
     );
 }
 
-export { renderCTemplateList, TemplateList }
+export { renderCTemplateList, TemplateListTable }

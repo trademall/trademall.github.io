@@ -7,6 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language><atom:link href="http://sunnycloudyang.top/admin/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Product Templates</title>
+      <link>http://sunnycloudyang.top/admin/ptemplates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://sunnycloudyang.top/admin/ptemplates/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Products</title>
       <link>http://sunnycloudyang.top/admin/products/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

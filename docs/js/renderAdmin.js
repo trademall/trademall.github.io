@@ -1,9 +1,11 @@
-import { UserList } from "./renderUserList.js";
-import { ProductList } from "./renderProductList.js";
-import { TemplateList } from "./renderTemplateList.js";
+import { UserListTable } from "./renderUserList.js";
+import { ProductListTable } from "./renderProductList.js";
+import { TemplateListTable } from "./renderTemplateList.js";
+import { PTemplateListTable } from "./renderPTemplateList.js";
 import { getUserList } from "./getUserList.js";
 import { getProduct } from "./getProduct.js";
 import { getCTemplateList } from "./ctemplate.js";
+import { getPTemplateList } from "./ptemplate_api.js";
 function renderAdmin() {
   const container = $('#admin');
   if (container.length) {
@@ -12,11 +14,12 @@ function renderAdmin() {
   getUserList(1, 5, renderUserPanel);
   getProduct("list", 0, renderProductPanel);
   getCTemplateList(1, 5, renderCTemplatePanel, console.log);
+  getPTemplateList(1, 5, renderPTemplatePanel, console.log);
 }
 function renderUserPanel(props) {
   const userList = $('#user-list');
   if (userList.length) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+    ReactDOM.render( /*#__PURE__*/React.createElement(UserListTable, {
       users: props.list
     }), userList[0]);
   } else {
@@ -26,7 +29,7 @@ function renderUserPanel(props) {
 function renderProductPanel(props) {
   const productList = $('#product-list');
   if (productList.length) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ProductList, {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ProductListTable, {
       products: props.list
     }), productList[0]);
   } else {
@@ -36,11 +39,21 @@ function renderProductPanel(props) {
 function renderCTemplatePanel(props) {
   const templateList = $('#template-list');
   if (templateList.length) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(TemplateList, {
+    ReactDOM.render( /*#__PURE__*/React.createElement(TemplateListTable, {
       templates: props.data.list
     }), templateList[0]);
   } else {
     ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No templates found."), $('#template-list')[0]);
+  }
+}
+function renderPTemplatePanel(props) {
+  const templateList = $('#ptemplate-list');
+  if (templateList.length) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(PTemplateListTable, {
+      templates: props.list
+    }), templateList[0]);
+  } else {
+    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No templates found."), $('#ptemplate-list')[0]);
   }
 }
 function Sidebar(props) {
@@ -88,7 +101,15 @@ function Sidebar(props) {
     className: "fa fa-file"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
-  }, "Templates")))))));
+  }, "Templates"))), /*#__PURE__*/React.createElement("li", {
+    className: window.location.pathname === '/admin/ptemplates/' ? 'active' : ''
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/admin/ptemplates/"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa fa-file"
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Product Templates")))))));
 }
 
 // Pages: User management, Product management, Template management
@@ -104,7 +125,7 @@ function Dashboard(props) {
     className: "col-sm-10"
   }, /*#__PURE__*/React.createElement(Welcome, null), /*#__PURE__*/React.createElement(ProductPanel, null), /*#__PURE__*/React.createElement(UserPanel, {
     users: props.users
-  }), /*#__PURE__*/React.createElement(TemplatePanel, null));
+  }), /*#__PURE__*/React.createElement(TemplatePanel, null), /*#__PURE__*/React.createElement(PTemplatePanel, null));
 }
 function Welcome(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -170,7 +191,7 @@ function TemplatePanel(props) {
     className: "panel-heading"
   }, /*#__PURE__*/React.createElement("h4", {
     className: "panel-title"
-  }, "Templates")), /*#__PURE__*/React.createElement("div", {
+  }, "Catalog Templates")), /*#__PURE__*/React.createElement("div", {
     className: "panel-body",
     id: "template-list"
   }), /*#__PURE__*/React.createElement("div", {
@@ -180,6 +201,29 @@ function TemplatePanel(props) {
     className: "btn btn-primary"
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-file"
-  }), " Template Management")))));
+  }), " Catalog Template Management")))));
+}
+function PTemplatePanel(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-12"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "panel panel-default"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "panel-heading"
+  }, /*#__PURE__*/React.createElement("h4", {
+    className: "panel-title"
+  }, "Product Templates")), /*#__PURE__*/React.createElement("div", {
+    className: "panel-body",
+    id: "ptemplate-list"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "panel-footer"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/admin/ptemplates",
+    className: "btn btn-primary"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa fa-file"
+  }), " Product Template Management")))));
 }
 export { renderAdmin, Sidebar };

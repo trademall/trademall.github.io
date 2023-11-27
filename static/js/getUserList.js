@@ -12,7 +12,6 @@ function getUserList(pageNum, pageSize, successCallback=console.log, errorCallba
             "pageSize": pageSize
         },
         success: function (data) {
-            console.log(data);
             if (data.code == 200) {
                 successCallback(data.data);
             }

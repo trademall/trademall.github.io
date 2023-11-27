@@ -16,7 +16,7 @@ function renderCTemplateList(props) {
 function TemplateList(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(TemplateListTable, {
     templates: props.templates
-  }), /*#__PURE__*/React.createElement(Pagination, null));
+  }));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -56,10 +56,10 @@ function TemplateListTable(props) {
     className: "col-sm-12 table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover text-center"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Merchant"), /*#__PURE__*/React.createElement("th", null, "Customer"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Expire At"), /*#__PURE__*/React.createElement("th", null, "Operations"))), /*#__PURE__*/React.createElement("tbody", null, templates.map(template => {
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Merchant"), /*#__PURE__*/React.createElement("th", null, "Customer"), /*#__PURE__*/React.createElement("th", null, "Created At"), /*#__PURE__*/React.createElement("th", null, "Expire At"), /*#__PURE__*/React.createElement("th", null, "Operations"))), /*#__PURE__*/React.createElement("tbody", null, templates.map(template => {
     return /*#__PURE__*/React.createElement("tr", {
       key: template.id
-    }, /*#__PURE__*/React.createElement("td", null, template.name), /*#__PURE__*/React.createElement("td", null, template.mname), /*#__PURE__*/React.createElement("td", null, template.cname), /*#__PURE__*/React.createElement("td", null, template.creat), /*#__PURE__*/React.createElement("td", null, template.expire), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("td", null, template.mname), /*#__PURE__*/React.createElement("td", null, template.cname), /*#__PURE__*/React.createElement("td", null, template.creat), /*#__PURE__*/React.createElement("td", null, template.expire), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
       className: "btn btn-default",
       "data-id": template.id,
       onClick: handleUpdate
@@ -70,4 +70,4 @@ function TemplateListTable(props) {
     }, "Delete")));
   })))));
 }
-export { renderCTemplateList, TemplateList };
+export { renderCTemplateList, TemplateListTable };

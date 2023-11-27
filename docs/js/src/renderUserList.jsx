@@ -167,4 +167,4 @@ function PopupEdit(props) {
     );
 }
 
-export { renderUserList, UserList }
+export { renderUserList, UserListTable }

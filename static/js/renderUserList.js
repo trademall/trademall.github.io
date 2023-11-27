@@ -190,4 +190,4 @@ function PopupEdit(props) {
     "data-id": user.id
   }, "Update"))))));
 }
-export { renderUserList, UserList };
+export { renderUserList, UserListTable };

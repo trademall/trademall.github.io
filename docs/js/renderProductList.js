@@ -300,4 +300,4 @@ function PopupEdit(props) {
     "data-id": product.id
   }, "Update"))))));
 }
-export { renderProductList, ProductList };
+export { renderProductList, ProductListTable };

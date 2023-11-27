@@ -1,9 +1,11 @@
-import { UserList } from "./renderUserList.js";
-import { ProductList } from "./renderProductList.js";
-import { TemplateList } from "./renderTemplateList.js";
+import { UserListTable } from "./renderUserList.js";
+import { ProductListTable } from "./renderProductList.js";
+import { TemplateListTable } from "./renderTemplateList.js";
+import { PTemplateListTable } from "./renderPTemplateList.js";
 import { getUserList } from "./getUserList.js";
 import { getProduct } from "./getProduct.js";
 import { getCTemplateList } from "./ctemplate.js";
+import { getPTemplateList } from "./ptemplate_api.js";
 
 function renderAdmin() {
     const container = $('#admin');
@@ -16,13 +18,14 @@ function renderAdmin() {
     getUserList(1, 5, renderUserPanel);
     getProduct("list", 0, renderProductPanel);
     getCTemplateList(1, 5, renderCTemplatePanel, console.log);
+    getPTemplateList(1, 5, renderPTemplatePanel, console.log);
 }
 
 function renderUserPanel(props) {
     const userList = $('#user-list');
     if (userList.length) {
         ReactDOM.render(
-            <UserList users={props.list} />,
+            <UserListTable users={props.list} />,
             userList[0]
         );
     }
@@ -38,7 +41,7 @@ function renderProductPanel(props) {
     const productList = $('#product-list');
     if (productList.length) {
         ReactDOM.render(
-            <ProductList products={props.list} />,
+            <ProductListTable products={props.list} />,
             productList[0]
         );
     }
@@ -54,7 +57,7 @@ function renderCTemplatePanel(props) {
     const templateList = $('#template-list');
     if (templateList.length) {
         ReactDOM.render(
-            <TemplateList templates={props.data.list} />,
+            <TemplateListTable templates={props.data.list} />,
             templateList[0]
         );
     }
@@ -62,6 +65,22 @@ function renderCTemplatePanel(props) {
         ReactDOM.render(
             <p>No templates found.</p>,
             $('#template-list')[0]
+        );
+    }
+}
+
+function renderPTemplatePanel(props) {
+    const templateList = $('#ptemplate-list');
+    if (templateList.length) {
+        ReactDOM.render(
+            <PTemplateListTable templates={props.list} />,
+            templateList[0]
+        );
+    }
+    else {
+        ReactDOM.render(
+            <p>No templates found.</p>,
+            $('#ptemplate-list')[0]
         );
     }
 }
@@ -87,6 +106,9 @@ function Sidebar(props) {
                         <li className={window.location.pathname === '/admin/templates/' ? 'active' : ''}>
                             <a href="/admin/templates/"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Templates</span></a>
                         </li>
+                        <li className={window.location.pathname === '/admin/ptemplates/' ? 'active' : ''}>
+                            <a href="/admin/ptemplates/"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Product Templates</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -111,6 +133,7 @@ function Dashboard(props) {
             <ProductPanel />
             <UserPanel users={props.users} />
             <TemplatePanel />
+            <PTemplatePanel />
         </div>
     );
 }
@@ -169,12 +192,31 @@ function TemplatePanel(props) {
             <div className="col-sm-12">
                 <div className="panel panel-default">
                     <div className="panel-heading">
-                        <h4 className="panel-title">Templates</h4>
+                        <h4 className="panel-title">Catalog Templates</h4>
                     </div>
                     <div className="panel-body" id="template-list">
                     </div>
                     <div className="panel-footer">
-                        <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Template Management</a>
+                        <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Catalog Template Management</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function PTemplatePanel(props) {
+    return (
+        <div className="row">
+            <div className="col-sm-12">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h4 className="panel-title">Product Templates</h4>
+                    </div>
+                    <div className="panel-body" id="ptemplate-list">
+                    </div>
+                    <div className="panel-footer">
+                        <a href="/admin/ptemplates" className="btn btn-primary"><i className="fa fa-file"></i> Product Template Management</a>
                     </div>
                 </div>
             </div>
