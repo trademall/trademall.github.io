@@ -1,6 +1,6 @@
 const server = "http://54.79.139.73:80";
 
-function uploadFile(formData, file, successCallback, errorCallback) {
+function uploadFile(file, successCallback, errorCallback) {
   $.ajax({
     url: server + "/v1/upload",
     type: "POST",

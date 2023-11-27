@@ -12,8 +12,40 @@ function renderCategorySelect() {
         if (category !== "Category" && childcategory !== "Child Category") {
           PTemplate.getPTemplate;
           ReactDOM.render( /*#__PURE__*/React.createElement(UploadProduct, null), container[0]);
+          // initFileInput("#uploadImg");
         }
       });
+    });
+  }
+
+  function initFileInput(id) {
+    $(id).fileinput({
+      showUpload: true,
+      showPreview: true,
+      showRemove: true,
+      multiple: true,
+      async: false,
+      minFileCount: 1,
+      maxFileCount: 4,
+      // uploadUrl: "http://54.79.139.73:80/v1/upload",
+      uploadExtraData: {
+        token: localStorage.getItem("token")
+      },
+      allowedFileExtensions: ['jpg', 'png', 'gif'],
+      browseClass: "btn btn-primary btn-lg",
+      browseLabel: "Select Image",
+      browseIcon: '<i class="glyphicon glyphicon-picture"></i> ',
+      removeClass: "btn btn-danger btn-lg",
+      removeLabel: "Delete",
+      removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
+      uploadClass: "btn btn-info btn-lg",
+      uploadLabel: "Upload",
+      uploadIcon: '<i class="glyphicon glyphicon-upload"></i> '
+    }).on('fileuploaded', function (event, data, previewId, index) {
+      if (data.response) {
+        const image = data.response;
+        console.log(image);
+      }
     });
   }
   $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
@@ -96,7 +128,7 @@ function SelectBtn(props) {
   }, /*#__PURE__*/React.createElement("a", null, option.name)))));
 }
 function UploadProduct() {
-  let [image, setImage] = React.useState(null);
+  let [image, setImage] = React.useState('');
   let [fileUploaded, setFileUploaded] = React.useState(false);
   React.useEffect(() => {
     if (fileUploaded) {
@@ -104,6 +136,7 @@ function UploadProduct() {
       setFileUploaded(false);
     }
   }, [fileUploaded]);
+  const createProduct = () => {};
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -116,7 +149,7 @@ function UploadProduct() {
     size: 100,
     text: "upload image",
     src: image,
-    onChange: e => setImage(e.target.value)
+    id: "uploadImg"
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "pname",
     type: "text",
@@ -130,9 +163,30 @@ function UploadProduct() {
     label: "Price",
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "description",
     name: "description",
     type: "text",
     label: "Description",
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "profit",
+    label: "Profit",
+    type: "number",
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "volume",
+    label: "Volume",
+    type: "number",
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "weight",
+    label: "Weight",
+    type: "number",
+    required: true
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "price",
+    label: "Price",
+    type: "number",
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "quantity",
@@ -140,12 +194,39 @@ function UploadProduct() {
     name: "quantity",
     label: "Quantity",
     required: true
-  })), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "include",
+    type: "text",
+    name: "include",
+    label: "Include",
+    required: false
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "exclude",
+    type: "text",
+    name: "exclude",
+    label: "Exclude",
+    required: false
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "form-group col-sm-10 col-sm-offset-1",
+    id: "statusWrapper"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "status"
+  }, "Status"), /*#__PURE__*/React.createElement("select", {
+    className: "form-control",
+    id: "status",
+    defaultValue: 1
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "2"
+  }, "Inactive"), /*#__PURE__*/React.createElement("option", {
+    value: "1"
+  }, "Public"), /*#__PURE__*/React.createElement("option", {
+    value: "0"
+  }, "Private")))), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary btn-lg col-xs-12",
     onClick: createProduct
-  }, "Upload"))));
+  }, "Create"))));
 }
 renderCategorySelect();
 // renderUploadProduct();

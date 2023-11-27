@@ -19,63 +19,98 @@ menu:
 
     - name: "Products"
       identifier: "menu.products"
-      url: "/products/"
+      # url: "/products/"
       weight: 2
-    - name: "All"
+    - name: "By Category"
+      post: 1
       url: "/products/"
+      role: separator
+      identifier: "section.by-category"
       weight: 100
       parent: "menu.products"
     - name: "Apparel"
       url: "/products/%40category%3Dapparel"
       weight: 200
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Bags & Totes"
       url: "/products/%40category%3Dbags-totes"
       weight: 300
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Clothes"
       url: "/products/%40category%3Dclothes"
       weight: 365
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Drinkware"
       url: "/products/%40category%3Ddrinkware"
       weight: 400
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Electronics"
       url: "/products/%40category%3Delectronics"
       weight: 500
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Office"
       url: "/products/%40category%3Doffice"
       weight: 600
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Writing"
       url: "/products/%40category%3Dwriting"
       weight: 700
-      parent: "menu.products"
+      parent: "section.by-category"
     - name: "Wellness"
       url: "/products/%40category%3Dwellness"
       weight: 800
+      parent: "section.by-category"
+
+    - name: "By Theme"
+      url: "/products/"
+      post: 2
+      role: separator
+      identifier: "section.by-theme"
+      weight: 1300
       parent: "menu.products"
 
+    - name: "Holiday"
+      url: "/products/%40theme%3Dholiday"
+      weight: 1400
+      parent: "section.by-theme"
+    - name: "Spring"
+      url: "/products/%40theme%3Dspring"
+      weight: 1500
+      parent: "section.by-theme"
+    - name: "Summer"
+      url: "/products/%40theme%3Dsummer"
+      weight: 1600
+      parent: "section.by-theme"
+    - name: "Fall"
+      url: "/products/%40theme%3Dfall"
+      weight: 1700
+      parent: "section.by-theme"
+    - name: "Winter"
+      url: "/products/%40theme%3Dwinter"
+      weight: 1800
+      parent: "section.by-theme"
+
     - name: "By Price"
-      url: ""
+      url: "/products/"
+      post: 3
       role: separator
+      identifier: "section.by-price"
       weight: 900
       parent: "menu.products"
 
     - name: "$1 or Less"
       url: "/products/%40price%3C1"
       weight: 1000
-      parent: "menu.products"
+      parent: "section.by-price"
     - name: "$1 - $10"
       url: "/products/%40price%3E1%26price%3C10"
       weight: 1100
-      parent: "menu.products"
+      parent: "section.by-price"
     - name: "$10 or More"
       url: "/products/%40price%3E10"
       weight: 1200
-      parent: "menu.products"
+      parent: "section.by-price"
+
 
     - name: "services"
       identifier: "menu.services"

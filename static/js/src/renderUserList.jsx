@@ -120,7 +120,7 @@ function PopupEdit(props) {
     const user = props.user;
     function handleUpdate(e) {
         const data = {
-            id: e.target.dataset.id,
+            id: Number(e.target.dataset.id),
             username: $('#username').val(),
             password: $('#password').val(),
             email: $('#email').val(),

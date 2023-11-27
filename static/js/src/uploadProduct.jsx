@@ -20,10 +20,42 @@ function renderCategorySelect() {
               <UploadProduct />,
               container[0]
             );
+            // initFileInput("#uploadImg");
           }
         });
       }
     );
+  }
+
+  function initFileInput(id) {
+    $(id).fileinput({
+      showUpload: true,
+      showPreview: true,
+      showRemove: true,
+      multiple: true,
+      async: false,
+      minFileCount: 1,
+      maxFileCount: 4,
+      // uploadUrl: "http://54.79.139.73:80/v1/upload",
+      uploadExtraData: {
+        token: localStorage.getItem("token"),
+      },
+      allowedFileExtensions: ['jpg', 'png', 'gif'],
+      browseClass: "btn btn-primary btn-lg",
+      browseLabel: "Select Image",
+      browseIcon: '<i class="glyphicon glyphicon-picture"></i> ',
+      removeClass: "btn btn-danger btn-lg",
+      removeLabel: "Delete",
+      removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
+      uploadClass: "btn btn-info btn-lg",
+      uploadLabel: "Upload",
+      uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
+    }).on('fileuploaded', function (event, data, previewId, index) {
+      if (data.response) {
+        const image = data.response;
+        console.log(image);
+      }
+    });
   }
 
   $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
@@ -105,7 +137,7 @@ function SelectBtn(props) {
 }
 
 function UploadProduct() {
-  let [image, setImage] = React.useState(null);
+  let [image, setImage] = React.useState('');
   let [fileUploaded, setFileUploaded] = React.useState(false);
 
   React.useEffect(() => {
@@ -115,6 +147,9 @@ function UploadProduct() {
     }
   }, [fileUploaded]);
 
+  const createProduct = () => {
+  }
+
   return (
     <div className="row">
       <div className="col-md-10 col-md-offset-1">
@@ -122,14 +157,28 @@ function UploadProduct() {
           <h3>Upload Product</h3>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
-          <ImageBox size={100} text="upload image" src={image} onChange={(e) => setImage(e.target.value)} />
+          <ImageBox size={100} text="upload image" src={image} id="uploadImg" />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
-          <InputBox name="description" type="text" label="Description" required={true} />
+          <InputBox id="description" name="description" type="text" label="Description" required={true} />
+          <InputBox id="profit" label="Profit" type="number" required={true} />
+          <InputBox id="volume" label="Volume" type="number" required={true} />
+          <InputBox id="weight" label="Weight" type="number" required={true} />
+          <InputBox id="price" label="Price" type="number" required={true} />
           <InputBox id="quantity" type="number" name="quantity" label="Quantity" required={true} />
+          <InputBox id="include" type="text" name="include" label="Include" required={false} />
+          <InputBox id="exclude" type="text" name="exclude" label="Exclude" required={false} />
+          <div className="form-group col-sm-10 col-sm-offset-1" id="statusWrapper">
+            <label htmlFor="status">Status</label>
+            <select className="form-control" id="status" defaultValue={1}>
+              <option value="2">Inactive</option>
+              <option value="1">Public</option>
+              <option value="0">Private</option>
+            </select>
+          </div>
         </div>
         <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row">
-          <button className="btn btn-primary btn-lg col-xs-12" onClick={createProduct}>Upload</button>
+          <button className="btn btn-primary btn-lg col-xs-12" onClick={createProduct}>Create</button>
         </div>
       </div>
     </div>
