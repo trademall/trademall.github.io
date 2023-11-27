@@ -32,33 +32,29 @@ menu:
       url: "/products/%40category%3Dapparel"
       weight: 200
       parent: "section.by-category"
-    - name: "Bags & Totes"
-      url: "/products/%40category%3Dbags-totes"
+    - name: "Hat"
+      url: "/products/%40category%3Dhat"
       weight: 300
       parent: "section.by-category"
-    - name: "Clothes"
-      url: "/products/%40category%3Dclothes"
+    - name: "Plush"
+      url: "/products/%40category%3Dplush"
       weight: 365
+      parent: "section.by-category"
+    - name: "Socks"
+      url: "/products/%40category%3Dsocks"
+      weight: 400
       parent: "section.by-category"
     - name: "Drinkware"
       url: "/products/%40category%3Ddrinkware"
-      weight: 400
-      parent: "section.by-category"
-    - name: "Electronics"
-      url: "/products/%40category%3Delectronics"
       weight: 500
       parent: "section.by-category"
-    - name: "Office"
-      url: "/products/%40category%3Doffice"
+    - name: "Office&Technology"
+      url: "/products/%40category%3Doffice-tech"
       weight: 600
       parent: "section.by-category"
-    - name: "Writing"
-      url: "/products/%40category%3Dwriting"
+    - name: "All"
+      url: "/products/"
       weight: 700
-      parent: "section.by-category"
-    - name: "Wellness"
-      url: "/products/%40category%3Dwellness"
-      weight: 800
       parent: "section.by-category"
 
     - name: "By Theme"
@@ -95,28 +91,24 @@ menu:
       post: 3
       role: separator
       identifier: "section.by-price"
-      weight: 900
+      weight: 1900
       parent: "menu.products"
 
-    - name: "$1 or Less"
-      url: "/products/%40price%3C1"
-      weight: 1000
+    - name: "$0.5 - $1"
+      url: "/products/%40price%3E0.5%26price%3C1"
+      weight: 3000
       parent: "section.by-price"
     - name: "$1 - $3"
       url: "/products/%40price%3E1%26price%3C3"
-      weight: 1100
+      weight: 3100
       parent: "section.by-price"
     - name: "$3 - $5"
       url: "/products/%40price%3E3%26price%3C5"
-      weight: 1200
+      weight: 3200
       parent: "section.by-price"
-    - name: "$5 - $10"
-      url: "/products/%40price%3E5%26price%3C10"
-      weight: 1900
-      parent: "section.by-price"
-    - name: "$10 or More"
-      url: "/products/%40price%3E10"
-      weight: 2000
+    - name: "$5 or More"
+      url: "/products/%40price%3E5"
+      weight: 3300
       parent: "section.by-price"
 
 
