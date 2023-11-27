@@ -38,7 +38,7 @@
 
 
 
-<link href="/css/custom.css?1701051827" rel="stylesheet">
+<link href="/css/custom.css?1701054037" rel="stylesheet">
 
 
 
@@ -308,7 +308,7 @@
 
 <script>
   window.onload = () => {
-    let links = document.querySelectorAll(".dropdown-menu li a[href]");
+    let links = document.querySelectorAll("li a[href]");
     
     for (let i = 0; i < links.length; i++) {
       let link = links[i];
@@ -338,7 +338,33 @@
             <div class="container" id="commodities">
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="sidebar hidden-xs col-sm-3 col-md-2">
+            <div class="widget">
+                <h4>Category</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    
+                    
+                    <li><a href="/products/">All</a></li>
+                    
+                    <li><a href="/products/@category=apparel">Apparel</a></li>
+                    
+                    <li><a href="/products/@category=bags-totes">Bags &amp; Totes</a></li>
+                    
+                    <li><a href="/products/@category=drinkware">Drinkware</a></li>
+                    
+                    <li><a href="/products/@category=electronics">Electronics</a></li>
+                    
+                    <li><a href="/products/@category=office">Office</a></li>
+                    
+                    <li><a href="/products/@category=writing">Writing</a></li>
+                    
+                    <li><a href="/products/@category=wellness">Wellness</a></li>
+                    
+                </ul>
+            </div>
+            
+        </div>
+        <div class="col-sm-9 col-md-10">
 
             <section>
 
