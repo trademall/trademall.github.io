@@ -55,11 +55,15 @@ function PTemplateListTable(props) {
 
     const handleDelete = (e) => {
         const id = e.target.dataset.id;
-        deletePTemplate(id);
+        deletePTemplate(id, () => {
+            window.location.reload();
+        });
     }
     const handleUpdate = (e) => {
         const id = e.target.dataset.id;
-        updatePTemplate(id);
+        updatePTemplate(id, () => {
+            window.location.reload();
+        });
     }
 
     return (
