@@ -18,12 +18,14 @@ function renderPTemplateList(props) {
 }
 
 function PTemplateList(props) {
+    const [template, setTemplate] = React.useState({});
     return (
         <div>
             <Heading />
             <PTemplateListTable templates={props.templates} />
             {/* <Pagination /> */}
             <NewPTemplateModal />
+            {/* <PopupEdit /> */}
             <CreatePTmplateBtn />
         </div>
     );
@@ -60,17 +62,29 @@ function PTemplateListTable(props) {
         });
     }
     const handleActive = (e) => {
-        const id = e.target.dataset.id;
+        const id = Number(e.target.dataset.id);
         const status = e.target.dataset.status;
         setPTemplateStatus(id, status, () => {
             window.location.reload();
         });
     }
     const handleUpdate = (e) => {
-        const id = e.target.dataset.id;
-        updatePTemplate(id, () => {
-            window.location.reload();
+        const id = Number(e.target.dataset.id);
+        $('#editPTemplateModal').modal('show');
+        $('#editPTemplateModal form').attr('data-id', id);
+        const template = templates.find((template) => {
+            return template.id === id;
         });
+        // console.log(template);
+        $('#template-name').val(template.templatename);
+        $('#category').val(template.category);
+        $('#child-category').val(template.childcategory);
+        $('#profit').val(template.profit);
+        $('#include').val(template.include);
+        $('#exclude').val(template.exclude);
+        $('#description').val(template.description);
+        $('#attributes').val(template.attributes);
+
     }
 
     return (
@@ -108,6 +122,121 @@ function PTemplateListTable(props) {
         </div>
     );
 }
+
+function PopupEdit(props) {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const id = e.target.dataset.id;
+        const templateName = $('#template-name').val();
+        const category = $('#category').val();
+        const childCategory = $('#child-category').val();
+        const profit = Number($('#profit').val());
+        const status = 1;
+        const include = $('#include').val() || [];
+        const exclude = $('#exclude').val() || [];
+        const description = $('#description').val() || '';
+        const attributes = $('#attributes').val() || {};
+        const data = {
+            "id": id,
+            "templatename": templateName,
+            "category": category,
+            "childcategory": childCategory,
+            "Profit": profit,
+            "isactive": status,
+            "include": include,
+            "exclude": exclude,
+            "description": description,
+            "attributes": attributes
+        }
+        console.log(data);
+        updatePTemplate(data, () => {
+            $('#info').html('<p class="text-success">Product Template Updated Successfully!</p>');
+            setTimeout(() => {
+                $('#info').html('');
+                $('#editPTemplateModal').modal('hide');
+                // window.location.reload();
+            }, 1000);
+        }, (res) => {
+            $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
+        });
+    }
+
+    const handleClick = (e) => {
+        const sel = e.target.dataset.title;
+        const tog = e.target.dataset.toggle;
+        $('#' + tog).prop('value', sel);
+
+        $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active btn-success').addClass('notActive btn-default');
+        $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
+    }
+
+    const [attributes, setAttributes] = React.useState([<Attributes items={props.attributes} />]);
+
+    const handleNewAttribute = (e) => {
+        e.preventDefault();
+        const newAttribute = <EmptyAttribute />;
+        setAttributes([...attributes, newAttribute]);
+    }
+
+    const handleDeleteAttribute = (e) => {
+        e.preventDefault();
+        if (attributes.length === 1) {
+            return;
+        }
+        const newAttributes = attributes.slice(0, attributes.length - 1);
+        setAttributes(newAttributes);
+    }
+
+    const handleCancel = (e) => {
+        // hide modal
+        $('#editPTemplateModal').modal('hide');
+    }
+
+    return (
+        <div className="modal fade" id="editPTemplateModal" tabIndex="-1" role="dialog" aria-labelledby="editPTemplateModalLabel">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <form data-id={props.id} onSubmit={handleSubmit}>
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleCancel}><span aria-hidden="true">&times;</span></button>
+                            <h4 className="modal-title" id="editPTemplateModalLabel">Edit Product Template</h4>
+                        </div>
+                        <div className="modal-body">
+                            <InputBox label="Template Name" id="template-name" type="text" required={true} value={props.name} />
+                            <InputBox label="Category" id="category" type="text" required={true} value={props.category} />
+                            <InputBox label="Child Category" id="child-category" type="text" required={true} value={props.childCategory} />
+                            <InputBox label="Profit" id="profit" type="number" required={true} value={props.profit} />
+                            {/* <InputBox label="Include" id="include" type="text" required={false} value={include} onChange={handleIncludeChange} />
+                            <InputBox label="Exclude" id="exclude" type="text" required={false} value={exclude} onChange={handleExcludeChange} /> */}
+                            <InputBox label="Description" id="description" type="text" required={false} value={props.description} onChange={handleDescriptionChange} />
+                            <div className="col-md-10 col-md-offset-1">
+                                <label htmlFor="attributes">Attributes</label>
+                                <div className="vertical-center">
+                                    <div className="col-xs-11" id="attributes">
+                                        {attributes.map((attribute) => {
+                                            return attribute;
+                                        })}
+                                    </div>
+                                    <div className="col-xs-1 text-center">
+                                        <button type="button" className="btn btn-primary" onClick={handleNewAttribute}>+</button>
+                                        <button type="button" className="btn btn-danger" onClick={handleDeleteAttribute}>-</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="info col-md-10 col-md-offset-1" id="info">
+                            </div>
+                            <div className="modal-foot text-center">
+                                <button type="submit" className="btn btn-lg btn-primary">Submit</button>
+                                <button type="button" className="btn btn-lg btn-default" data-dismiss="modal" onClick={handleCancel}>Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 
 function NewPTemplateModal() {
     const handleSubmit = (e) => {
@@ -254,6 +383,30 @@ function EmptyAttribute() {
                 </div>
                 <div className="col-sm-4">
                     <InputBox label="Required" id="required" type="checkbox" />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function Attributes(props) {
+    const items = props.items;
+    return (
+        <div className="form-group">
+            <div className="row">
+                <div className="col-sm-4">
+                    <label htmlFor="attr-name">Name</label>
+                    <input type="text" className="form-control" id="attr-name" placeholder="Attribute Name" value={items.name} />
+                </div>
+                <div className="col-sm-4">
+                    <label htmlFor="type">Type</label>
+                    <select className="form-control" id="type" value={items.type}>
+                        <option value="multiple">Multiple</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div className="col-sm-4">
+                    <InputBox label="Required" id="required" type="checkbox" value={items.required} />
                 </div>
             </div>
         </div>

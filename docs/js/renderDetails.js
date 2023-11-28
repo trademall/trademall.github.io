@@ -1,3 +1,4 @@
+import { getPrice } from "./product_api.js";
 function RenderDetails(data) {
   const details = $('.content')[0];
   // console.log(data);
@@ -64,13 +65,24 @@ function RightColumn(props) {
   }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
 }
 function Customizer(props) {
+  const [num, setNum] = React.useState(1);
+  const [price, setPrice] = React.useState({
+    "express": 0.00,
+    "airexpress": 0.00,
+    "seaexpress": 0.00,
+    "seatrans": 0.00
+  });
   return /*#__PURE__*/React.createElement("div", {
     id: "customizer",
     className: "card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12"
   }, /*#__PURE__*/React.createElement(CustomizerHeader, null), /*#__PURE__*/React.createElement(CustomizerBody, {
-    product: props.product
+    product: props.product,
+    num: num,
+    setNum: setNum,
+    price: price,
+    setPrice: setPrice
   }), /*#__PURE__*/React.createElement(CustomizerFooter, {
-    product: props.product
+    price: price
   }));
 }
 function CustomizerHeader() {
@@ -80,13 +92,37 @@ function CustomizerHeader() {
 }
 function CustomizerBody(props) {
   const attrs = Object.keys(props.product.attributes);
+  let trigger = false;
+  let timer = null;
+  const handleNumChange = event => {
+    props.setNum(event.target.value);
+    console.log(trigger);
+    trigger ? clearTimeout(timer) : trigger = true;
+    timer = setTimeout(() => {
+      getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+    }, 1000);
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "card-body"
   }, attrs.map(attr => /*#__PURE__*/React.createElement(CustomizerOption, {
     key: attr,
     title: attr,
     option: props.product.attributes[attr]
-  })));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "row selector"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-2"
+  }, /*#__PURE__*/React.createElement("h4", null, "Quantity: ")), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    className: "form-control",
+    id: "quantity",
+    name: "quantity",
+    min: "1",
+    value: props.num,
+    onChange: handleNumChange
+  }))));
 }
 function CustomizerOption(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -118,9 +154,17 @@ function CustomizerFooter(props) {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-md-12"
-  }, /*#__PURE__*/React.createElement("h4", null, "Total Price: "), /*#__PURE__*/React.createElement("p", {
-    className: "total-price"
-  }, "$" + props.product.price))));
+  }, /*#__PURE__*/React.createElement("h4", null, "Total Price: "), Object.keys(props.price).map(key => /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-6"
+  }, /*#__PURE__*/React.createElement("p", {
+    key: key,
+    className: "text-uppercase text-left"
+  }, key, ": ")), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-6"
+  }, /*#__PURE__*/React.createElement("p", {
+    key: key,
+    className: "text-uppercase text-right"
+  }, "$", props.price[key])))))));
 }
 function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {

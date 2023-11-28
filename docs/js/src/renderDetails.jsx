@@ -1,3 +1,5 @@
+import { getPrice } from "./product_api.js";
+
 function RenderDetails(data) {
     const details = $('.content')[0];
     // console.log(data);
@@ -72,11 +74,18 @@ function RightColumn(props) {
 }
 
 function Customizer(props) {
+    const [num, setNum] = React.useState(1);
+    const [price, setPrice] = React.useState({
+        "express": 0.00,
+        "airexpress": 0.00,
+        "seaexpress": 0.00,
+        "seatrans": 0.00
+    });
     return (
         <div id="customizer" className="card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
             <CustomizerHeader />
-            <CustomizerBody product={props.product} />
-            <CustomizerFooter product={props.product} />
+            <CustomizerBody product={props.product} num={num} setNum={setNum} price={price} setPrice={setPrice} />
+            <CustomizerFooter price={price} />
         </div>
     );
 }
@@ -91,11 +100,29 @@ function CustomizerHeader() {
 
 function CustomizerBody(props) {
     const attrs = Object.keys(props.product.attributes);
+    let trigger = false;
+    let timer = null;
+    const handleNumChange = (event) => {
+        props.setNum(event.target.value);
+        console.log(trigger);
+        trigger? clearTimeout(timer): trigger = true;
+        timer = setTimeout(() => {
+            getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+        }, 1000);
+    };
     return (
         <div className="card-body">
             {attrs.map((attr) => (
                 <CustomizerOption key={attr} title={attr} option={props.product.attributes[attr]} />
             ))}
+            <div className="row selector">
+                <div className="col-md-2">
+                    <h4>Quantity: </h4>
+                </div>
+                <div className="col-md-10">
+                    <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} />
+                </div>
+            </div>
         </div>
     );
 }
@@ -129,7 +156,16 @@ function CustomizerFooter(props) {
             <div className="row">
                 <div className="col-md-12">
                     <h4>Total Price: </h4>
-                    <p className="total-price">{"$"+props.product.price}</p>
+                    {Object.keys(props.price).map((key) => (
+                        <div>
+                            <div className="col-xs-6">
+                                <p key={key} className="text-uppercase text-left">{key}: </p>
+                            </div>
+                            <div className="col-xs-6">
+                                <p key={key} className="text-uppercase text-right">${props.price[key]}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

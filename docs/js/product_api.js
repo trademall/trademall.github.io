@@ -97,4 +97,29 @@ function deleteProduct(id, callback, errorcallback = console.log) {
     });
 }
 
-export { getProductInfo, getProductList, createProduct, updateProduct, deleteProduct };
+function getPrice(id, num, callback, errorcallback = console.log) {
+    $.ajax({
+        url: server + "/product/price",
+        type: "POST",
+        dataType: "json",
+        data: {
+            id: Number(id),
+            num: Number(num),
+            userid: Number(localStorage.getItem("id")),
+            token: localStorage.getItem("token")
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                callback(data.data);
+            }
+            else {
+                errorcallback(data.message);
+            }
+        },
+        error: function (data) {
+            errorcallback(data.message);
+        }
+    });
+}
+
+export { getProductInfo, getProductList, createProduct, updateProduct, deleteProduct, getPrice };
