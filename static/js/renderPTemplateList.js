@@ -57,7 +57,7 @@ function PTemplateListTable(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-12"
+    className: "col-sm-12 table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
     className: "table table-bordered"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Category"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, templates.map(template => {
@@ -103,7 +103,7 @@ function NewPTemplateModal() {
       setTimeout(() => {
         $('#info').html('');
         $('#newPTemplateModal').modal('hide');
-        window.location.reload();
+        // window.location.reload();
       }, 1000);
     }, res => {
       $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
@@ -167,6 +167,40 @@ function NewPTemplateModal() {
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "attributes"
+  }, "Attributes"), /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "attributes"
+  }, "Name"), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "attributes",
+    placeholder: "Attribute Name"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "attributes"
+  }, "Type"), /*#__PURE__*/React.createElement("select", {
+    className: "form-control",
+    id: "attributes"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "text"
+  }, "Multiple"), /*#__PURE__*/React.createElement("option", {
+    value: "text"
+  }, "Custom"))), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    label: "Required",
+    id: "required",
+    type: "checkbox"
+  }))))), /*#__PURE__*/React.createElement("div", {
     className: "info",
     id: "info"
   }), /*#__PURE__*/React.createElement("div", {

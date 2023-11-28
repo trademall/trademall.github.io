@@ -68,7 +68,7 @@ function PTemplateListTable(props) {
 
     return (
         <div className="row">
-            <div className="col-sm-12">
+            <div className="col-sm-12 table-responsive">
                 <table className="table table-bordered">
                     <thead>
                         <tr>
@@ -130,7 +130,7 @@ function NewPTemplateModal() {
             setTimeout(() => {
                 $('#info').html('');
                 $('#newPTemplateModal').modal('hide');
-                window.location.reload();
+                // window.location.reload();
             }, 1000);
         }, (res) => {
             $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
@@ -154,6 +154,27 @@ function NewPTemplateModal() {
                             <InputBox label="Include" id="include" type="text" required={false} />
                             <InputBox label="Exclude" id="exclude" type="text" required={false} />
                             <InputBox label="Description" id="description" type="text" required={false} />
+                            <div className="col-md-10 col-md-offset-1">
+                                <div className="form-group">
+                                    <label htmlFor="attributes">Attributes</label>
+                                    <div className="row">
+                                        <div className="col-sm-4">
+                                            <label htmlFor="attributes">Name</label>
+                                            <input type="text" className="form-control" id="attributes" placeholder="Attribute Name" />
+                                        </div>
+                                        <div className="col-sm-4">
+                                            <label htmlFor="attributes">Type</label>
+                                            <select className="form-control" id="attributes">
+                                                <option value="text">Multiple</option>
+                                                <option value="text">Custom</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-sm-4">
+                                            <InputBox label="Required" id="required" type="checkbox" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="info" id="info">
                             </div>
                             <div className="modal-foot text-center">
