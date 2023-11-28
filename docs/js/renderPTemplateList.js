@@ -109,6 +109,13 @@ function NewPTemplateModal() {
       $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
     });
   };
+  const handleClick = e => {
+    const sel = e.target.dataset.title;
+    const tog = e.target.dataset.toggle;
+    $('#' + tog).prop('value', sel);
+    $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active btn-success').addClass('notActive btn-default');
+    $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
     id: "newPTemplateModal",
@@ -147,35 +154,55 @@ function NewPTemplateModal() {
     id: "profit",
     type: "number",
     required: true
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    label: "Active",
-    id: "status",
-    type: "checkbox"
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    label: "Include",
-    id: "include",
-    type: "text",
-    required: false
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    label: "Exclude",
-    id: "exclude",
-    type: "text",
-    required: false
-  }), /*#__PURE__*/React.createElement(InputBox, {
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "price-model"
+  }, "Price Model*"), /*#__PURE__*/React.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "btn-group",
+    id: "radioBtn",
+    onClick: handleClick
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "btn-group"
+  }, /*#__PURE__*/React.createElement("a", {
+    type: "button",
+    className: "btn btn-success btn-lg active",
+    "data-toggle": "price-model",
+    "data-title": "flat"
+  }, "Flat")), /*#__PURE__*/React.createElement("div", {
+    className: "btn-group"
+  }, /*#__PURE__*/React.createElement("a", {
+    type: "button",
+    className: "btn btn-default btn-lg notActive",
+    "data-toggle": "price-model",
+    "data-title": "tier"
+  }, "Tier"))), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    id: "price-model",
+    name: "price-model"
+  })))), /*#__PURE__*/React.createElement(InputBox, {
     label: "Description",
     id: "description",
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement("div", {
-    className: "col-md-10 col-md-offset-1 vertical-center"
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "attributes"
+  }, "Attributes"), /*#__PURE__*/React.createElement("div", {
+    className: "vertical-center"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-11 row"
+    className: "col-xs-11"
   }, /*#__PURE__*/React.createElement(EmptyAttribute, null)), /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-1 text-center"
+    className: "col-xs-1 text-center"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-primary"
-  }, "+"))), /*#__PURE__*/React.createElement("div", {
+  }, "+")))), /*#__PURE__*/React.createElement("div", {
     className: "info col-md-10 col-md-offset-1",
     id: "info"
   }), /*#__PURE__*/React.createElement("div", {
@@ -193,9 +220,7 @@ function NewPTemplateModal() {
 function EmptyAttribute() {
   return /*#__PURE__*/React.createElement("div", {
     className: "form-group"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "attributes"
-  }, "Attributes"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-sm-4"

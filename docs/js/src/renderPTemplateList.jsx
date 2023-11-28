@@ -136,6 +136,16 @@ function NewPTemplateModal() {
             $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
         });
     }
+
+    const handleClick = (e) => {
+        const sel = e.target.dataset.title;
+        const tog = e.target.dataset.toggle;
+        $('#' + tog).prop('value', sel);
+
+        $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active btn-success').addClass('notActive btn-default');
+        $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
+    }
+
     return (
         <div className="modal fade" id="newPTemplateModal" tabIndex="-1" role="dialog" aria-labelledby="newPTemplateModalLabel">
             <div className="modal-dialog" role="document">
@@ -150,16 +160,34 @@ function NewPTemplateModal() {
                             <InputBox label="Category" id="category" type="text" required={true} />
                             <InputBox label="Child Category" id="child-category" type="text" required={true} />
                             <InputBox label="Profit" id="profit" type="number" required={true} />
-                            <InputBox label="Active" id="status" type="checkbox" />
-                            <InputBox label="Include" id="include" type="text" required={false} />
-                            <InputBox label="Exclude" id="exclude" type="text" required={false} />
+                            <div className="col-md-10 col-md-offset-1">
+                                <div className="form-group">
+                                    <label htmlFor="price-model">Price Model*</label>
+                                    <div className="input-group">
+                                        <div className="btn-group" id="radioBtn" onClick={handleClick}>
+                                            <div className="btn-group">
+                                                <a type="button" className="btn btn-success btn-lg active" data-toggle="price-model" data-title="flat">Flat</a>
+                                            </div>
+                                            <div className="btn-group">
+                                                <a type="button" className="btn btn-default btn-lg notActive" data-toggle="price-model" data-title="tier">Tier</a>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="price-model" name="price-model" />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <InputBox label="Include" id="include" type="text" required={false} />
+                            <InputBox label="Exclude" id="exclude" type="text" required={false} /> */}
                             <InputBox label="Description" id="description" type="text" required={false} />
-                            <div className="col-md-10 col-md-offset-1 vertical-center">
-                                <div className="col-sm-11 row">
+                            <div className="col-md-10 col-md-offset-1">
+                                <label htmlFor="attributes">Attributes</label>
+                                <div className="vertical-center">
+                                <div className="col-xs-11">
                                     <EmptyAttribute />
                                 </div>
-                                <div className="col-sm-1 text-center">
+                                <div className="col-xs-1 text-center">
                                     <button type="button" className="btn btn-primary">+</button>
+                                </div>
                                 </div>
                             </div>
                             <div className="info col-md-10 col-md-offset-1" id="info">
@@ -179,7 +207,6 @@ function NewPTemplateModal() {
 function EmptyAttribute() {
     return (
         <div className="form-group">
-            <label htmlFor="attributes">Attributes</label>
             <div className="row">
                 <div className="col-sm-4">
                     <label htmlFor="attributes">Name</label>

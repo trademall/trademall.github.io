@@ -29,6 +29,10 @@ button.btn {
   margin: 6px;
 }
 
+.btn-group a.btn {
+  margin: unset;
+}
+
 a.btn {
   border-radius: var(--radius);
   margin: 6px;
