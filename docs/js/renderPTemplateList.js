@@ -1,6 +1,6 @@
 import { Sidebar } from "./renderAdmin.js";
 import { InputBox } from "./InputBox.js";
-import { createPTemplate, deletePTemplate, updatePTemplate } from "./ptemplate_api.js";
+import { createPTemplate, deletePTemplate, updatePTemplate, setPTemplateStatus } from "./ptemplate_api.js";
 function renderPTemplateList(props) {
   const templateList = $('#ptemplate-list');
   if (templateList.length) {
@@ -48,6 +48,13 @@ function PTemplateListTable(props) {
       window.location.reload();
     });
   };
+  const handleActive = e => {
+    const id = e.target.dataset.id;
+    const status = e.target.dataset.status;
+    setPTemplateStatus(id, status, () => {
+      window.location.reload();
+    });
+  };
   const handleUpdate = e => {
     const id = e.target.dataset.id;
     updatePTemplate(id, () => {
@@ -68,6 +75,10 @@ function PTemplateListTable(props) {
       "data-id": template.id,
       onClick: handleUpdate
     }, "Update"), /*#__PURE__*/React.createElement("button", {
+      className: template.isactive ? "btn btn-warning" : "btn btn-success",
+      "data-id": template.id,
+      onClick: handleActive
+    }, template.isactive ? 'Deactivate' : 'Activate'), /*#__PURE__*/React.createElement("button", {
       className: "btn btn-danger",
       "data-id": template.id,
       onClick: handleDelete
