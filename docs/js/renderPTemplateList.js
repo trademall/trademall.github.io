@@ -167,8 +167,31 @@ function NewPTemplateModal() {
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement("div", {
-    className: "col-md-10 col-md-offset-1"
+    className: "col-md-10 col-md-offset-1 vertical-center"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-11 row"
+  }, /*#__PURE__*/React.createElement(EmptyAttribute, null)), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-1 text-center"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "btn btn-primary"
+  }, "+"))), /*#__PURE__*/React.createElement("div", {
+    className: "info col-md-10 col-md-offset-1",
+    id: "info"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "modal-foot text-center"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "btn btn-lg btn-primary",
+    onClick: handleSubmit
+  }, "Submit"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "btn btn-lg btn-default",
+    "data-dismiss": "modal"
+  }, "Cancel")))))));
+}
+function EmptyAttribute() {
+  return /*#__PURE__*/React.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "attributes"
@@ -200,20 +223,7 @@ function NewPTemplateModal() {
     label: "Required",
     id: "required",
     type: "checkbox"
-  }))))), /*#__PURE__*/React.createElement("div", {
-    className: "info",
-    id: "info"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "modal-foot text-center"
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "submit",
-    className: "btn btn-lg btn-primary",
-    onClick: handleSubmit
-  }, "Submit"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "btn btn-lg btn-default",
-    "data-dismiss": "modal"
-  }, "Cancel")))))));
+  }))));
 }
 function CreatePTmplateBtn() {
   return /*#__PURE__*/React.createElement("div", {

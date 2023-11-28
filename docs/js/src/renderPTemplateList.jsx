@@ -154,28 +154,15 @@ function NewPTemplateModal() {
                             <InputBox label="Include" id="include" type="text" required={false} />
                             <InputBox label="Exclude" id="exclude" type="text" required={false} />
                             <InputBox label="Description" id="description" type="text" required={false} />
-                            <div className="col-md-10 col-md-offset-1">
-                                <div className="form-group">
-                                    <label htmlFor="attributes">Attributes</label>
-                                    <div className="row">
-                                        <div className="col-sm-4">
-                                            <label htmlFor="attributes">Name</label>
-                                            <input type="text" className="form-control" id="attributes" placeholder="Attribute Name" />
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <label htmlFor="attributes">Type</label>
-                                            <select className="form-control" id="attributes">
-                                                <option value="text">Multiple</option>
-                                                <option value="text">Custom</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <InputBox label="Required" id="required" type="checkbox" />
-                                        </div>
-                                    </div>
+                            <div className="col-md-10 col-md-offset-1 vertical-center">
+                                <div className="col-sm-11 row">
+                                    <EmptyAttribute />
+                                </div>
+                                <div className="col-sm-1 text-center">
+                                    <button type="button" className="btn btn-primary">+</button>
                                 </div>
                             </div>
-                            <div className="info" id="info">
+                            <div className="info col-md-10 col-md-offset-1" id="info">
                             </div>
                             <div className="modal-foot text-center">
                                 <button type="submit" className="btn btn-lg btn-primary" onClick={handleSubmit}>Submit</button>
@@ -183,10 +170,30 @@ function NewPTemplateModal() {
                             </div>
                         </form>
                     </div>
-                    {/* <div className="modal-footer">
-                        <button type="button" className="btn btn-primary">Save changes</button>
-                        <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                    </div> */}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function EmptyAttribute() {
+    return (
+        <div className="form-group">
+            <label htmlFor="attributes">Attributes</label>
+            <div className="row">
+                <div className="col-sm-4">
+                    <label htmlFor="attributes">Name</label>
+                    <input type="text" className="form-control" id="attributes" placeholder="Attribute Name" />
+                </div>
+                <div className="col-sm-4">
+                    <label htmlFor="attributes">Type</label>
+                    <select className="form-control" id="attributes">
+                        <option value="text">Multiple</option>
+                        <option value="text">Custom</option>
+                    </select>
+                </div>
+                <div className="col-sm-4">
+                    <InputBox label="Required" id="required" type="checkbox" />
                 </div>
             </div>
         </div>

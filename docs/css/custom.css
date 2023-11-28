@@ -372,3 +372,12 @@ section.post {
   padding-left: 10px;
   padding-bottom: 6px;
 }
+
+.vertical-center {
+  vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
