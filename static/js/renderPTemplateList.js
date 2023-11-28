@@ -92,7 +92,7 @@ function NewPTemplateModal() {
     const category = $('#category').val();
     const childCategory = $('#child-category').val();
     const profit = Number($('#profit').val());
-    const status = $('#status').val() === 'on' ? 1 : 0;
+    const status = 1;
     const include = $('#include').val() || [];
     const exclude = $('#exclude').val() || [];
     const description = $('#description').val() || '';
@@ -127,6 +127,24 @@ function NewPTemplateModal() {
     $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active btn-success').addClass('notActive btn-default');
     $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
   };
+  const [attributes, setAttributes] = React.useState([/*#__PURE__*/React.createElement(EmptyAttribute, null)]);
+  const handleNewAttribute = e => {
+    e.preventDefault();
+    const newAttribute = /*#__PURE__*/React.createElement(EmptyAttribute, null);
+    setAttributes([...attributes, newAttribute]);
+  };
+  const handleDeleteAttribute = e => {
+    e.preventDefault();
+    if (attributes.length === 1) {
+      return;
+    }
+    const newAttributes = attributes.slice(0, attributes.length - 1);
+    setAttributes(newAttributes);
+  };
+  const handleCancel = e => {
+    e.preventDefault();
+    setAttributes([/*#__PURE__*/React.createElement(EmptyAttribute, null)]);
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
     id: "newPTemplateModal",
@@ -140,7 +158,14 @@ function NewPTemplateModal() {
     className: "modal-content"
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-header"
-  }, /*#__PURE__*/React.createElement("h4", {
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "close",
+    "data-dismiss": "modal",
+    "aria-label": "Close"
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true"
+  }, "\xD7")), /*#__PURE__*/React.createElement("h4", {
     className: "modal-title",
     id: "newPTemplateModalLabel"
   }, "New Product Template")), /*#__PURE__*/React.createElement("div", {
@@ -207,13 +232,21 @@ function NewPTemplateModal() {
   }, "Attributes"), /*#__PURE__*/React.createElement("div", {
     className: "vertical-center"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-11"
-  }, /*#__PURE__*/React.createElement(EmptyAttribute, null)), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-11",
+    id: "attributes"
+  }, attributes.map(attribute => {
+    return attribute;
+  })), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-1 text-center"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
-    className: "btn btn-primary"
-  }, "+")))), /*#__PURE__*/React.createElement("div", {
+    className: "btn btn-primary",
+    onClick: handleNewAttribute
+  }, "+"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "btn btn-danger",
+    onClick: handleDeleteAttribute
+  }, "-")))), /*#__PURE__*/React.createElement("div", {
     className: "info col-md-10 col-md-offset-1",
     id: "info"
   }), /*#__PURE__*/React.createElement("div", {
@@ -225,7 +258,8 @@ function NewPTemplateModal() {
   }, "Submit"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-lg btn-default",
-    "data-dismiss": "modal"
+    "data-dismiss": "modal",
+    onClick: handleCancel
   }, "Cancel")))))));
 }
 function EmptyAttribute() {
@@ -236,23 +270,23 @@ function EmptyAttribute() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-sm-4"
   }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "attributes"
+    htmlFor: "attr-name"
   }, "Name"), /*#__PURE__*/React.createElement("input", {
     type: "text",
     className: "form-control",
-    id: "attributes",
+    id: "attr-name",
     placeholder: "Attribute Name"
   })), /*#__PURE__*/React.createElement("div", {
     className: "col-sm-4"
   }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "attributes"
+    htmlFor: "type"
   }, "Type"), /*#__PURE__*/React.createElement("select", {
     className: "form-control",
-    id: "attributes"
+    id: "type"
   }, /*#__PURE__*/React.createElement("option", {
-    value: "text"
+    value: "multiple"
   }, "Multiple"), /*#__PURE__*/React.createElement("option", {
-    value: "text"
+    value: "custom"
   }, "Custom"))), /*#__PURE__*/React.createElement("div", {
     className: "col-sm-4"
   }, /*#__PURE__*/React.createElement(InputBox, {

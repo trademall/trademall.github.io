@@ -116,7 +116,7 @@ function NewPTemplateModal() {
         const category = $('#category').val();
         const childCategory = $('#child-category').val();
         const profit = Number($('#profit').val());
-        const status = $('#status').val() === 'on' ? 1 : 0;
+        const status = 1;
         const include = $('#include').val() || [];
         const exclude = $('#exclude').val() || [];
         const description = $('#description').val() || '';
@@ -154,12 +154,34 @@ function NewPTemplateModal() {
         $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
     }
 
+    const [attributes, setAttributes] = React.useState([<EmptyAttribute />]);
+
+    const handleNewAttribute = (e) => {
+        e.preventDefault();
+        const newAttribute = <EmptyAttribute />;
+        setAttributes([...attributes, newAttribute]);
+    }
+
+    const handleDeleteAttribute = (e) => {
+        e.preventDefault();
+        if (attributes.length === 1) {
+            return;
+        }
+        const newAttributes = attributes.slice(0, attributes.length - 1);
+        setAttributes(newAttributes);
+    }
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        setAttributes([<EmptyAttribute />]);
+    }
+
     return (
         <div className="modal fade" id="newPTemplateModal" tabIndex="-1" role="dialog" aria-labelledby="newPTemplateModalLabel">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> */}
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 className="modal-title" id="newPTemplateModalLabel">New Product Template</h4>
                     </div>
                     <div className="modal-body">
@@ -190,11 +212,14 @@ function NewPTemplateModal() {
                             <div className="col-md-10 col-md-offset-1">
                                 <label htmlFor="attributes">Attributes</label>
                                 <div className="vertical-center">
-                                <div className="col-xs-11">
-                                    <EmptyAttribute />
+                                <div className="col-xs-11" id="attributes">
+                                    {attributes.map((attribute) => {
+                                        return attribute;
+                                    })}
                                 </div>
                                 <div className="col-xs-1 text-center">
-                                    <button type="button" className="btn btn-primary">+</button>
+                                        <button type="button" className="btn btn-primary" onClick={handleNewAttribute}>+</button>
+                                        <button type="button" className="btn btn-danger" onClick={handleDeleteAttribute}>-</button>
                                 </div>
                                 </div>
                             </div>
@@ -202,7 +227,7 @@ function NewPTemplateModal() {
                             </div>
                             <div className="modal-foot text-center">
                                 <button type="submit" className="btn btn-lg btn-primary" onClick={handleSubmit}>Submit</button>
-                                <button type="button" className="btn btn-lg btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" className="btn btn-lg btn-default" data-dismiss="modal" onClick={handleCancel}>Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -217,14 +242,14 @@ function EmptyAttribute() {
         <div className="form-group">
             <div className="row">
                 <div className="col-sm-4">
-                    <label htmlFor="attributes">Name</label>
-                    <input type="text" className="form-control" id="attributes" placeholder="Attribute Name" />
+                    <label htmlFor="attr-name">Name</label>
+                    <input type="text" className="form-control" id="attr-name" placeholder="Attribute Name" />
                 </div>
                 <div className="col-sm-4">
-                    <label htmlFor="attributes">Type</label>
-                    <select className="form-control" id="attributes">
-                        <option value="text">Multiple</option>
-                        <option value="text">Custom</option>
+                    <label htmlFor="type">Type</label>
+                    <select className="form-control" id="type">
+                        <option value="multiple">Multiple</option>
+                        <option value="custom">Custom</option>
                     </select>
                 </div>
                 <div className="col-sm-4">
