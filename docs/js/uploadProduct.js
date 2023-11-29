@@ -58,33 +58,19 @@ function CategorySelectContainer() {
     id: 0,
     name: 'Please select a category'
   }]);
-
-  // let load = false;
-
   const getAndSetCategory = ptemplates => {
-    // if (load) return;
-    // load = true;
-
-    console.log(ptemplates);
     const categories = ptemplates.list.map(ptemplate => ({
       id: ptemplate.id,
       name: ptemplate.category
     }));
     setCategory(categories);
     $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
-      var target = $(this).html();
-
-      //Adds active class to selected item
+      let target = $(this).html();
       $(this).parents('.dropdown-menu').find('li').removeClass('active');
       $(this).parent('li').addClass('active');
-
-      //Displays selected text on dropdown-toggle button
       $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
-      console.log('change');
-      const category = $('#category').text().trim();
-      console.log(category + ': ' + (category !== 'category'));
-      if (category !== "category") {
-        const childcategories = ptemplates.list.filter(ptemplate => ptemplate.category === category).map(ptemplate => ({
+      if (target !== "category") {
+        const childcategories = ptemplates.list.filter(ptemplate => ptemplate.category === target).map(ptemplate => ({
           id: ptemplate.id,
           name: ptemplate.childcategory
         }));
