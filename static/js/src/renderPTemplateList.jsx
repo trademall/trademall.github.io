@@ -271,7 +271,7 @@ function NewPTemplateModal() {
             setTimeout(() => {
                 $('#info').html('');
                 $('#newPTemplateModal').modal('hide');
-                // window.location.reload();
+                window.location.reload();
             }, 1000);
         }, (res) => {
             $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
