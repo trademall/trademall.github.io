@@ -1,10 +1,11 @@
 import { getPrice } from "./product_api.js";
-function RenderDetails(data) {
+import { submit } from "./details.js";
+function RenderDetails(data, callback) {
   const details = $('.content')[0];
   // console.log(data);
   ReactDOM.render( /*#__PURE__*/React.createElement(ProductDetails, {
     product: data
-  }), details);
+  }), details, callback);
   initCustomizer();
 }
 function ProductDetails(props) {
@@ -58,20 +59,20 @@ function Pdescription(props) {
 }
 function RightColumn(props) {
   return /*#__PURE__*/React.createElement("form", {
-    className: "col-sm-6 col-md-6 row",
-    method: "POST"
+    className: "col-sm-6 col-md-6 row"
   }, /*#__PURE__*/React.createElement(Customizer, {
     product: props.product
   }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
 }
 function Customizer(props) {
-  const [num, setNum] = React.useState(1);
+  const [num, setNum] = React.useState(0);
   const [price, setPrice] = React.useState({
     "express": 0.00,
     "airexpress": 0.00,
     "seaexpress": 0.00,
     "seatrans": 0.00
   });
+  // getPrice(Number(props.product.id), Number(num), setPrice);
   return /*#__PURE__*/React.createElement("div", {
     id: "customizer",
     className: "card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12"
@@ -164,7 +165,7 @@ function CustomizerFooter(props) {
   }, /*#__PURE__*/React.createElement("p", {
     key: key,
     className: "text-uppercase text-right"
-  }, "$", props.price[key])))))));
+  }, "$", /*#__PURE__*/React.createElement("strong", null, props.price[key].toFixed(2)))))))));
 }
 function SubmitButton() {
   return /*#__PURE__*/React.createElement("button", {

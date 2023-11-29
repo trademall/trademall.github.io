@@ -1,9 +1,10 @@
 import { getPrice } from "./product_api.js";
+import { submit } from "./details.js";
 
-function RenderDetails(data) {
+function RenderDetails(data, callback) {
     const details = $('.content')[0];
     // console.log(data);
-    ReactDOM.render(<ProductDetails product={data} />, details);
+    ReactDOM.render(<ProductDetails product={data} />, details, callback);
     initCustomizer();
 }
 
@@ -63,7 +64,7 @@ function Pdescription(props) {
 
 function RightColumn(props) {
     return (
-        <form className="col-sm-6 col-md-6 row" method="POST">
+        <form className="col-sm-6 col-md-6 row">
             <Customizer product={props.product} />
             <SubmitButton />
             <LoginAlert />
@@ -74,13 +75,14 @@ function RightColumn(props) {
 }
 
 function Customizer(props) {
-    const [num, setNum] = React.useState(1);
+    const [num, setNum] = React.useState(0);
     const [price, setPrice] = React.useState({
         "express": 0.00,
         "airexpress": 0.00,
         "seaexpress": 0.00,
         "seatrans": 0.00
     });
+    // getPrice(Number(props.product.id), Number(num), setPrice);
     return (
         <div id="customizer" className="card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
             <CustomizerHeader />
@@ -162,7 +164,7 @@ function CustomizerFooter(props) {
                                 <p key={key} className="text-uppercase text-left">{key}: </p>
                             </div>
                             <div className="col-xs-6">
-                                <p key={key} className="text-uppercase text-right">${props.price[key]}</p>
+                                <p key={key} className="text-uppercase text-right">$<strong>{props.price[key].toFixed(2)}</strong></p>
                             </div>
                         </div>
                     ))}

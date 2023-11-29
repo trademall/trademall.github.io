@@ -1,7 +1,7 @@
 import { getPTemplateList } from "./ptemplate_api.js";
 import { renderPTemplateList } from "./renderPTemplateList.js";
 
-const pageSize = 10;
+const pageSize = 20;
 let page = 1;
 
 getPTemplateList(page, pageSize, receivePTemplates, receiveError);

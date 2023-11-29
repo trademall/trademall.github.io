@@ -102,12 +102,15 @@ function getPrice(id, num, callback, errorcallback = console.log) {
         url: server + "/product/price",
         type: "POST",
         dataType: "json",
-        data: {
+        headers: {
+            "token": localStorage.getItem("token"),
+            "Content-Type": "application/json"
+        },
+        data: JSON.stringify({
             id: Number(id),
             num: Number(num),
-            userid: Number(localStorage.getItem("id")),
-            token: localStorage.getItem("token")
-        },
+            userid: Number(localStorage.getItem("id"))
+        }),
         success: function (data) {
             if (data.code == 200) {
                 callback(data.data);

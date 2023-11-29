@@ -8,14 +8,14 @@ function renderCategorySelect() {
 
   if (container.length) {
     ReactDOM.render(
-      <CategorySelect />,
+      <CategorySelectContainer />,
       container[0],
       () => {
         $("#confirm").click(() => {
           const category = $("#category").text();
           const childcategory = $("#childcategory").text();
-          if (category !== "Category" && childcategory !== "Child Category") {
-            PTemplate.getPTemplate
+          if (category !== "category" && childcategory !== "childcategory") {
+            // PTemplate.getPTemplate
             ReactDOM.render(
               <UploadProduct />,
               container[0]
@@ -57,21 +57,9 @@ function renderCategorySelect() {
       }
     });
   }
-
-  $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
-    var target = $(this).html();
-
-    //Adds active class to selected item
-    $(this).parents('.dropdown-menu').find('li').removeClass('active');
-    $(this).parent('li').addClass('active');
-
-    //Displays selected text on dropdown-toggle button
-    $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
-  });
-
 }
 
-function CategorySelect(props) {
+function CategorySelectContainer() {
   const [category, setCategory] = React.useState([{
     id: 0,
     name: 'Loading...'
@@ -81,25 +69,53 @@ function CategorySelect(props) {
     name: 'Please select a category'
   }]);
 
+  // let load = false;
+
   const getAndSetCategory = (ptemplates) => {
+    // if (load) return;
+    // load = true;
+
+    console.log(ptemplates);
+
     const categories = ptemplates.list.map((ptemplate) => ({
       id: ptemplate.id,
       name: ptemplate.category,
     }));
     setCategory(categories);
-    $('#category').on('click', '.dropdown-menu li.able a', function () {
+
+    $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
       var target = $(this).html();
 
-      const childcategories = ptemplates.list.filter((ptemplate) => ptemplate.category === target).map((ptemplate) => ({
-        id: ptemplate.id,
-        name: ptemplate.childcategory,
-      }));
-      setChildCategory(childcategories);
+      //Adds active class to selected item
+      $(this).parents('.dropdown-menu').find('li').removeClass('active');
+      $(this).parent('li').addClass('active');
+
+      //Displays selected text on dropdown-toggle button
+      $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
+
+      const category = $('#category').text().trim();
+      if (category !== "category") {
+        const childcategories = ptemplates.list.filter((ptemplate) => ptemplate.category === category).map((ptemplate) => ({
+          id: ptemplate.id,
+          name: ptemplate.childcategory,
+        }));
+        setChildCategory(childcategories);
+      }
     });
   }
 
-  PTemplate.getPTemplateList(1, 10, getAndSetCategory);
-  
+  if (category[0].id === 0) {
+    PTemplate.getPTemplateList(1, 100, getAndSetCategory);
+  }
+
+  return (
+    <CategorySelect category={category} childcategory={childcategory} />
+  );
+}
+
+function CategorySelect(props) {
+  const { category, childcategory } = props;
+
   return (
     <div className="row">
       <div className="col-md-10 col-md-offset-1">

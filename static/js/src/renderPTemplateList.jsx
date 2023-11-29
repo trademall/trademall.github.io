@@ -282,14 +282,20 @@ function NewPTemplateModal() {
         const attrs = {};
         const price = $('#price-model').val();
         attrs['price'] = price;
-        const attrName = $('#attr-name').val();
-        const type = $('#type').val();
-        const required = $('#required').val();
-        attrs['attrs'] = [{
-            "name": attrName,
-            "type": type,
-            "required": required
-        }];
+        const attrName = document.querySelectorAll('#attr-name');
+        const type = document.querySelectorAll('#type');
+        const required = document.querySelectorAll('#required');
+        attrs['attrs'] = [];
+        for (let i = 0; i < attrName.length; i++) {
+            if (attrName[i].value === '') {
+                continue;
+            }
+            const attr = {};
+            attr['name'] = attrName[i].value;
+            attr['type'] = type[i].value;
+            attr['required'] = required[i].checked;
+            attrs['attrs'].push(attr);
+        }
         return attrs;
     }
 

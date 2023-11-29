@@ -13,11 +13,12 @@ getProduct("info", pid, renderProduct);
 
 function renderProduct(data) {
     product = data;
-    RenderDetails(data);
-    $('#submitBtn').click(submit);
-    if (edit) {
-        $('#submitBtn > span').text(' Update cart');
-    }
+    RenderDetails(data, () => {
+        if (edit) {
+            $('#submitBtn > span').text(' Update cart');
+        }
+        $('#submitBtn').click(submit);
+    });
 }
 
 function submit(event) {
@@ -61,10 +62,12 @@ function submit(event) {
 }
 
 function getSKU() {
-    var attributes = {};
+    let attributes = {};
+    // let product = product;
 
     attributes["name"] = product.name;
     attributes["pid"] = Number(product.id);
+    attributes["num"] = Number($('#quantity').val());
     attributes["attributes"] = {};
 
     const selectors = document.querySelectorAll('.selector');
@@ -184,3 +187,5 @@ function showError(time, message) {
         $('.alert-danger').addClass('hidden');
     }, time + 500);
 }
+
+export { submit }
