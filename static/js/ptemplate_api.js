@@ -29,7 +29,8 @@ function createPTemplate(data, successCallback = console.log, errorCallback=cons
         dataType: 'json',
         data: data,
         headers: {
-            'token': localStorage.getItem('token')
+            'token': localStorage.getItem('token'),
+            'Content-Type': 'application/json'
         },
         success: function (data) {
             if (data.code == 200) {
@@ -50,9 +51,10 @@ function updatePTemplate(data, successCallback = console.log, errorCallback=cons
         url: server + '/v1/admin/ptemplate/',
         type: 'PATCH',
         dataType: 'json',
-        data: data,
+        data: JSON.stringify(data),
         headers: {
-            'token': localStorage.getItem('token')
+            'token': localStorage.getItem('token'),
+            'Content-Type': 'application/json'
         },
         success: function (data) {
             if (data.code == 200) {
@@ -73,12 +75,13 @@ function setPTemplateStatus(ptid, status, successCallback = console.log, errorCa
         url: server + '/v1/admin/ptemplate/',
         type: 'PATCH',
         dataType: 'json',
-        data: {
-            id: ptid,
-            status: status
-        },
+        data: JSON.stringify({
+            id: Number(ptid),
+            status: Number(status)
+        }),
         headers: {
-            'token': localStorage.getItem('token')
+            'token': localStorage.getItem('token'),
+            'Content-Type': 'application/json'
         },
         success: function (data) {
             if (data.code == 200) {

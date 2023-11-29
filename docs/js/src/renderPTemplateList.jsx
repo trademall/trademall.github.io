@@ -63,8 +63,11 @@ function PTemplateListTable(props) {
     }
     const handleActive = (e) => {
         const id = Number(e.target.dataset.id);
-        const status = e.target.dataset.status;
-        setPTemplateStatus(id, status, () => {
+        const status = templates.find((template) => {
+            return template.id === id;
+        }).isactive;
+        console.log(id, status);
+        setPTemplateStatus(id, 1-status, () => {
             window.location.reload();
         });
     }
@@ -249,7 +252,7 @@ function NewPTemplateModal() {
         const include = $('#include').val() || [];
         const exclude = $('#exclude').val() || [];
         const description = $('#description').val() || '';
-        const attributes = $('#attributes').val() || {};
+        const attributes = getAttributes();
         const data = {
             "templatename": templateName,
             "category": category,
@@ -259,10 +262,11 @@ function NewPTemplateModal() {
             "include": include,
             "exclude": exclude,
             "description": description,
-            "attributes": attributes
+            "attributes": attributes,
+            "creator_id": Number(localStorage.getItem('id'))
         }
         console.log(data);
-        createPTemplate(data, () => {
+        createPTemplate(JSON.stringify(data), () => {
             $('#info').html('<p class="text-success">New Product Template Created Successfully!</p>');
             setTimeout(() => {
                 $('#info').html('');
@@ -272,6 +276,21 @@ function NewPTemplateModal() {
         }, (res) => {
             $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
         });
+    }
+
+    const getAttributes = () => {
+        const attrs = {};
+        const price = $('#price-model').val();
+        attrs['price'] = price;
+        const attrName = $('#attr-name').val();
+        const type = $('#type').val();
+        const required = $('#required').val();
+        attrs['attrs'] = [{
+            "name": attrName,
+            "type": type,
+            "required": required
+        }];
+        return attrs;
     }
 
     const handleClick = (e) => {
@@ -331,7 +350,7 @@ function NewPTemplateModal() {
                                                 <a type="button" className="btn btn-default btn-lg notActive" data-toggle="price-model" data-title="tier">Tier</a>
                                             </div>
                                         </div>
-                                        <input type="hidden" id="price-model" name="price-model" />
+                                        <input type="hidden" id="price-model" name="price-model" value="flat" />
                                     </div>
                                 </div>
                             </div>
