@@ -16,11 +16,86 @@ function InputBox(props) {
   }, props))));
 }
 function ImageBox(props) {
+  const [FileBoxes, setFileBoxes] = React.useState([/*#__PURE__*/React.createElement(FileBox, {
+    id: "file1"
+  }), /*#__PURE__*/React.createElement(FileBox, {
+    id: "file2"
+  }), /*#__PURE__*/React.createElement(FileBox, {
+    id: "file3"
+  })]);
+  const [imageUrls, setImageUrls] = React.useState('');
+  let fileUploaded = false;
+  const handleChange = () => {
+    fileUploaded = false;
+    $('#upload.btn-upload').prop('disabled', false);
+    let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
+    if (files.length >= props.min - 1 && files.length < props.max - 1) {
+      let newFileBoxes = [...FileBoxes];
+      newFileBoxes.push( /*#__PURE__*/React.createElement(FileBox, {
+        id: "file" + (files.length + 1)
+      }));
+      setFileBoxes(newFileBoxes);
+    }
+    if (files.length > props.max - 1) {
+      alert('You can only upload up to ' + props.max + ' images');
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: " col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "image-upload"
+  }, "Product Image*"), /*#__PURE__*/React.createElement("div", {
+    className: "image-upload"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "file-upload thumbnail",
+    id: "image-upload",
+    onChange: handleChange
+  }, FileBoxes.map(FileBox => FileBox)), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "image",
+    id: "image",
+    value: imageUrls
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "caption text-center"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-upload",
+    id: "upload",
+    onClick: () => {
+      let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
+      let fileNames = document.querySelectorAll('#image-upload p.img-name.has-file');
+      let images = [];
+      if (files.length < props.min) {
+        alert('You must upload at least ' + props.min + ' images');
+        return;
+      }
+      for (let i = 0; i < files.length; i++) {
+        let formData = new FormData();
+        formData.append('file', files[i].files[0], fileNames[i].innerHTML);
+        uploadFile(formData, data => {
+          images.push(data.data);
+          setImageUrls(JSON.stringify(images));
+          if (images.length === files.length) {
+            fileUploaded = true;
+          }
+          if (fileUploaded) {
+            alert('Upload success');
+            $('#upload.btn-upload').prop('disabled', true);
+          }
+        });
+      }
+    }
+  }, "Upload"), /*#__PURE__*/React.createElement("p", {
+    className: "text-center"
+  }, "The first picture is the main picture of the product"))));
+}
+function FileBox(props) {
   const size = props.size || 200;
   const text = props.text || 'select image';
-  const src = props.src || 'http://iph.href.lu/' + size + 'x' + size + '?text=' + text;
-  const alt = props.alt || 'upload file';
-  const FileBox = /*#__PURE__*/React.createElement("label", {
+  const [filename, setFilename] = React.useState('');
+  const [src, setSrc] = React.useState('http://iph.href.lu/' + size + 'x' + size + '?text=' + text);
+  const [alt, setAlt] = React.useState('upload file');
+  const [hasFile, setHasFile] = React.useState("no-file");
+  return /*#__PURE__*/React.createElement("label", {
     className: "btn btn-default btn-file"
   }, /*#__PURE__*/React.createElement("img", {
     src: src,
@@ -30,52 +105,23 @@ function ImageBox(props) {
     type: "file",
     id: props.id,
     style: {
-      display: 'none'
+      opacity: 0
     },
     onChange: ev => {
       let file = ev.target.files[0];
       let reader = new FileReader();
       reader.onload = e => {
-        ev.target.previousSibling.src = e.target.result;
+        setSrc(e.target.result);
+        setAlt(file.name);
         ev.target.classList.add('uploaded');
+        setHasFile("has-file");
       };
       reader.readAsDataURL(file);
-      ev.target.nextSibling.nodeValue = file.name;
-      console.log(ev.target.nextSibling.nodeValue);
+      setFilename(file.name);
     }
   }), /*#__PURE__*/React.createElement("p", {
-    className: "text-center"
-  }));
-  return /*#__PURE__*/React.createElement("div", {
-    className: " col-md-10 col-md-offset-1"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "image-upload"
-  }, "Product Image*"), /*#__PURE__*/React.createElement("div", {
-    className: "image-upload"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "file-upload thumbnail",
-    id: "image-upload"
-  }, FileBox, FileBox, FileBox, FileBox), /*#__PURE__*/React.createElement("div", {
-    className: "caption text-center"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-primary",
-    id: "upload",
-    onClick: () => {
-      let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
-      let fileNames = document.querySelectorAll('#file-upload p');
-      let formData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].files.length > 0) {
-          formData.append('file', files[i].files[0], '<file>');
-          console.log(fileNames[i]);
-        }
-      }
-      uploadFile(formData, data => {
-        console.log(data);
-      });
-    }
-  }, "Upload"), /*#__PURE__*/React.createElement("p", {
-    className: "text-center"
-  }, "The first picture is the main picture of the product"))));
+    className: "text-center img-name" + " " + hasFile,
+    id: props.id
+  }, filename));
 }
 export { InputBox, ImageBox };

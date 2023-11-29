@@ -1,19 +1,23 @@
 const server = "http://54.79.139.73:80";
 
-function uploadFile(file, successCallback, errorCallback) {
+function uploadFile(formData, successCallback, errorCallback=console.log) {
   $.ajax({
     url: server + "/v1/upload",
     type: "POST",
-    data: {
-      "file": file,
-    },
+    data: formData,
     headers: {
       "token": localStorage.getItem("token")
     },
     processData: false,
+    mimeType: "multipart/form-data",
     contentType: false,
     success: function (data) {
-      successCallback(data);
+      data = JSON.parse(data);
+      if (data.code === 200) {
+        successCallback(data);
+      } else {
+        errorCallback(data);
+      }
     },
     error: function (data) {
       errorCallback(data);

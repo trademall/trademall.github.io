@@ -5,19 +5,8 @@ import { uploadFile } from "./uploadFile.js";
 function renderCategorySelect() {
   const container = $("#upload-product");
   if (container.length) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(CategorySelectContainer, null), container[0], () => {
-      $("#confirm").click(() => {
-        const category = $("#category").text();
-        const childcategory = $("#childcategory").text();
-        if (category !== "category" && childcategory !== "childcategory") {
-          // PTemplate.getPTemplate
-          ReactDOM.render( /*#__PURE__*/React.createElement(UploadProduct, null), container[0]);
-          // initFileInput("#uploadImg");
-        }
-      });
-    });
+    ReactDOM.render( /*#__PURE__*/React.createElement(CategorySelectContainer, null), container[0]);
   }
-
   function initFileInput(id) {
     $(id).fileinput({
       showUpload: true,
@@ -77,6 +66,20 @@ function CategorySelectContainer() {
         setChildCategory(childcategories);
       }
     });
+    $('#confirm').click(() => {
+      const category = $('#category').text().trim();
+      const childcategory = $('#childcategory').text().trim();
+      console.log(category, childcategory);
+      if (category !== "category" && childcategory !== "childcategory") {
+        const ptemplate = ptemplates.list.filter(ptemplate => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
+        console.log(ptemplate);
+        ReactDOM.render( /*#__PURE__*/React.createElement(UploadProduct, {
+          ptemplate: ptemplate
+        }), $("#upload-product")[0]);
+      } else {
+        alert("Please select a category");
+      }
+    });
   };
   if (category[0].id === 0) {
     PTemplate.getPTemplateList(1, 100, getAndSetCategory);
@@ -134,7 +137,7 @@ function SelectBtn(props) {
     className: option.id === 0 ? 'disabled' : 'able'
   }, /*#__PURE__*/React.createElement("a", null, option.name)))));
 }
-function UploadProduct() {
+function UploadProduct(props) {
   let [image, setImage] = React.useState('');
   let [fileUploaded, setFileUploaded] = React.useState(false);
   React.useEffect(() => {
@@ -156,7 +159,9 @@ function UploadProduct() {
     size: 100,
     text: "upload image",
     src: image,
-    id: "uploadImg"
+    id: "uploadImg",
+    min: 3,
+    max: 6
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "pname",
     type: "text",

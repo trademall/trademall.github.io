@@ -9,21 +9,7 @@ function renderCategorySelect() {
   if (container.length) {
     ReactDOM.render(
       <CategorySelectContainer />,
-      container[0],
-      () => {
-        $("#confirm").click(() => {
-          const category = $("#category").text();
-          const childcategory = $("#childcategory").text();
-          if (category !== "category" && childcategory !== "childcategory") {
-            // PTemplate.getPTemplate
-            ReactDOM.render(
-              <UploadProduct />,
-              container[0]
-            );
-            // initFileInput("#uploadImg");
-          }
-        });
-      }
+      container[0]
     );
   }
 
@@ -70,7 +56,6 @@ function CategorySelectContainer() {
   }]);
 
   const getAndSetCategory = (ptemplates) => {
-
     const categories = ptemplates.list.map((ptemplate) => ({
       id: ptemplate.id,
       name: ptemplate.category,
@@ -90,6 +75,22 @@ function CategorySelectContainer() {
           name: ptemplate.childcategory,
         }));
         setChildCategory(childcategories);
+      }
+    });
+
+    $('#confirm').click(() => {
+      const category = $('#category').text().trim();
+      const childcategory = $('#childcategory').text().trim();
+      console.log(category, childcategory);
+      if (category !== "category" && childcategory !== "childcategory") {
+        const ptemplate = ptemplates.list.filter((ptemplate) => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
+        console.log(ptemplate);
+        ReactDOM.render(
+          <UploadProduct ptemplate={ptemplate} />,
+          $("#upload-product")[0]
+        );
+      } else {
+        alert("Please select a category");
       }
     });
   }
@@ -142,7 +143,7 @@ function SelectBtn(props) {
   );
 }
 
-function UploadProduct() {
+function UploadProduct(props) {
   let [image, setImage] = React.useState('');
   let [fileUploaded, setFileUploaded] = React.useState(false);
 
@@ -163,7 +164,7 @@ function UploadProduct() {
           <h3>Upload Product</h3>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
-          <ImageBox size={100} text="upload image" src={image} id="uploadImg" />
+          <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={3} max={6} />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
           <InputBox id="description" name="description" type="text" label="Description" required={true} />
