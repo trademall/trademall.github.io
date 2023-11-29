@@ -24,9 +24,10 @@ function CategorySelectContainer() {
   }]);
 
   const getAndSetCategory = (ptemplates) => {
-    const categories = ptemplates.list.map((ptemplate) => ({
-      id: ptemplate.id,
-      name: ptemplate.category,
+    // deduplicate
+    const categories = ptemplates.list.map((ptemplate) => ptemplate.category).filter((category, index, self) => self.indexOf(category) === index).map((category) => ({
+      id: category,
+      name: category,
     }));
     setCategory(categories);
 

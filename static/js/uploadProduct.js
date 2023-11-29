@@ -17,9 +17,10 @@ function CategorySelectContainer() {
     name: 'Please select a category'
   }]);
   const getAndSetCategory = ptemplates => {
-    const categories = ptemplates.list.map(ptemplate => ({
-      id: ptemplate.id,
-      name: ptemplate.category
+    // deduplicate
+    const categories = ptemplates.list.map(ptemplate => ptemplate.category).filter((category, index, self) => self.indexOf(category) === index).map(category => ({
+      id: category,
+      name: category
     }));
     setCategory(categories);
     $('.dropdown').on('click', '.dropdown-menu li.able a', function () {
