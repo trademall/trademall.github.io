@@ -1,41 +1,10 @@
 import { createProduct } from "./product_api.js";
 import * as PTemplate from "./ptemplate_api.js";
 import { InputBox, ImageBox } from "./InputBox.js";
-import { uploadFile } from "./uploadFile.js";
 function renderCategorySelect() {
   const container = $("#upload-product");
   if (container.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(CategorySelectContainer, null), container[0]);
-  }
-  function initFileInput(id) {
-    $(id).fileinput({
-      showUpload: true,
-      showPreview: true,
-      showRemove: true,
-      multiple: true,
-      async: false,
-      minFileCount: 1,
-      maxFileCount: 4,
-      // uploadUrl: "http://54.79.139.73:80/v1/upload",
-      uploadExtraData: {
-        token: localStorage.getItem("token")
-      },
-      allowedFileExtensions: ['jpg', 'png', 'gif'],
-      browseClass: "btn btn-primary btn-lg",
-      browseLabel: "Select Image",
-      browseIcon: '<i class="glyphicon glyphicon-picture"></i> ',
-      removeClass: "btn btn-danger btn-lg",
-      removeLabel: "Delete",
-      removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
-      uploadClass: "btn btn-info btn-lg",
-      uploadLabel: "Upload",
-      uploadIcon: '<i class="glyphicon glyphicon-upload"></i> '
-    }).on('fileuploaded', function (event, data, previewId, index) {
-      if (data.response) {
-        const image = data.response;
-        console.log(image);
-      }
-    });
   }
 }
 function CategorySelectContainer() {
@@ -69,7 +38,6 @@ function CategorySelectContainer() {
     $('#confirm').click(() => {
       const category = $('#category').text().trim();
       const childcategory = $('#childcategory').text().trim();
-      console.log(category, childcategory);
       if (category !== "category" && childcategory !== "childcategory") {
         const ptemplate = ptemplates.list.filter(ptemplate => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
         console.log(ptemplate);
@@ -137,16 +105,55 @@ function SelectBtn(props) {
     className: option.id === 0 ? 'disabled' : 'able'
   }, /*#__PURE__*/React.createElement("a", null, option.name)))));
 }
+
+//--------------------------------------------------------------
+
 function UploadProduct(props) {
   let [image, setImage] = React.useState('');
-  let [fileUploaded, setFileUploaded] = React.useState(false);
-  React.useEffect(() => {
-    if (fileUploaded) {
-      setImage(null);
-      setFileUploaded(false);
+  const template = props.ptemplate;
+  const newProduct = () => {
+    $('upload.btn-upload').click();
+    const product = {
+      ProductID: Number($('#pid').val().trim()),
+      name: $('#pname').val().trim(),
+      image: $('#image').val(),
+      Price: Number($('#price').val().trim()),
+      DetailInfo: $('#description').val().trim(),
+      category: template.category,
+      childcategory: template.childcategory,
+      Profit: Number($('#profit').val().trim()),
+      Volume: Number($('#volume').val().trim()),
+      Weight: Number($('#weight').val().trim()),
+      attributes: getAttributes(),
+      // priceModel: $('#price-model').val().trim(),
+      // quantity: $('#quantity').val().trim(),
+      Include: $('#include').val().trim().split(",").filter(item => item !== "").map(item => Number(item)),
+      Exclude: $('#exclude').val().trim().split(",").filter(item => item !== "").map(item => Number(item)),
+      Status: Number($('#status').val().trim()),
+      CreatorID: Number(localStorage.getItem('id'))
+    };
+    console.log(product);
+    if (!product.image) {
+      alert("Please upload image or wait for image to be uploaded");
+      return;
     }
-  }, [fileUploaded]);
-  const createProduct = () => {};
+    createProduct(product, data => {
+      alert(data.message);
+      window.location.href = "/products/";
+    });
+  };
+  const getAttributes = () => {
+    let attributes = {};
+    $('.attributes input').each(function () {
+      let attr = $(this).val().trim();
+      let attrName = $(this).attr('name');
+      let attrType = $(this).data('type');
+      if (attr !== "") {
+        attributes[attrName] = attrType === "custom" ? attr : attr.split(',').map(item => item.trim());
+      }
+    });
+    return attributes;
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -155,13 +162,25 @@ function UploadProduct(props) {
     className: "heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Upload Product")), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-12 col-sm-10 col-sm-offset-1"
+  }, /*#__PURE__*/React.createElement("h5", {
+    className: "template-title"
+  }, props.ptemplate.category, " > ", props.ptemplate.childcategory, " : ", props.ptemplate.templatename)), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-12 col-sm-10 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement(ImageBox, {
     size: 100,
     text: "upload image",
     src: image,
     id: "uploadImg",
-    min: 3,
+    min: 1,
     max: 6
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "pid",
+    type: "number",
+    name: "pid",
+    label: "Product ID",
+    required: false,
+    defaultValue: template.id,
+    disabled: false
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "pname",
     type: "text",
@@ -184,7 +203,9 @@ function UploadProduct(props) {
     id: "profit",
     label: "Profit",
     type: "number",
-    required: true
+    required: true,
+    value: template.profit,
+    disabled: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "volume",
     label: "Volume",
@@ -195,29 +216,36 @@ function UploadProduct(props) {
     label: "Weight",
     type: "number",
     required: true
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    id: "price",
-    label: "Price",
-    type: "number",
-    required: true
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    id: "quantity",
-    type: "number",
-    name: "quantity",
-    label: "Quantity",
-    required: true
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "form-group col-sm-10 col-sm-offset-1",
+    id: "attributesWrapper"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "attributes"
+  }, "Attributes"), /*#__PURE__*/React.createElement(Attributes, {
+    attributes: template.attributes
+  })), /*#__PURE__*/React.createElement(InputBox, {
+    id: "price-model",
+    label: "Price Model",
+    type: "text",
+    required: true,
+    value: template.attributes.price,
+    disabled: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "include",
     type: "text",
     name: "include",
     label: "Include",
-    required: false
+    required: false,
+    defaultValue: template.include.join(),
+    disabled: false
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "exclude",
     type: "text",
     name: "exclude",
     label: "Exclude",
-    required: false
+    required: false,
+    defaultValue: template.exclude.join(),
+    disabled: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "form-group col-sm-10 col-sm-offset-1",
     id: "statusWrapper"
@@ -237,10 +265,27 @@ function UploadProduct(props) {
     className: "col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary btn-lg col-xs-12",
-    onClick: createProduct
+    onClick: newProduct
   }, "Create"))));
 }
+function Attributes(props) {
+  const {
+    attributes
+  } = props;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "attributes"
+  }, attributes.attrs.map(attribute => /*#__PURE__*/React.createElement("div", {
+    className: "form-group",
+    key: attribute.name
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    type: "text",
+    name: attribute.name,
+    label: attribute.name,
+    required: attribute.required,
+    "data-type": attribute.type,
+    placeholder: attribute.type === "custom" ? "Input custom attribute" : "Input attributes, separated by comma",
+    defaultValue: attribute.example
+  }))));
+}
 renderCategorySelect();
-// renderUploadProduct();
-
 export { renderCategorySelect };

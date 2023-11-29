@@ -1,7 +1,7 @@
 import { getCTemplateList } from './ctemplate.js'
 import { renderCTemplateList } from './renderTemplateList.js'
 
-const pageSize = 10;
+const pageSize = 40;
 let page = 1;
 
 getCTemplateList(page, pageSize, receiveCTemplates, receiveError);

@@ -57,7 +57,12 @@ function ProductListTable(props) {
 
     const handleDelete = (e) => {
         const id = e.target.dataset.id;
-        deleteProduct(id);
+        deleteProduct(id, (data) => {
+            alert('Delete success');
+            location.reload();
+        }, (err) => {
+            alert('Delete failed: ' + err);
+        });
     }
     const handleUpdate = (e) => {
         const id = e.target.dataset.id;

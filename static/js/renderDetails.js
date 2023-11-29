@@ -37,7 +37,7 @@ function Pid(props) {
 function Pimage(props) {
   var imageURL = "";
   try {
-    imageURL = props.product.image;
+    imageURL = JSON.parse(props.product.image)[0];
   } catch (error) {
     console.log(error);
   }

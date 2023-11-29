@@ -6,7 +6,7 @@ function RenderList(data) {
 function ImgDiv(props) {
     var imageURL = "";
     try {
-        imageURL = props.image;
+        imageURL = JSON.parse(props.image)[0];
     } catch (error) {
         console.log(error);
     }

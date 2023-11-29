@@ -1,7 +1,6 @@
 import { createProduct } from "./product_api.js";
 import * as PTemplate from "./ptemplate_api.js";
 import { InputBox, ImageBox } from "./InputBox.js";
-import { uploadFile } from "./uploadFile.js";
 
 function renderCategorySelect() {
   const container = $("#upload-product");
@@ -11,37 +10,6 @@ function renderCategorySelect() {
       <CategorySelectContainer />,
       container[0]
     );
-  }
-
-  function initFileInput(id) {
-    $(id).fileinput({
-      showUpload: true,
-      showPreview: true,
-      showRemove: true,
-      multiple: true,
-      async: false,
-      minFileCount: 1,
-      maxFileCount: 4,
-      // uploadUrl: "http://54.79.139.73:80/v1/upload",
-      uploadExtraData: {
-        token: localStorage.getItem("token"),
-      },
-      allowedFileExtensions: ['jpg', 'png', 'gif'],
-      browseClass: "btn btn-primary btn-lg",
-      browseLabel: "Select Image",
-      browseIcon: '<i class="glyphicon glyphicon-picture"></i> ',
-      removeClass: "btn btn-danger btn-lg",
-      removeLabel: "Delete",
-      removeIcon: '<i class="glyphicon glyphicon-trash"></i> ',
-      uploadClass: "btn btn-info btn-lg",
-      uploadLabel: "Upload",
-      uploadIcon: '<i class="glyphicon glyphicon-upload"></i> ',
-    }).on('fileuploaded', function (event, data, previewId, index) {
-      if (data.response) {
-        const image = data.response;
-        console.log(image);
-      }
-    });
   }
 }
 
@@ -81,7 +49,6 @@ function CategorySelectContainer() {
     $('#confirm').click(() => {
       const category = $('#category').text().trim();
       const childcategory = $('#childcategory').text().trim();
-      console.log(category, childcategory);
       if (category !== "category" && childcategory !== "childcategory") {
         const ptemplate = ptemplates.list.filter((ptemplate) => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
         console.log(ptemplate);
@@ -143,18 +110,55 @@ function SelectBtn(props) {
   );
 }
 
+//--------------------------------------------------------------
+
 function UploadProduct(props) {
   let [image, setImage] = React.useState('');
-  let [fileUploaded, setFileUploaded] = React.useState(false);
+  const template = props.ptemplate;
 
-  React.useEffect(() => {
-    if (fileUploaded) {
-      setImage(null);
-      setFileUploaded(false);
+  const newProduct = () => {
+    $('upload.btn-upload').click();
+    const product = {
+      ProductID: Number($('#pid').val().trim()),
+      name: $('#pname').val().trim(),
+      image: $('#image').val(),
+      Price: Number($('#price').val().trim()),
+      DetailInfo: $('#description').val().trim(),
+      category: template.category,
+      childcategory: template.childcategory,
+      Profit: Number($('#profit').val().trim()),
+      Volume: Number($('#volume').val().trim()),
+      Weight: Number($('#weight').val().trim()),
+      attributes: getAttributes(),
+      // priceModel: $('#price-model').val().trim(),
+      // quantity: $('#quantity').val().trim(),
+      Include: $('#include').val().trim().split(",").filter((item) => item !== "").map((item) => Number(item)),
+      Exclude: $('#exclude').val().trim().split(",").filter((item) => item !== "").map((item) => Number(item)),
+      Status: Number($('#status').val().trim()),
+      CreatorID: Number(localStorage.getItem('id')),
+    };
+    console.log(product);
+    if (!product.image) {
+      alert("Please upload image or wait for image to be uploaded");
+      return;
     }
-  }, [fileUploaded]);
+    createProduct(product, (data) => {
+      alert(data.message);
+      window.location.href = "/products/";
+    });
+  }
 
-  const createProduct = () => {
+  const getAttributes = () => {
+    let attributes = {};
+    $('.attributes input').each(function () {
+      let attr = $(this).val().trim();
+      let attrName = $(this).attr('name');
+      let attrType = $(this).data('type');
+      if (attr !== "") {
+        attributes[attrName] = attrType === "custom" ? attr : attr.split(',').map((item) => item.trim());
+      }
+    });
+    return attributes;
   }
 
   return (
@@ -164,17 +168,25 @@ function UploadProduct(props) {
           <h3>Upload Product</h3>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
-          <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={3} max={6} />
+          <h5 className="template-title">{props.ptemplate.category} &gt; {props.ptemplate.childcategory} : {props.ptemplate.templatename}</h5>
+        </div>
+        <div className="col-xs-12 col-sm-10 col-sm-offset-1">
+          <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={1} max={6} />
+          <InputBox id="pid" type="number" name="pid" label="Product ID" required={false} defaultValue={template.id} disabled={false} />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
           <InputBox id="description" name="description" type="text" label="Description" required={true} />
-          <InputBox id="profit" label="Profit" type="number" required={true} />
+          <InputBox id="profit" label="Profit" type="number" required={true} value={template.profit} disabled={true} />
           <InputBox id="volume" label="Volume" type="number" required={true} />
           <InputBox id="weight" label="Weight" type="number" required={true} />
-          <InputBox id="price" label="Price" type="number" required={true} />
-          <InputBox id="quantity" type="number" name="quantity" label="Quantity" required={true} />
-          <InputBox id="include" type="text" name="include" label="Include" required={false} />
-          <InputBox id="exclude" type="text" name="exclude" label="Exclude" required={false} />
+          <div className="form-group col-sm-10 col-sm-offset-1" id="attributesWrapper">
+            <label htmlFor="attributes">Attributes</label>
+            <Attributes attributes={template.attributes} />
+          </div>
+          <InputBox id="price-model" label="Price Model" type="text" required={true} value={template.attributes.price} disabled={true} />
+          {/* <InputBox id="quantity" type="number" name="quantity" label="Quantity" required={true} /> */}
+          <InputBox id="include" type="text" name="include" label="Include" required={false} defaultValue={template.include.join()} disabled={false} />
+          <InputBox id="exclude" type="text" name="exclude" label="Exclude" required={false} defaultValue={template.exclude.join()} disabled={false} />
           <div className="form-group col-sm-10 col-sm-offset-1" id="statusWrapper">
             <label htmlFor="status">Status</label>
             <select className="form-control" id="status" defaultValue={1}>
@@ -185,14 +197,27 @@ function UploadProduct(props) {
           </div>
         </div>
         <div className="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 row">
-          <button className="btn btn-primary btn-lg col-xs-12" onClick={createProduct}>Create</button>
+          <button className="btn btn-primary btn-lg col-xs-12" onClick={newProduct}>Create</button>
         </div>
       </div>
     </div>
   );
 }
 
+function Attributes(props) {
+  const { attributes } = props;
+
+  return (
+    <div className="attributes">
+      {attributes.attrs.map((attribute) => (
+        <div className="form-group" key={attribute.name}>
+          <InputBox type="text" name={attribute.name} label={attribute.name} required={attribute.required} data-type={attribute.type} placeholder={attribute.type === "custom" ? "Input custom attribute" : "Input attributes, separated by comma"} defaultValue={attribute.example} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 renderCategorySelect();
-// renderUploadProduct();
 
 export { renderCategorySelect };

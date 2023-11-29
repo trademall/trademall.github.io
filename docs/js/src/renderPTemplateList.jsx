@@ -9,7 +9,7 @@ function renderPTemplateList(props) {
             <div className="row">
                 <Sidebar />
                 <div className="col-sm-10">
-                    <PTemplateList templates={props.list} />
+                    {props.list ? <PTemplateList templates={props.list} />: <PTemplateList templates={[]} />}
                 </div>
             </div>,
             templateList[0]
@@ -22,7 +22,7 @@ function PTemplateList(props) {
     return (
         <div>
             <Heading />
-            <PTemplateListTable templates={props.templates} />
+            {props.templates.length?<PTemplateListTable templates={props.templates} />: <h3 className="text-center">No Product Template Found!</h3>}
             {/* <Pagination /> */}
             <NewPTemplateModal />
             {/* <PopupEdit /> */}
@@ -285,6 +285,7 @@ function NewPTemplateModal() {
         const attrName = document.querySelectorAll('#attr-name');
         const type = document.querySelectorAll('#type');
         const required = document.querySelectorAll('#required');
+        const example = document.querySelectorAll('#example');
         attrs['attrs'] = [];
         for (let i = 0; i < attrName.length; i++) {
             if (attrName[i].value === '') {
@@ -293,7 +294,8 @@ function NewPTemplateModal() {
             const attr = {};
             attr['name'] = attrName[i].value;
             attr['type'] = type[i].value;
-            attr['required'] = required[i].checked;
+            attr['required'] = (required[i].checked === "on");
+            attr['example'] = example[i].value;
             attrs['attrs'].push(attr);
         }
         return attrs;
@@ -408,6 +410,9 @@ function EmptyAttribute() {
                 </div>
                 <div className="col-sm-4">
                     <InputBox label="Required" id="required" type="checkbox" />
+                </div>
+                <div className="col-sm-12">
+                    <input type="text" className="form-control" id="example" placeholder="Attribute Value" />
                 </div>
             </div>
         </div>

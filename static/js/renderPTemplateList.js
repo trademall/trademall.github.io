@@ -8,16 +8,20 @@ function renderPTemplateList(props) {
       className: "row"
     }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement("div", {
       className: "col-sm-10"
-    }, /*#__PURE__*/React.createElement(PTemplateList, {
+    }, props.list ? /*#__PURE__*/React.createElement(PTemplateList, {
       templates: props.list
+    }) : /*#__PURE__*/React.createElement(PTemplateList, {
+      templates: []
     }))), templateList[0]);
   }
 }
 function PTemplateList(props) {
   const [template, setTemplate] = React.useState({});
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(PTemplateListTable, {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), props.templates.length ? /*#__PURE__*/React.createElement(PTemplateListTable, {
     templates: props.templates
-  }), /*#__PURE__*/React.createElement(NewPTemplateModal, null), /*#__PURE__*/React.createElement(CreatePTmplateBtn, null));
+  }) : /*#__PURE__*/React.createElement("h3", {
+    className: "text-center"
+  }, "No Product Template Found!"), /*#__PURE__*/React.createElement(NewPTemplateModal, null), /*#__PURE__*/React.createElement(CreatePTmplateBtn, null));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -303,6 +307,7 @@ function NewPTemplateModal() {
     const attrName = document.querySelectorAll('#attr-name');
     const type = document.querySelectorAll('#type');
     const required = document.querySelectorAll('#required');
+    const example = document.querySelectorAll('#example');
     attrs['attrs'] = [];
     for (let i = 0; i < attrName.length; i++) {
       if (attrName[i].value === '') {
@@ -311,7 +316,8 @@ function NewPTemplateModal() {
       const attr = {};
       attr['name'] = attrName[i].value;
       attr['type'] = type[i].value;
-      attr['required'] = required[i].checked;
+      attr['required'] = required[i].checked === "on";
+      attr['example'] = example[i].value;
       attrs['attrs'].push(attr);
     }
     return attrs;
@@ -490,6 +496,13 @@ function EmptyAttribute() {
     label: "Required",
     id: "required",
     type: "checkbox"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-12"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "example",
+    placeholder: "Attribute Value"
   }))));
 }
 function Attributes(props) {
