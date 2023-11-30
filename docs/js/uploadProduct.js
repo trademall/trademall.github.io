@@ -138,9 +138,18 @@ function UploadProduct(props) {
       alert("Please upload image or wait for image to be uploaded");
       return;
     }
+    // set button to loading
+    $('#upload.btn-upload').prop('disabled', true);
+    $('#upload.btn-upload').html('Creating...');
     createProduct(product, data => {
       alert(data.message);
+      $('#upload.btn-upload').prop('disabled', false);
+      $('#upload.btn-upload').html('Create');
       window.location.href = "/products/";
+    }, err => {
+      alert(err);
+      $('#upload.btn-upload').prop('disabled', false);
+      $('#upload.btn-upload').html('Create');
     });
   };
   const getAttributes = () => {

@@ -23,6 +23,7 @@ function ImageBox(props) {
     const handleChange = () => {
         fileUploaded = false;
         $('#upload.btn-upload').prop('disabled', false);
+        $('#upload.btn-upload').html('Upload');
         let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
         if (files.length >= 2 && files.length < props.max - 1) {
             let newFileBoxes = [...FileBoxes];
@@ -47,11 +48,16 @@ function ImageBox(props) {
                 <div className="caption text-center">
                     <button className="btn btn-primary btn-upload" id="upload" onClick={
                         () => {
+                            $('#upload.btn-upload').prop('disabled', true);
+                            $('#upload.btn-upload').html('Uploading...');
+
                             let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
                             let fileNames = document.querySelectorAll('#image-upload p.img-name.has-file');
                             let images = [];
                             if (files.length < props.min) {
                                 alert('You must upload at least ' + props.min + ' images');
+                                $('#upload.btn-upload').prop('disabled', false);
+                                $('#upload.btn-upload').html('Upload');
                                 return;
                             }
                             for (let i = 0; i < files.length; i++) {
@@ -66,7 +72,12 @@ function ImageBox(props) {
                                     if (fileUploaded) {
                                         alert('Upload success');
                                         $('#upload.btn-upload').prop('disabled', true);
+                                        $('#upload.btn-upload').html('Uploaded');
                                     }
+                                }, (err) => {
+                                    alert('Upload failed: ' + err);
+                                    $('#upload.btn-upload').prop('disabled', false);
+                                    $('#upload.btn-upload').html('Upload');
                                 });
                             }
                         }
