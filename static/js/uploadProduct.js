@@ -70,6 +70,10 @@ function CategorySelect(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Select Category")), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-12 col-sm-10 col-sm-offset-1"
+  }, /*#__PURE__*/React.createElement("h5", {
+    className: "template-title"
+  }, "1. Please select your product's category and childcategory")), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-12 col-sm-5 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement(SelectBtn, {
     name: "category",
@@ -172,7 +176,7 @@ function UploadProduct(props) {
     className: "heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Upload Product")), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-12 col-sm-10 col-sm-offset-1"
-  }, /*#__PURE__*/React.createElement("h5", {
+  }, /*#__PURE__*/React.createElement("h4", {
     className: "template-title"
   }, props.ptemplate.category, " > ", props.ptemplate.childcategory, " : ", props.ptemplate.templatename)), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-12 col-sm-10 col-sm-offset-1"

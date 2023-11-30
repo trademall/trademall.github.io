@@ -81,6 +81,9 @@ function CategorySelect(props) {
         <div className="heading">
           <h3>Select Category</h3>
         </div>
+        <div className="col-xs-12 col-sm-10 col-sm-offset-1">
+          <h5 className="template-title">1. Please select your product's category and childcategory</h5>
+        </div>
         <div className="col-xs-12 col-sm-5 col-sm-offset-1">
           <SelectBtn name="category" options={category} />
         </div>
@@ -178,7 +181,7 @@ function UploadProduct(props) {
           <h3>Upload Product</h3>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
-          <h5 className="template-title">{props.ptemplate.category} &gt; {props.ptemplate.childcategory} : {props.ptemplate.templatename}</h5>
+          <h4 className="template-title">{props.ptemplate.category} &gt; {props.ptemplate.childcategory} : {props.ptemplate.templatename}</h4>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
           <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={1} max={6} />
