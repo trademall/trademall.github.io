@@ -155,9 +155,9 @@ function PopupEdit(props) {
     return exclude;
   }
   const attributes = Object.keys(product.attributes).map(key => /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-10 col-sm-offset-1"
+    className: ""
   }, /*#__PURE__*/React.createElement("div", {
-    className: "form-group row",
+    className: "form-group col-12",
     key: key
   }, /*#__PURE__*/React.createElement(InputBox, {
     id: key,
@@ -238,7 +238,7 @@ function PopupEdit(props) {
     required: true,
     disabled: true
   }), /*#__PURE__*/React.createElement("div", {
-    className: "form-group col-sm-10 col-sm-offset-1",
+    className: "form-group col-md-10 col-md-offset-1",
     id: "attributesWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "attributes"
@@ -255,7 +255,7 @@ function PopupEdit(props) {
     defaultValue: product.exclude.join(),
     required: false
   }), /*#__PURE__*/React.createElement("div", {
-    className: "form-group col-sm-10 col-sm-offset-1",
+    className: "form-group col-md-10 col-md-offset-1",
     id: "statusWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "status"

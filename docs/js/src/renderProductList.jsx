@@ -186,8 +186,8 @@ function PopupEdit(props) {
     }
 
     const attributes = Object.keys(product.attributes).map((key) => (
-        <div className="col-sm-10 col-sm-offset-1">
-            <div className="form-group row" key={key}>
+        <div className="">
+            <div className="form-group col-12" key={key}>
                 <InputBox id={key} label={key} type="text" defaultValue={product.attributes[key].join()} required={false} />
             </div>
         </div>
@@ -222,7 +222,7 @@ function PopupEdit(props) {
                             <InputBox id="category" label="Category" type="text" defaultValue={product.category} required={true} disabled={true} />
                             <InputBox id="childcategory" label="Child Category" type="text" defaultValue={product.childcategory} required={true} disabled={true} />
 
-                            <div className="form-group col-sm-10 col-sm-offset-1" id="attributesWrapper">
+                            <div className="form-group col-md-10 col-md-offset-1" id="attributesWrapper">
                                 <label htmlFor="attributes">Attributes</label>
                                 {attributes}
                             </div>
@@ -230,7 +230,7 @@ function PopupEdit(props) {
                             <InputBox id="include" label="Include" type="text" defaultValue={product.include.join()} required={false} />
                             <InputBox id="exclude" label="Exclude" type="text" defaultValue={product.exclude.join()} required={false} />
 
-                            <div className="form-group col-sm-10 col-sm-offset-1" id="statusWrapper">
+                            <div className="form-group col-md-10 col-md-offset-1" id="statusWrapper">
                                 <label htmlFor="status">Status</label>
                                 <select className="form-control" id="status">
                                     <option value={2} selected={product.status == 2 ? 'selected' : ''}>Inactive</option>

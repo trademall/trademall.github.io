@@ -390,3 +390,7 @@ section.post {
   border: 1px solid #ccc;
   border-radius: var(--radius);
 }
+
+select#status {
+  border-radius: var(--radius);
+}
