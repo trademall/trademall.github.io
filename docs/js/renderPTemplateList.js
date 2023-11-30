@@ -85,7 +85,7 @@ function PTemplateListTable(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-sm-12 table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
-    className: "table table-bordered"
+    className: " table-striped table-hover col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Category"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, templates.map(template => {
     return /*#__PURE__*/React.createElement("tr", {
       key: template.id

@@ -93,7 +93,7 @@ function PTemplateListTable(props) {
     return (
         <div className="row">
             <div className="col-sm-12 table-responsive">
-                <table className="table table-bordered">
+                <table className=" table-striped table-hover col-sm-12 table-condensed text-center">
                     <thead>
                         <tr>
                             <th>Name</th>

@@ -68,11 +68,6 @@
               <li>
                 <div class="yamm-content">
                   <div class="row">
-                    {{ if ne .URL "" }}
-                    <div class="col-sm-6">
-                      <img src="{{ .URL }}" class="img-responsive hidden-xs" />
-                    </div>
-                    {{ end }}
                     <div class="col-sm-4">
                       {{ range .Children.ByWeight }}
                       {{ $column := printf "%s" .Post }}
@@ -103,7 +98,6 @@
                       {{ end }}
                       {{ end }}
                     </div>
-                    {{ if eq .URL "" }}
                     <div class="col-sm-4">
                       {{ range .Children }}
                       {{ $column := printf "%s" .Post }}
@@ -134,7 +128,6 @@
                       {{ end }}
                       {{ end }}
                     </div>  */}}
-                    {{ end }}
                   </div>
                 </div>
               </li>

@@ -14,13 +14,14 @@ menu:
   main:
     - name: "Home"
       identifier: "menu.home"
-      url: ""
+      url: "/"
       weight: 1
 
     - name: "Products"
       identifier: "menu.products"
-      # url: "/products/"
+      url: "/products/"
       weight: 2
+      
     - name: "By Category"
       post: 1
       url: "/products/"
