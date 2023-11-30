@@ -385,3 +385,8 @@ section.post {
   justify-content: flex-start;
   align-items: center;
 }
+
+#pimages img {
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+}

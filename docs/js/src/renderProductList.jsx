@@ -1,5 +1,6 @@
 import { Sidebar } from "./renderAdmin.js";
 import { InputBox } from "./InputBox.js";
+import { Attributes } from "./uploadProduct.js";
 import { getProductInfo, getProductList, updateProduct, createProduct, deleteProduct } from "./product_api.js";
 
 function renderProductList(props) {
@@ -13,10 +14,6 @@ function renderProductList(props) {
                 </div>
             </div>,
             productList[0]
-        );
-        ReactDOM.render(
-            <PopupEdit product={props.list[0]} />,
-            $('#popup-edit-product')[0]
         );
     }
 }
@@ -52,8 +49,29 @@ function Pagination() {
     );
 }
 
+function emptyProduct() {
+    return {
+        id: '',
+        name: '',
+        image: '[]',
+        productid: '',
+        detailinfo: '',
+        category: '',
+        childcategory: '',
+        attributes: {},
+        include: [],
+        exclude: [],
+        status: '',
+        volume: '',
+        weight: '',
+        price: '',
+        profit: '',
+    };
+}
+
 function ProductListTable(props) {
     const products = props.products;
+    const [productEdit, setProductEdit] = React.useState(emptyProduct);
 
     const handleDelete = (e) => {
         const id = e.target.dataset.id;
@@ -67,12 +85,12 @@ function ProductListTable(props) {
     const handleUpdate = (e) => {
         const id = e.target.dataset.id;
         const product = products.find(product => product.id == id);
-        console.log(product);
-        ReactDOM.render(
-            <PopupEdit product={product} />,
-            $('#popup-edit-product')[0]
-        );
-
+        if (!product) {
+            alert('Product not found');
+            return;
+        }
+        setProductEdit(product);
+        $('#productEditModal').modal('show');
     }
 
     const rows = products.map((product) =>
@@ -83,7 +101,7 @@ function ProductListTable(props) {
             <td>{product.price}</td>
             <td>{product.profit}</td>
             <td>
-                <button className="btn btn-primary" data-id={product.id} data-toggle="modal" data-target="#productEditModal" onClick={handleUpdate}>Update</button>
+                <button className="btn btn-primary" data-id={product.id} onClick={handleUpdate}>Update</button>
                 <button className="btn btn-danger" data-id={product.id} onClick={handleDelete}>Delete</button>
             </td>
         </tr>
@@ -93,7 +111,9 @@ function ProductListTable(props) {
         <div className="row">
             <div className="col-sm-12 table-responsive">
                 <div className="col-sm-10">
-                    <div id="popup-edit-product"></div>
+                    <div id="popup-edit-product">
+                        <PopupEdit product={productEdit} />
+                    </div>
                 </div>
                 <table className="table table-striped table-hover text-center">
                     <thead>
@@ -117,58 +137,58 @@ function ProductListTable(props) {
 
 function PopupEdit(props) {
     const product = props.product;
+    const images = JSON.parse(product.image);
+
     function handleUpdate(e) {
         const data = {
-            ID: e.target.dataset.id,
-            Title: $('#name').val(),
-            ProductID: $('#pid').val(),
-            DetailInfo: $('#detail').val(),
+            ID: Number(e.target.dataset.id),
+            name: $('#name').val(),
+            productid: Number($('#pid').val()),
+            detailinfo: $('#detail').val(),
             category: $('#category').val(),
             childcategory: $('#childcategory').val(),
-            Attributes: getAttributes(),
-            Status: $('#status').val(),
-            Volume: $('#volume').val(),
-            Weight: $('#weight').val(),
-            Include: getInclude(),
-            Exclude: getExclude(),
-            Price: $('#price').val(),
-            Profit: $('#profit').val(),
+            attributes: getAttributes(),
+            Status: Number($('#status').val()),
+            Volume: Number($('#volume').val()),
+            Weight: Number($('#weight').val()),
+            include: getInclude(),
+            exclude: getExclude(),
+            Price: Number($('#price').val()),
+            Profit: Number($('#profit').val()),
         }
-        updateProduct(data);
+        console.log(data);
+        updateProduct(data, (data) => {
+            alert('Update success');
+            // location.reload();
+        }, (err) => {
+            alert('Update failed: ' + err);
+        });
     }
 
     function getAttributes() {
-        const attributes = {};
-        $('#attributes input').each(function (index, element) {
-            const key = element.dataset.key;
-            const value = element.value;
+        let attributes = {};
+        $('#attributesWrapper input').each(function (index, element) {
+            const key = element.id;
+            const value = element.value.split(',').map((item) => item.trim());
             attributes[key] = value;
         });
+        return attributes;
     }
 
     function getInclude() {
-        const include = [];
-        $('#include input').each(function (index, element) {
-            include.push(element.value);
-        });
+        let include = $('input#include').value ? $('input#include').value.split(',').map((item) => Number(item.trim())) : [];
+        return include;
     }
 
     function getExclude() {
-        const exclude = [];
-        $('#exclude input').each(function (index, element) {
-            exclude.push(element.value);
-        });
+        let exclude = $('input#exclude').value ? $('input#exclude').value.split(',').map((item) => Number(item.trim())) : [];
+        return exclude;
     }
 
     const attributes = Object.keys(product.attributes).map((key) => (
         <div className="col-sm-10 col-sm-offset-1">
             <div className="form-group row" key={key}>
-                <label htmlFor={key} className="col-xs-12">{key}</label>
-                {Object.values(product.attributes[key]).map((value) => (
-                    <div className="col-xs-6 col-sm-4 col-md-3">
-                        <input type="text" className="form-control" name={value} id={value} defaultValue={value} required={false} />
-                    </div>
-                ))}
+                <InputBox id={key} label={key} type="text" defaultValue={product.attributes[key].join()} required={false} />
             </div>
         </div>
     ));
@@ -186,55 +206,46 @@ function PopupEdit(props) {
                     </div>
                     <div className="modal-body">
                         <form>
+                            <div className="form-group col-sm-10 col-sm-offset-1">
+                                <label htmlFor="image">Image</label>
+                                <div className="row" id="pimages">
+                                    {images.map((image) => (
+                                        <div className="col-xs-6 col-sm-4 col-md-3" key={image}>
+                                            <img src={image} className="img-responsive" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                             <InputBox id="name" label="Name" type="text" defaultValue={product.name} required={true} />
                             <InputBox id="pid" label="Product ID" type="text" defaultValue={product.productid} required={true} />
                             <InputBox id="detail" label="Detail" type="text" defaultValue={product.detailinfo} required={true} />
-                            <InputBox id="category" label="Category" type="text" defaultValue={product.category} required={true} />
-                            <InputBox id="childcategory" label="Child Category" type="text" defaultValue={product.childcategory} required={true} />
-                            <div className="col-sm-10 col-sm-offset-1" id="attributes">
+                            <InputBox id="category" label="Category" type="text" defaultValue={product.category} required={true} disabled={true} />
+                            <InputBox id="childcategory" label="Child Category" type="text" defaultValue={product.childcategory} required={true} disabled={true} />
+
+                            <div className="form-group col-sm-10 col-sm-offset-1" id="attributesWrapper">
                                 <label htmlFor="attributes">Attributes</label>
                                 {attributes}
                             </div>
-                            <div className="col-sm-10 col-sm-offset-1">
-                                <div className="form-group row" id="include">
-                                    <label htmlFor="include" className="col-xs-12">Include</label>
-                                    {product.include.map((item) =>
-                                        <div className="col-xs-3">
-                                            <input type="text" className="form-control" name={item} id={item} defaultValue={item} required={false} />
-                                        </div>
-                                    )}
-                                    <div className="col-xs-3">
-                                        <input type="text" className="form-control" name="exclude-empty" id="exclude-empty" required={false} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-10 col-sm-offset-1">
-                                <div className="form-group row" id="exclude">
-                                    <label htmlFor="exclude" className="col-xs-12">Exclude</label>
-                                    {product.exclude.map((item) =>
-                                        <div className="col-xs-3">
-                                            <input type="text" className="form-control" name={item} id={item} defaultValue={item} required={false} />
-                                        </div>
-                                    )}
-                                    <div className="col-xs-3">
-                                        <input type="text" className="form-control" name="exclude-empty" id="exclude-empty" required={false} />
-                                    </div>
-                                </div>
-                            </div>
+
+                            <InputBox id="include" label="Include" type="text" defaultValue={product.include.join()} required={false} />
+                            <InputBox id="exclude" label="Exclude" type="text" defaultValue={product.exclude.join()} required={false} />
+
                             <div className="form-group col-sm-10 col-sm-offset-1" id="statusWrapper">
                                 <label htmlFor="status">Status</label>
-                                <select className="form-control" id="status" defaultValue={product.status}>
-                                    <option value="2">Inactive</option>
-                                    <option value="1">Public</option>
-                                    <option value="0">Private</option>
+                                <select className="form-control" id="status">
+                                    <option value={2} selected={product.status == 2 ? 'selected' : ''}>Inactive</option>
+                                    <option value={1} selected={product.status == 1 ? 'selected' : ''}>Public</option>
+                                    <option value={0} selected={product.status == 0 ? 'selected' : ''}>Private</option>
                                 </select>
                             </div>
                             <InputBox id="volume" label="Volume" type="number" defaultValue={product.volume} required={true} />
                             <InputBox id="weight" label="Weight" type="number" defaultValue={product.weight} required={true} />
                             <InputBox id="price" label="Price" type="number" defaultValue={product.price} required={true} />
-                            <InputBox id="profit" label="Profit" type="number" defaultValue={product.profit} required={true} />
-                            <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={product.id}>Update</button>
+                            <InputBox id="profit" label="Profit" type="number" defaultValue={product.profit} required={true} disabled ={true} />
                         </form>
+                        <div className="modal-footer text-center">
+                            <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={product.id}>Update</button>
+                        </div>
                     </div>
                 </div>
             </div>

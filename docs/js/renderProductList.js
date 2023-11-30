@@ -1,5 +1,6 @@
 import { Sidebar } from "./renderAdmin.js";
 import { InputBox } from "./InputBox.js";
+import { Attributes } from "./uploadProduct.js";
 import { getProductInfo, getProductList, updateProduct, createProduct, deleteProduct } from "./product_api.js";
 function renderProductList(props) {
   const productList = $('#product-list');
@@ -11,9 +12,6 @@ function renderProductList(props) {
     }, /*#__PURE__*/React.createElement(ProductList, {
       products: props.list
     }))), productList[0]);
-    ReactDOM.render( /*#__PURE__*/React.createElement(PopupEdit, {
-      product: props.list[0]
-    }), $('#popup-edit-product')[0]);
   }
 }
 function ProductList(props) {
@@ -45,8 +43,28 @@ function Pagination() {
     disabled: true
   }, "Next\xA0>")));
 }
+function emptyProduct() {
+  return {
+    id: '',
+    name: '',
+    image: '[]',
+    productid: '',
+    detailinfo: '',
+    category: '',
+    childcategory: '',
+    attributes: {},
+    include: [],
+    exclude: [],
+    status: '',
+    volume: '',
+    weight: '',
+    price: '',
+    profit: ''
+  };
+}
 function ProductListTable(props) {
   const products = props.products;
+  const [productEdit, setProductEdit] = React.useState(emptyProduct);
   const handleDelete = e => {
     const id = e.target.dataset.id;
     deleteProduct(id, data => {
@@ -59,18 +77,18 @@ function ProductListTable(props) {
   const handleUpdate = e => {
     const id = e.target.dataset.id;
     const product = products.find(product => product.id == id);
-    console.log(product);
-    ReactDOM.render( /*#__PURE__*/React.createElement(PopupEdit, {
-      product: product
-    }), $('#popup-edit-product')[0]);
+    if (!product) {
+      alert('Product not found');
+      return;
+    }
+    setProductEdit(product);
+    $('#productEditModal').modal('show');
   };
   const rows = products.map(product => /*#__PURE__*/React.createElement("tr", {
     key: product.id
   }, /*#__PURE__*/React.createElement("td", null, product.id), /*#__PURE__*/React.createElement("td", null, product.name), /*#__PURE__*/React.createElement("td", null, product.status == 2 ? 'Inactive' : product.status == 1 ? 'Public' : 'Private'), /*#__PURE__*/React.createElement("td", null, product.price), /*#__PURE__*/React.createElement("td", null, product.profit), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     "data-id": product.id,
-    "data-toggle": "modal",
-    "data-target": "#productEditModal",
     onClick: handleUpdate
   }, "Update"), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-danger",
@@ -85,69 +103,69 @@ function ProductListTable(props) {
     className: "col-sm-10"
   }, /*#__PURE__*/React.createElement("div", {
     id: "popup-edit-product"
-  })), /*#__PURE__*/React.createElement("table", {
+  }, /*#__PURE__*/React.createElement(PopupEdit, {
+    product: productEdit
+  }))), /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, rows))));
 }
 function PopupEdit(props) {
   const product = props.product;
+  const images = JSON.parse(product.image);
   function handleUpdate(e) {
     const data = {
-      ID: e.target.dataset.id,
-      Title: $('#name').val(),
-      ProductID: $('#pid').val(),
-      DetailInfo: $('#detail').val(),
+      ID: Number(e.target.dataset.id),
+      name: $('#name').val(),
+      productid: Number($('#pid').val()),
+      detailinfo: $('#detail').val(),
       category: $('#category').val(),
       childcategory: $('#childcategory').val(),
-      Attributes: getAttributes(),
-      Status: $('#status').val(),
-      Volume: $('#volume').val(),
-      Weight: $('#weight').val(),
-      Include: getInclude(),
-      Exclude: getExclude(),
-      Price: $('#price').val(),
-      Profit: $('#profit').val()
+      attributes: getAttributes(),
+      Status: Number($('#status').val()),
+      Volume: Number($('#volume').val()),
+      Weight: Number($('#weight').val()),
+      include: getInclude(),
+      exclude: getExclude(),
+      Price: Number($('#price').val()),
+      Profit: Number($('#profit').val())
     };
-    updateProduct(data);
+    console.log(data);
+    updateProduct(data, data => {
+      alert('Update success');
+      // location.reload();
+    }, err => {
+      alert('Update failed: ' + err);
+    });
   }
   function getAttributes() {
-    const attributes = {};
-    $('#attributes input').each(function (index, element) {
-      const key = element.dataset.key;
-      const value = element.value;
+    let attributes = {};
+    $('#attributesWrapper input').each(function (index, element) {
+      const key = element.id;
+      const value = element.value.split(',').map(item => item.trim());
       attributes[key] = value;
     });
+    return attributes;
   }
   function getInclude() {
-    const include = [];
-    $('#include input').each(function (index, element) {
-      include.push(element.value);
-    });
+    let include = $('input#include').value ? $('input#include').value.split(',').map(item => Number(item.trim())) : [];
+    return include;
   }
   function getExclude() {
-    const exclude = [];
-    $('#exclude input').each(function (index, element) {
-      exclude.push(element.value);
-    });
+    let exclude = $('input#exclude').value ? $('input#exclude').value.split(',').map(item => Number(item.trim())) : [];
+    return exclude;
   }
   const attributes = Object.keys(product.attributes).map(key => /*#__PURE__*/React.createElement("div", {
     className: "col-sm-10 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement("div", {
     className: "form-group row",
     key: key
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: key,
-    className: "col-xs-12"
-  }, key), Object.values(product.attributes[key]).map(value => /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-6 col-sm-4 col-md-3"
-  }, /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    id: key,
+    label: key,
     type: "text",
-    className: "form-control",
-    name: value,
-    id: value,
-    defaultValue: value,
+    defaultValue: product.attributes[key].join(),
     required: false
-  }))))));
+  }))));
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
     id: "productEditModal",
@@ -174,7 +192,20 @@ function PopupEdit(props) {
     id: "productEditModalLabel"
   }, "Edit Product")), /*#__PURE__*/React.createElement("div", {
     className: "modal-body"
-  }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputBox, {
+  }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", {
+    className: "form-group col-sm-10 col-sm-offset-1"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "image"
+  }, "Image"), /*#__PURE__*/React.createElement("div", {
+    className: "row",
+    id: "pimages"
+  }, images.map(image => /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-6 col-sm-4 col-md-3",
+    key: image
+  }, /*#__PURE__*/React.createElement("img", {
+    src: image,
+    className: "img-responsive"
+  }))))), /*#__PURE__*/React.createElement(InputBox, {
     id: "name",
     label: "Name",
     type: "text",
@@ -197,83 +228,49 @@ function PopupEdit(props) {
     label: "Category",
     type: "text",
     defaultValue: product.category,
-    required: true
+    required: true,
+    disabled: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "childcategory",
     label: "Child Category",
     type: "text",
     defaultValue: product.childcategory,
-    required: true
+    required: true,
+    disabled: true
   }), /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-10 col-sm-offset-1",
-    id: "attributes"
+    className: "form-group col-sm-10 col-sm-offset-1",
+    id: "attributesWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "attributes"
-  }, "Attributes"), attributes), /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-10 col-sm-offset-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "form-group row",
-    id: "include"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "include",
-    className: "col-xs-12"
-  }, "Include"), product.include.map(item => /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-3"
-  }, /*#__PURE__*/React.createElement("input", {
+  }, "Attributes"), attributes), /*#__PURE__*/React.createElement(InputBox, {
+    id: "include",
+    label: "Include",
     type: "text",
-    className: "form-control",
-    name: item,
-    id: item,
-    defaultValue: item,
+    defaultValue: product.include.join(),
     required: false
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-3"
-  }, /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    id: "exclude",
+    label: "Exclude",
     type: "text",
-    className: "form-control",
-    name: "exclude-empty",
-    id: "exclude-empty",
+    defaultValue: product.exclude.join(),
     required: false
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "col-sm-10 col-sm-offset-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "form-group row",
-    id: "exclude"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "exclude",
-    className: "col-xs-12"
-  }, "Exclude"), product.exclude.map(item => /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-3"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    className: "form-control",
-    name: item,
-    id: item,
-    defaultValue: item,
-    required: false
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "col-xs-3"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    className: "form-control",
-    name: "exclude-empty",
-    id: "exclude-empty",
-    required: false
-  })))), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", {
     className: "form-group col-sm-10 col-sm-offset-1",
     id: "statusWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "status"
   }, "Status"), /*#__PURE__*/React.createElement("select", {
     className: "form-control",
-    id: "status",
-    defaultValue: product.status
+    id: "status"
   }, /*#__PURE__*/React.createElement("option", {
-    value: "2"
+    value: 2,
+    selected: product.status == 2 ? 'selected' : ''
   }, "Inactive"), /*#__PURE__*/React.createElement("option", {
-    value: "1"
+    value: 1,
+    selected: product.status == 1 ? 'selected' : ''
   }, "Public"), /*#__PURE__*/React.createElement("option", {
-    value: "0"
+    value: 0,
+    selected: product.status == 0 ? 'selected' : ''
   }, "Private"))), /*#__PURE__*/React.createElement(InputBox, {
     id: "volume",
     label: "Volume",
@@ -297,8 +294,11 @@ function PopupEdit(props) {
     label: "Profit",
     type: "number",
     defaultValue: product.profit,
-    required: true
-  }), /*#__PURE__*/React.createElement("button", {
+    required: true,
+    disabled: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "modal-footer text-center"
+  }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-primary",
     onClick: handleUpdate,

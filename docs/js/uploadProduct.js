@@ -298,4 +298,4 @@ function Attributes(props) {
   }))));
 }
 renderCategorySelect();
-export { renderCategorySelect };
+export { renderCategorySelect, Attributes };

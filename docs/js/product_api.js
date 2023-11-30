@@ -69,7 +69,8 @@ function updateProduct(data, callback, errorcallback = console.log) {
         dataType: "json",
         data: JSON.stringify(data),
         headers: {
-            "token": localStorage.getItem("token")
+            "token": localStorage.getItem("token"),
+            "Content-Type": "application/json"
         },
         success: function (data) {
             if (data.code == 200) {
