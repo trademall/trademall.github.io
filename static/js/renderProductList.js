@@ -296,13 +296,13 @@ function PopupEdit(props) {
     defaultValue: product.profit,
     required: true,
     disabled: true
-  })), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "modal-footer text-center"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-primary",
     onClick: handleUpdate,
     "data-id": product.id
-  }, "Update"))))));
+  }, "Update")))));
 }
 export { renderProductList, ProductListTable };

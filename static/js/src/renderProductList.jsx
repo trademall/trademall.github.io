@@ -243,9 +243,9 @@ function PopupEdit(props) {
                             <InputBox id="price" label="Price" type="number" defaultValue={product.price} required={true} />
                             <InputBox id="profit" label="Profit" type="number" defaultValue={product.profit} required={true} disabled ={true} />
                         </form>
-                        <div className="modal-footer text-center">
-                            <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={product.id}>Update</button>
-                        </div>
+                    </div>
+                    <div className="modal-footer text-center">
+                        <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={product.id}>Update</button>
                     </div>
                 </div>
             </div>
