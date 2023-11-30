@@ -24,7 +24,7 @@ function ImageBox(props) {
         fileUploaded = false;
         $('#upload.btn-upload').prop('disabled', false);
         let files = document.querySelectorAll('#image-upload input[type="file"].uploaded');
-        if (files.length >= props.min - 1 && files.length < props.max - 1) {
+        if (files.length >= 2 && files.length < props.max - 1) {
             let newFileBoxes = [...FileBoxes];
             newFileBoxes.push(<FileBox id={"file" + (files.length + 1)} />);
             setFileBoxes(newFileBoxes);

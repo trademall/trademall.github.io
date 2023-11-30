@@ -49,11 +49,36 @@ div.dropdown {
 }
 
 .file-upload.thumbnail {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    padding: 10px;
     border: none;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+    justify-items: center;
+    align-items: center;
+}
+
+.btn.btn-file {
+    max-width: 180px;
     border-radius: 8px;
+    border: none;
+    background-color: transparent;
+}
+
+.btn.btn-file input[type="file"] {
+    max-width: 180px;
+    min-width: none;
+}
+
+select.form-control {
+    border-radius: var(--radius);
+}
+
+div.caption {
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    border: none;
+    border-top: 1px solid #ccc;
+    color: gray;
 }
