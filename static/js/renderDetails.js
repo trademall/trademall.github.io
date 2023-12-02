@@ -62,7 +62,9 @@ function RightColumn(props) {
     className: "col-sm-6 col-md-6 row"
   }, /*#__PURE__*/React.createElement(Customizer, {
     product: props.product
-  }), /*#__PURE__*/React.createElement(SubmitButton, null), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
+  }), /*#__PURE__*/React.createElement(SubmitButton, {
+    pid: props.product.id
+  }), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
 }
 function Customizer(props) {
   const [num, setNum] = React.useState(0);
@@ -115,6 +117,9 @@ function CustomizerBody(props) {
     className: "col-md-2"
   }, /*#__PURE__*/React.createElement("h4", null, "Quantity: ")), /*#__PURE__*/React.createElement("div", {
     className: "col-md-10"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "quantity",
+    className: "active"
   }, /*#__PURE__*/React.createElement("input", {
     type: "number",
     className: "form-control",
@@ -123,7 +128,7 @@ function CustomizerBody(props) {
     min: "1",
     value: props.num,
     onChange: handleNumChange
-  }))));
+  })))));
 }
 function CustomizerOption(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -167,11 +172,12 @@ function CustomizerFooter(props) {
     className: "text-uppercase text-right"
   }, "$", /*#__PURE__*/React.createElement("strong", null, props.price[key].toFixed(2)))))))));
 }
-function SubmitButton() {
+function SubmitButton(props) {
   return /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-lg btn-template-main col-xs-10 col-xs-offset-1 col-sm-12",
-    id: "submitBtn"
+    id: "submitBtn",
+    "data-id": props.pid
   }, /*#__PURE__*/React.createElement("i", {
     className: "fa fa-cart-plus"
   }), " ", /*#__PURE__*/React.createElement("span", null, " add to cart!"));

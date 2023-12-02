@@ -66,7 +66,7 @@ function RightColumn(props) {
     return (
         <form className="col-sm-6 col-md-6 row">
             <Customizer product={props.product} />
-            <SubmitButton />
+            <SubmitButton pid={props.product.id} />
             <LoginAlert />
             <SubmitAlert />
             <ErrorAlert />
@@ -122,7 +122,9 @@ function CustomizerBody(props) {
                     <h4>Quantity: </h4>
                 </div>
                 <div className="col-md-10">
-                    <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} />
+                    <label htmlFor="quantity" className="active">
+                        <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} />
+                    </label>
                 </div>
             </div>
         </div>
@@ -174,9 +176,9 @@ function CustomizerFooter(props) {
     );
 }
 
-function SubmitButton() {
+function SubmitButton(props) {
     return (
-        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1 col-sm-12" id="submitBtn">
+        <button type="submit" className="btn btn-lg btn-template-main col-xs-10 col-xs-offset-1 col-sm-12" id="submitBtn" data-id={props.pid}>
             <i className="fa fa-cart-plus"></i> <span> add to cart!</span>
         </button>
     );

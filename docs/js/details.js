@@ -73,9 +73,13 @@ function getSKU() {
     const selectors = document.querySelectorAll('.selector');
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
-        const name = selector.firstChild.textContent.replace(':', '');
-        const value = selector.querySelector('label.active input').id;
-        attributes["attributes"][name] = [value];
+        const name = selector.firstChild.textContent.replace(':', '').trim();
+        if (name !== "Quantity") {
+            const value = selector.querySelector('label.active input').id;
+            attributes["attributes"][name] = [value];
+        } else {
+            continue;
+        }
     }
 
     const sku = {
