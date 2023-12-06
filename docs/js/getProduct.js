@@ -3,10 +3,10 @@ function getProduct(type, id, callback, errorcallback=console.log) {
     xhr.withCredentials = true;
 
     if (type == "list") {
-        xhr.open("GET", "http://54.79.139.73:80/productlist/" + id);
+        xhr.open("GET", "http://47.89.209.202:80/productlist/" + id);
     }
     else if (type == "info") {
-        xhr.open("GET", "http://54.79.139.73:80/product/" + id);
+        xhr.open("GET", "http://47.89.209.202:80/product/" + id);
     }
     else {
         return null;

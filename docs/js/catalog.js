@@ -2,7 +2,7 @@ import { RenderCatalog } from "./renderCatalog.js";
 
 function getCatalog() {
     $.ajax({
-        url: 'http://54.79.139.73:80/v1/catalog/' + uid,
+        url: 'http://47.89.209.202:80/v1/catalog/' + uid,
         type: 'GET',
         headers: {
             'Content-Type': 'application/json',

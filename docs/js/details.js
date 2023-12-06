@@ -32,7 +32,7 @@ function submit(event) {
     } else {
         disableBtn();
         $.ajax({
-            url: "http://54.79.139.73:80/v1/catalog/" + uid,
+            url: "http://47.89.209.202:80/v1/catalog/" + uid,
             type: "GET",
             headers: {
                 "token": localStorage.getItem("token"),
@@ -65,6 +65,7 @@ function getSKU() {
     let attributes = {};
     // let product = product;
 
+    attributes["image"] = product.image;
     attributes["name"] = product.name;
     attributes["pid"] = Number(product.id);
     attributes["num"] = Number($('#quantity').val());
@@ -96,7 +97,7 @@ function addToCart() {
     const data = JSON.stringify(item);
     console.log(data);
     $.ajax({
-        url: "http://54.79.139.73:80/v1/catalog",
+        url: "http://47.89.209.202:80/v1/catalog",
         type: "POST",
         headers: {
             "token": localStorage.getItem("token"),
@@ -129,7 +130,7 @@ function updateCart() {
     const data = JSON.stringify(item);
     console.log(data);
     $.ajax({
-        url: "http://54.79.139.73:80/v1/catalog",
+        url: "http://47.89.209.202:80/v1/catalog",
         type: "PATCH",
         headers: {
             "token": localStorage.getItem("token"),

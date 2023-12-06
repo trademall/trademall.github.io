@@ -9,8 +9,9 @@ function TextDiv(props) {
     return (
         <div className="textDiv">
             <h4><a href={"/products/details/?id=" + props.id}>{props.name}</a></h4>
-            <p>{Object.values(props.attributes).join(', ')}</p>
-            <h4 className="price" id="price"><span className="price-symbol">$</span>{props.price}</h4>
+            <p><span>{Object.values(props.attributes).join(', ')}</span>
+            <span className="number pull-right text-large text-primary" id="number">× {props.num}</span></p>
+            {/* <h4 className="price" id="price"><span className="price-symbol">$</span>{props.price}</h4> */}
         </div >
     );
 }
@@ -27,7 +28,7 @@ function FootBtns(props) {
     }
 
     function deleteCatalog() {
-        const url = 'http://54.79.139.73:80/v1/catalog/' + props.cid;
+        const url = 'http://47.89.209.202:80/v1/catalog/' + props.cid;
         $.ajax({
             url: url,
             type: 'DELETE',
@@ -38,9 +39,8 @@ function FootBtns(props) {
                 $('#' + props.cid + ' .deletePrompt').removeClass('hidden');
                 $('#' + props.cid + ' .deleteBtn').addClass('hidden');
                 if (res.code == 200) {
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
+                    alert('Delete Success!');
+                    window.location.reload();
                 } else {
                     // alert('Delete Failed!');
                     cancelDelete();
@@ -76,7 +76,7 @@ function ProductDiv(props) {
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" id={props.cid}>
             <div className="commodity">
                 <ImgDiv image={props.image} name={props.name} id={props.pid} />
-                <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} />
+                <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} num={props.num} />
                 <FootBtns cid={props.cid} id={props.pid} />
             </div>
         </div>
@@ -86,7 +86,7 @@ function ProductDiv(props) {
 function ProductCatalog(props) {
     const catalog = props.catalog;
     const catalogItems = catalog.map((product) =>
-        <ProductDiv key={product.id} cid={product.id} image={product.image} name={product.attributes.name} price={product.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } />
+        <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } num={product.attributes.num} />
     );
     return (
         <div className="commodities">

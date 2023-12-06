@@ -1,4 +1,4 @@
-const server = 'http://54.79.139.73:80'
+const server = 'http://47.89.209.202:80'
 
 function getPTemplate(ptid, successCallback = console.log, errorCallback=console.log) {
     $.ajax({

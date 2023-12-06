@@ -38,15 +38,25 @@ function Pid(props) {
 }
 
 function Pimage(props) {
-    var imageURL = "";
-    try {
-        imageURL = JSON.parse(props.product.image)[0];
-    } catch (error) {
-        console.log(error);
-    }
+    const imageURL = JSON.parse(props.product.image);
+    const [main, setMain] = React.useState(imageURL[0]);
+    const handleImgChange = (event) => {
+        setMain(event.target.src);
+    };
     return (
         <div className="img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
-            <img src={imageURL} alt="" className="img img-responsive" id="product-image" />
+            <div className="img-main">
+                <img src={main} alt="" className="img img-responsive" id="product-image" />
+            </div>
+            <div className="img-sub row">
+                {imageURL.map((url) => (
+                    <div className="col-xs-4 col-sm-3 col-md-3">
+                        <label htmlFor="product-image" className="img-label" onClick={handleImgChange}>
+                            <img src={url} alt="" className="img img-responsive" />
+                        </label>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
@@ -75,14 +85,18 @@ function RightColumn(props) {
 }
 
 function Customizer(props) {
-    const [num, setNum] = React.useState(0);
+    const [num, setNum] = React.useState(1);
     const [price, setPrice] = React.useState({
         "express": 0.00,
         "airexpress": 0.00,
         "seaexpress": 0.00,
         "seatrans": 0.00
     });
-    // getPrice(Number(props.product.id), Number(num), setPrice);
+    const initPrice = () => {
+        getPrice(Number(props.product.id), 1, setPrice);
+    };
+    React.useEffect(initPrice, []);
+
     return (
         <div id="customizer" className="card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12">
             <CustomizerHeader />
@@ -110,7 +124,7 @@ function CustomizerBody(props) {
         trigger? clearTimeout(timer): trigger = true;
         timer = setTimeout(() => {
             getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
-        }, 1000);
+        }, 200);
     };
     return (
         <div className="card-body">

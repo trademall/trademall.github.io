@@ -10,12 +10,10 @@ function TextDiv(props) {
     className: "textDiv"
   }, /*#__PURE__*/React.createElement("h4", null, /*#__PURE__*/React.createElement("a", {
     href: "/products/details/?id=" + props.id
-  }, props.name)), /*#__PURE__*/React.createElement("p", null, Object.values(props.attributes).join(', ')), /*#__PURE__*/React.createElement("h4", {
-    className: "price",
-    id: "price"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "price-symbol"
-  }, "$"), props.price));
+  }, props.name)), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("span", null, Object.values(props.attributes).join(', ')), /*#__PURE__*/React.createElement("span", {
+    className: "number pull-right text-large text-primary",
+    id: "number"
+  }, "\xD7 ", props.num)));
 }
 function FootBtns(props) {
   function confirmDelete() {
@@ -27,7 +25,7 @@ function FootBtns(props) {
     $('#' + props.cid + ' .operateBtn').removeClass('hidden');
   }
   function deleteCatalog() {
-    const url = 'http://54.79.139.73:80/v1/catalog/' + props.cid;
+    const url = 'http://47.89.209.202:80/v1/catalog/' + props.cid;
     $.ajax({
       url: url,
       type: 'DELETE',
@@ -38,9 +36,8 @@ function FootBtns(props) {
         $('#' + props.cid + ' .deletePrompt').removeClass('hidden');
         $('#' + props.cid + ' .deleteBtn').addClass('hidden');
         if (res.code == 200) {
-          setTimeout(function () {
-            window.location.reload();
-          }, 1000);
+          alert('Delete Success!');
+          window.location.reload();
         } else {
           // alert('Delete Failed!');
           cancelDelete();
@@ -93,7 +90,8 @@ function ProductDiv(props) {
     name: props.name,
     price: props.price,
     id: props.pid,
-    attributes: props.attributes
+    attributes: props.attributes,
+    num: props.num
   }), /*#__PURE__*/React.createElement(FootBtns, {
     cid: props.cid,
     id: props.pid
@@ -104,11 +102,12 @@ function ProductCatalog(props) {
   const catalogItems = catalog.map(product => /*#__PURE__*/React.createElement(ProductDiv, {
     key: product.id,
     cid: product.id,
-    image: product.image,
+    image: product.attributes.image,
     name: product.attributes.name,
     price: product.price,
     pid: product.attributes.pid,
-    attributes: product.attributes.attributes
+    attributes: product.attributes.attributes,
+    num: product.attributes.num
   }));
   return /*#__PURE__*/React.createElement("div", {
     className: "commodities"

@@ -20,7 +20,7 @@ function login(event) {
     loginBtn.textContent = "Logging in...";
 
     $.ajax({
-        url: "http://54.79.139.73:80/user/login",
+        url: "http://47.89.209.202:80/user/login",
         type: "POST",
         data: JSON.stringify(data),
         dataType: "json",

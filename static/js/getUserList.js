@@ -1,6 +1,6 @@
 function getUserList(pageNum, pageSize, successCallback=console.log, errorCallback=console.log) {
     $.ajax({
-        url: "http://54.79.139.73:80/v1/root/user",
+        url: "http://47.89.209.202:80/v1/root/user",
         type: "GET",
         dataType: "json",
         headers: {

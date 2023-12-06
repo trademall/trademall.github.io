@@ -9,7 +9,8 @@
 #details img {
     width: auto;
     height: 100%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    border-radius: var(--radius);
 }
 
 #details .description h4{
@@ -154,4 +155,26 @@
     color: #ffffff;
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
+}
+
+#details .img-main {
+    margin: 6px 0;
+}
+
+#details .img-sub {
+    margin-top: 6px;
+}
+
+#details .img-main img {
+    border: 1px solid #ccc;
+}
+
+#details .img-sub label {
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    transition: all 0.15s ease;
+}
+
+#details .img-sub label:hover {
+    border-color: var(--active-bg);
 }

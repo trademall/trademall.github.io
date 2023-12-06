@@ -35,20 +35,33 @@ function Pid(props) {
   }, "item #", props.pid);
 }
 function Pimage(props) {
-  var imageURL = "";
-  try {
-    imageURL = JSON.parse(props.product.image)[0];
-  } catch (error) {
-    console.log(error);
-  }
+  const imageURL = JSON.parse(props.product.image);
+  const [main, setMain] = React.useState(imageURL[0]);
+  const handleImgChange = event => {
+    setMain(event.target.src);
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "img-wrapper col-xs-10 col-xs-offset-1 col-sm-12 col-md-12"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "img-main"
   }, /*#__PURE__*/React.createElement("img", {
-    src: imageURL,
+    src: main,
     alt: "",
     className: "img img-responsive",
     id: "product-image"
-  }));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "img-sub row"
+  }, imageURL.map(url => /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-4 col-sm-3 col-md-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "product-image",
+    className: "img-label",
+    onClick: handleImgChange
+  }, /*#__PURE__*/React.createElement("img", {
+    src: url,
+    alt: "",
+    className: "img img-responsive"
+  }))))));
 }
 function Pdescription(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -67,14 +80,17 @@ function RightColumn(props) {
   }), /*#__PURE__*/React.createElement(LoginAlert, null), /*#__PURE__*/React.createElement(SubmitAlert, null), /*#__PURE__*/React.createElement(ErrorAlert, null));
 }
 function Customizer(props) {
-  const [num, setNum] = React.useState(0);
+  const [num, setNum] = React.useState(1);
   const [price, setPrice] = React.useState({
     "express": 0.00,
     "airexpress": 0.00,
     "seaexpress": 0.00,
     "seatrans": 0.00
   });
-  // getPrice(Number(props.product.id), Number(num), setPrice);
+  const initPrice = () => {
+    getPrice(Number(props.product.id), 1, setPrice);
+  };
+  React.useEffect(initPrice, []);
   return /*#__PURE__*/React.createElement("div", {
     id: "customizer",
     className: "card col-xs-10 col-xs-offset-1 col-sm-12 col-md-12"
@@ -103,7 +119,7 @@ function CustomizerBody(props) {
     trigger ? clearTimeout(timer) : trigger = true;
     timer = setTimeout(() => {
       getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
-    }, 1000);
+    }, 200);
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "card-body"
