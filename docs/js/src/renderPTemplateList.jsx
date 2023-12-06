@@ -302,7 +302,6 @@ function NewPTemplateModal() {
     }
 
     const handleClick = (e) => {
-        console.log(e.target.classList);
         if (e.target.parentElement.parentElement.classList.contains('disabled')) {
             return;
         }
