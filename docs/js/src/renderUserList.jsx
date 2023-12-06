@@ -3,7 +3,7 @@ import { deleteUser } from "./users.js";
 import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 
 function renderUserList(props) {
@@ -57,7 +57,9 @@ function UserListTable(props) {
 
     const handleDelete = (e) => {
         const id = e.target.dataset.id;
-        deleteUser(id);
+        if (confirm("Are you sure you want to delete this user?")) {
+            deleteUser(id);
+        }
     }
     const handleActive = (e) => {
         const id = e.target.dataset.id;
@@ -124,12 +126,14 @@ function PopupEdit(props) {
         const data = {
             id: Number(e.target.dataset.id),
             username: $('#username').val(),
-            password: $('#password').val(),
             email: $('#email').val(),
             phone: $('#phone').val(),
             address: $('#address').val(),
-            profit: $('#profit').val(),
+            profit: Number($('#profit').val()),
             role: $('#role').val()
+        }
+        if ($('#password').val()) {
+            data.password = $('#password').val();
         }
         updateUser(data);
     }
@@ -146,7 +150,7 @@ function PopupEdit(props) {
                     <div className="modal-body">
                         <form>
                             <InputBox id="username" label="Username" type="text" defaultValue={user.username} required={true} />
-                            <InputBox id="password" label="Password" type="password" defaultValue={user.password} required={true} />
+                            <InputBox id="password" label="New Password" type="password" defaultValue="" required={false} autoComplete="new-password" placeholder="Leave blank if you don't want to change password" />
                             <InputBox id="email" label="Email" type="email" defaultValue={user.email} required={true} />
                             <InputBox id="phone" label="Phone" type="text" defaultValue={user.phone} required={true} />
                             <InputBox id="address" label="Address" type="text" defaultValue={user.address} required={true} />
@@ -157,6 +161,10 @@ function PopupEdit(props) {
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
                                 </select>
+                            </div>
+                            <div className="col-md-10 col-md-offset-1">
+                                <p className="text-danger" id="error-message"></p>
+                                <p className="text-success" id="success-message"></p>
                             </div>
                             <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={user.id}>Update</button>
                         </form>

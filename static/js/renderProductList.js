@@ -1,4 +1,4 @@
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 import { Attributes } from "./uploadProduct.js";
 import { getProductInfo, getProductList, updateProduct, createProduct, deleteProduct } from "./product_api.js";

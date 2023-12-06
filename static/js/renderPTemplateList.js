@@ -1,4 +1,4 @@
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 import { createPTemplate, deletePTemplate, updatePTemplate, setPTemplateStatus } from "./ptemplate_api.js";
 function renderPTemplateList(props) {
@@ -45,8 +45,31 @@ function Pagination() {
     onClick: handleNextPage
   }, "Next\xA0>")));
 }
+function emptyTemplate() {
+  return {
+    "id": "",
+    "templatename": "",
+    "category": "",
+    "childcategory": "",
+    "Profit": 0,
+    "isactive": 1,
+    "include": [],
+    "exclude": [],
+    "description": "",
+    "attributes": {
+      "price": "tier",
+      "attrs": [{
+        "name": "",
+        "type": "multiple",
+        "required": false,
+        "example": ""
+      }]
+    }
+  };
+}
 function PTemplateListTable(props) {
   const templates = props.templates;
+  const [template, setTemplate] = React.useState(emptyTemplate);
   const handleDelete = e => {
     const id = e.target.dataset.id;
     deletePTemplate(id, () => {
@@ -55,37 +78,36 @@ function PTemplateListTable(props) {
   };
   const handleActive = e => {
     const id = Number(e.target.dataset.id);
-    const status = templates.find(template => {
+    const targetTemplate = templates.find(template => {
       return template.id === id;
-    }).isactive;
-    console.log(id, status);
-    setPTemplateStatus(id, 1 - status, () => {
-      window.location.reload();
+    });
+    const status = targetTemplate.isactive;
+    // console.log(id, status);
+    deletePTemplate(id, () => {
+      createPTemplate(JSON.stringify({
+        ...targetTemplate,
+        isactive: 1 - status
+      }), () => {
+        window.location.reload();
+      });
     });
   };
   const handleUpdate = e => {
     const id = Number(e.target.dataset.id);
-    $('#editPTemplateModal').modal('show');
-    $('#editPTemplateModal form').attr('data-id', id);
-    const template = templates.find(template => {
+    const targetTemplate = templates.find(template => {
       return template.id === id;
     });
-    // console.log(template);
-    $('#template-name').val(template.templatename);
-    $('#category').val(template.category);
-    $('#child-category').val(template.childcategory);
-    $('#profit').val(template.profit);
-    $('#include').val(template.include);
-    $('#exclude').val(template.exclude);
-    $('#description').val(template.description);
-    $('#attributes').val(template.attributes);
+    setTemplate(targetTemplate);
+    $('#editPTemplateModal').modal('show');
   };
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(PopupEdit, {
+    ptemlate: template
+  }), /*#__PURE__*/React.createElement("div", {
     className: "col-sm-12 table-responsive"
   }, /*#__PURE__*/React.createElement("table", {
-    className: " table-striped table-hover col-sm-12 table-condensed text-center"
+    className: "table table-striped table-hover col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Category"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, templates.map(template => {
     return /*#__PURE__*/React.createElement("tr", {
       key: template.id
@@ -105,6 +127,30 @@ function PTemplateListTable(props) {
   })))));
 }
 function PopupEdit(props) {
+  const ptemplate = props.ptemlate;
+  const getAttributes = () => {
+    const attrs = {};
+    const price = "tier";
+    attrs['price'] = price;
+    const attrName = document.querySelectorAll('#attr-name');
+    const type = document.querySelectorAll('#type');
+    const required = document.querySelectorAll('#required');
+    const example = document.querySelectorAll('#example');
+    attrs['attrs'] = [];
+    for (let i = 0; i < attrName.length; i++) {
+      if (attrName[i].value === '') {
+        continue;
+      }
+      const attr = {};
+      attr['name'] = attrName[i].value;
+      attr['type'] = type[i].value;
+      // attr['required'] = (required[i].checked === "on");
+      attr['required'] = required[i].checked;
+      attr['example'] = example[i].value;
+      attrs['attrs'].push(attr);
+    }
+    return attrs;
+  };
   const handleSubmit = e => {
     e.preventDefault();
     const id = e.target.dataset.id;
@@ -113,10 +159,14 @@ function PopupEdit(props) {
     const childCategory = $('#child-category').val();
     const profit = Number($('#profit').val());
     const status = 1;
-    const include = $('#include').val() || [];
-    const exclude = $('#exclude').val() || [];
+    const include = $('#include').val() ? $('#include').val().split(',').map(item => {
+      return Number(item.trim());
+    }) : [];
+    const exclude = $('#exclude').val() ? $('#exclude').val().split(',').map(item => {
+      return Number(item.trim());
+    }) : [];
     const description = $('#description').val() || '';
-    const attributes = $('#attributes').val() || {};
+    const attributes = getAttributes();
     const data = {
       "id": id,
       "templatename": templateName,
@@ -129,16 +179,18 @@ function PopupEdit(props) {
       "description": description,
       "attributes": attributes
     };
-    console.log(data);
-    updatePTemplate(data, () => {
-      $('#info').html('<p class="text-success">Product Template Updated Successfully!</p>');
-      setTimeout(() => {
-        $('#info').html('');
-        $('#editPTemplateModal').modal('hide');
-        // window.location.reload();
-      }, 1000);
-    }, res => {
-      $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
+    // console.log(data);
+    deletePTemplate(id, () => {
+      createPTemplate(JSON.stringify(data), () => {
+        $('#info').html('<p class="text-success">Product Template Updated Successfully!</p>');
+        setTimeout(() => {
+          $('#info').html('');
+          $('#editPTemplateModal').modal('hide');
+          window.location.reload();
+        }, 1000);
+      }, res => {
+        $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
+      });
     });
   };
   const handleClick = e => {
@@ -148,9 +200,19 @@ function PopupEdit(props) {
     $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active btn-success').addClass('notActive btn-default');
     $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
   };
-  const [attributes, setAttributes] = React.useState([/*#__PURE__*/React.createElement(Attributes, {
-    items: props.attributes
-  })]);
+  console.log(ptemplate.attributes.attrs);
+  const [attributes, setAttributes] = React.useState((ptemplate.attributes.attrs || []).map(attr => {
+    return /*#__PURE__*/React.createElement(Attributes, {
+      items: attr
+    });
+  }));
+  React.useEffect(() => {
+    setAttributes((ptemplate.attributes.attrs || []).map(attr => {
+      return /*#__PURE__*/React.createElement(Attributes, {
+        items: attr
+      });
+    }));
+  }, [ptemplate]);
   const handleNewAttribute = e => {
     e.preventDefault();
     const newAttribute = /*#__PURE__*/React.createElement(EmptyAttribute, null);
@@ -180,7 +242,7 @@ function PopupEdit(props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-content"
   }, /*#__PURE__*/React.createElement("form", {
-    "data-id": props.id,
+    "data-id": ptemplate.id,
     onSubmit: handleSubmit
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-header"
@@ -202,32 +264,31 @@ function PopupEdit(props) {
     id: "template-name",
     type: "text",
     required: true,
-    value: props.name
+    defaultValue: ptemplate.templatename
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Category",
     id: "category",
     type: "text",
     required: true,
-    value: props.category
+    defaultValue: ptemplate.category
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Child Category",
     id: "child-category",
     type: "text",
     required: true,
-    value: props.childCategory
+    defaultValue: ptemplate.childcategory
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Profit",
     id: "profit",
     type: "number",
     required: true,
-    value: props.profit
+    defaultValue: ptemplate.profit
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Description",
     id: "description",
     type: "text",
     required: false,
-    value: props.description,
-    onChange: handleDescriptionChange
+    defaultValue: ptemplate.description
   }), /*#__PURE__*/React.createElement("div", {
     className: "col-md-10 col-md-offset-1"
   }, /*#__PURE__*/React.createElement("label", {
@@ -249,7 +310,19 @@ function PopupEdit(props) {
     type: "button",
     className: "btn btn-danger",
     onClick: handleDeleteAttribute
-  }, "-")))), /*#__PURE__*/React.createElement("div", {
+  }, "-")))), /*#__PURE__*/React.createElement(InputBox, {
+    label: "Include",
+    id: "include",
+    type: "text",
+    required: false,
+    defaultValue: ptemplate.include.join(',')
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    label: "Exclude",
+    id: "exclude",
+    type: "text",
+    required: false,
+    defaultValue: ptemplate.exclude.join(',')
+  }), /*#__PURE__*/React.createElement("div", {
     className: "info col-md-10 col-md-offset-1",
     id: "info"
   }), /*#__PURE__*/React.createElement("div", {
@@ -288,7 +361,7 @@ function NewPTemplateModal() {
       "attributes": attributes,
       "creator_id": Number(localStorage.getItem('id'))
     };
-    console.log(data);
+    // console.log(data);
     createPTemplate(JSON.stringify(data), () => {
       $('#info').html('<p class="text-success">New Product Template Created Successfully!</p>');
       setTimeout(() => {
@@ -316,14 +389,14 @@ function NewPTemplateModal() {
       const attr = {};
       attr['name'] = attrName[i].value;
       attr['type'] = type[i].value;
-      attr['required'] = required[i].checked === "on";
+      // attr['required'] = (required[i].checked === "on");
+      attr['required'] = required[i].checked;
       attr['example'] = example[i].value;
       attrs['attrs'].push(attr);
     }
     return attrs;
   };
   const handleClick = e => {
-    console.log(e.target.classList);
     if (e.target.parentElement.parentElement.classList.contains('disabled')) {
       return;
     }
@@ -453,7 +526,17 @@ function NewPTemplateModal() {
     type: "button",
     className: "btn btn-danger",
     onClick: handleDeleteAttribute
-  }, "-")))), /*#__PURE__*/React.createElement("div", {
+  }, "-")))), /*#__PURE__*/React.createElement(InputBox, {
+    label: "Include",
+    id: "include",
+    type: "text",
+    required: false
+  }), /*#__PURE__*/React.createElement(InputBox, {
+    label: "Exclude",
+    id: "exclude",
+    type: "text",
+    required: false
+  }), /*#__PURE__*/React.createElement("div", {
     className: "info col-md-10 col-md-offset-1",
     id: "info"
   }), /*#__PURE__*/React.createElement("div", {
@@ -543,7 +626,15 @@ function Attributes(props) {
     label: "Required",
     id: "required",
     type: "checkbox",
-    value: items.required
+    checked: items.required
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-12"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "example",
+    placeholder: "Attribute Value",
+    value: items.example
   }))));
 }
 function CreatePTmplateBtn() {

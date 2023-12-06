@@ -3,7 +3,7 @@ import { deleteUser } from "./users.js";
 import { updateUser } from "./users.js";
 import { handlePreviousPage } from "./users.js";
 import { handleNextPage } from "./users.js";
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 function renderUserList(props) {
   const userList = $('#user-list');
@@ -48,7 +48,9 @@ function UserListTable(props) {
   const users = props.users;
   const handleDelete = e => {
     const id = e.target.dataset.id;
-    deleteUser(id);
+    if (confirm("Are you sure you want to delete this user?")) {
+      deleteUser(id);
+    }
   };
   const handleActive = e => {
     const id = e.target.dataset.id;
@@ -100,13 +102,15 @@ function PopupEdit(props) {
     const data = {
       id: Number(e.target.dataset.id),
       username: $('#username').val(),
-      password: $('#password').val(),
       email: $('#email').val(),
       phone: $('#phone').val(),
       address: $('#address').val(),
-      profit: $('#profit').val(),
+      profit: Number($('#profit').val()),
       role: $('#role').val()
     };
+    if ($('#password').val()) {
+      data.password = $('#password').val();
+    }
     updateUser(data);
   }
   return /*#__PURE__*/React.createElement("div", {
@@ -143,10 +147,12 @@ function PopupEdit(props) {
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "password",
-    label: "Password",
+    label: "New Password",
     type: "password",
-    defaultValue: user.password,
-    required: true
+    defaultValue: "",
+    required: false,
+    autoComplete: "new-password",
+    placeholder: "Leave blank if you don't want to change password"
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "email",
     label: "Email",
@@ -183,7 +189,15 @@ function PopupEdit(props) {
     value: "admin"
   }, "Admin"), /*#__PURE__*/React.createElement("option", {
     value: "user"
-  }, "User"))), /*#__PURE__*/React.createElement("button", {
+  }, "User"))), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "text-danger",
+    id: "error-message"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-success",
+    id: "success-message"
+  })), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn btn-primary",
     onClick: handleUpdate,

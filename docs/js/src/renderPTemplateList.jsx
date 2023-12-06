@@ -1,4 +1,4 @@
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 import { createPTemplate, deletePTemplate, updatePTemplate, setPTemplateStatus } from "./ptemplate_api.js";
 
@@ -25,7 +25,6 @@ function PTemplateList(props) {
             {props.templates.length?<PTemplateListTable templates={props.templates} />: <h3 className="text-center">No Product Template Found!</h3>}
             {/* <Pagination /> */}
             <NewPTemplateModal />
-            {/* <PopupEdit /> */}
             <CreatePTmplateBtn />
         </div>
     );
@@ -52,8 +51,34 @@ function Pagination() {
     );
 }
 
+function emptyTemplate() {
+    return {
+        "id": "",
+        "templatename": "",
+        "category": "",
+        "childcategory": "",
+        "Profit": 0,
+        "isactive": 1,
+        "include": [],
+        "exclude": [],
+        "description": "",
+        "attributes": {
+            "price": "tier",
+            "attrs": [
+                {
+                    "name": "",
+                    "type": "multiple",
+                    "required": false,
+                    "example": ""
+                }
+            ]
+        }
+    };
+}
+
 function PTemplateListTable(props) {
     const templates = props.templates;
+    const [template, setTemplate] = React.useState(emptyTemplate);
 
     const handleDelete = (e) => {
         const id = e.target.dataset.id;
@@ -63,37 +88,31 @@ function PTemplateListTable(props) {
     }
     const handleActive = (e) => {
         const id = Number(e.target.dataset.id);
-        const status = templates.find((template) => {
+        const targetTemplate = templates.find((template) => {
             return template.id === id;
-        }).isactive;
-        console.log(id, status);
-        setPTemplateStatus(id, 1-status, () => {
-            window.location.reload();
+        });
+        const status = targetTemplate.isactive;
+        // console.log(id, status);
+        deletePTemplate(id, () => {
+            createPTemplate(JSON.stringify({ ...targetTemplate, isactive: 1-status }), () => {
+                window.location.reload();
+            });
         });
     }
     const handleUpdate = (e) => {
         const id = Number(e.target.dataset.id);
-        $('#editPTemplateModal').modal('show');
-        $('#editPTemplateModal form').attr('data-id', id);
-        const template = templates.find((template) => {
+        const targetTemplate = templates.find((template) => {
             return template.id === id;
         });
-        // console.log(template);
-        $('#template-name').val(template.templatename);
-        $('#category').val(template.category);
-        $('#child-category').val(template.childcategory);
-        $('#profit').val(template.profit);
-        $('#include').val(template.include);
-        $('#exclude').val(template.exclude);
-        $('#description').val(template.description);
-        $('#attributes').val(template.attributes);
-
+        setTemplate(targetTemplate);
+        $('#editPTemplateModal').modal('show');
     }
 
     return (
         <div className="row">
+            <PopupEdit ptemlate={template} />
             <div className="col-sm-12 table-responsive">
-                <table className=" table-striped table-hover col-sm-12 table-condensed text-center">
+                <table className="table table-striped table-hover col-sm-12 table-condensed text-center">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -127,6 +146,32 @@ function PTemplateListTable(props) {
 }
 
 function PopupEdit(props) {
+    const ptemplate = props.ptemlate;
+
+    const getAttributes = () => {
+        const attrs = {};
+        const price = "tier";
+        attrs['price'] = price;
+        const attrName = document.querySelectorAll('#attr-name');
+        const type = document.querySelectorAll('#type');
+        const required = document.querySelectorAll('#required');
+        const example = document.querySelectorAll('#example');
+        attrs['attrs'] = [];
+        for (let i = 0; i < attrName.length; i++) {
+            if (attrName[i].value === '') {
+                continue;
+            }
+            const attr = {};
+            attr['name'] = attrName[i].value;
+            attr['type'] = type[i].value;
+            // attr['required'] = (required[i].checked === "on");
+            attr['required'] = required[i].checked;
+            attr['example'] = example[i].value;
+            attrs['attrs'].push(attr);
+        }
+        return attrs;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const id = e.target.dataset.id;
@@ -135,10 +180,10 @@ function PopupEdit(props) {
         const childCategory = $('#child-category').val();
         const profit = Number($('#profit').val());
         const status = 1;
-        const include = $('#include').val() || [];
-        const exclude = $('#exclude').val() || [];
+        const include = $('#include').val() ? $('#include').val().split(',').map((item) => { return Number(item.trim()); }) : [];
+        const exclude = $('#exclude').val() ? $('#exclude').val().split(',').map((item) => { return Number(item.trim()); }) : [];
         const description = $('#description').val() || '';
-        const attributes = $('#attributes').val() || {};
+        const attributes = getAttributes();
         const data = {
             "id": id,
             "templatename": templateName,
@@ -151,16 +196,18 @@ function PopupEdit(props) {
             "description": description,
             "attributes": attributes
         }
-        console.log(data);
-        updatePTemplate(data, () => {
-            $('#info').html('<p class="text-success">Product Template Updated Successfully!</p>');
-            setTimeout(() => {
-                $('#info').html('');
-                $('#editPTemplateModal').modal('hide');
-                // window.location.reload();
-            }, 1000);
-        }, (res) => {
-            $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
+        // console.log(data);
+        deletePTemplate(id, () => {
+            createPTemplate(JSON.stringify(data), () => {
+                $('#info').html('<p class="text-success">Product Template Updated Successfully!</p>');
+                setTimeout(() => {
+                    $('#info').html('');
+                    $('#editPTemplateModal').modal('hide');
+                    window.location.reload();
+                }, 1000);
+            }, (res) => {
+                $('#info').html('<p class="text-danger">Error: ' + res.responseText + '</p>');
+            });
         });
     }
 
@@ -173,7 +220,16 @@ function PopupEdit(props) {
         $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive btn-default').addClass('active btn-success');
     }
 
-    const [attributes, setAttributes] = React.useState([<Attributes items={props.attributes} />]);
+    console.log(ptemplate.attributes.attrs);
+    const [attributes, setAttributes] = React.useState((ptemplate.attributes.attrs || []).map((attr) => {
+        return <Attributes items={attr} />;
+    }));
+
+    React.useEffect(() => {
+        setAttributes((ptemplate.attributes.attrs || []).map((attr) => {
+            return <Attributes items={attr} />;
+        }));
+    }, [ptemplate]);
 
     const handleNewAttribute = (e) => {
         e.preventDefault();
@@ -199,19 +255,19 @@ function PopupEdit(props) {
         <div className="modal fade" id="editPTemplateModal" tabIndex="-1" role="dialog" aria-labelledby="editPTemplateModalLabel">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
-                    <form data-id={props.id} onSubmit={handleSubmit}>
+                    <form data-id={ptemplate.id} onSubmit={handleSubmit}>
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleCancel}><span aria-hidden="true">&times;</span></button>
                             <h4 className="modal-title" id="editPTemplateModalLabel">Edit Product Template</h4>
                         </div>
                         <div className="modal-body">
-                            <InputBox label="Template Name" id="template-name" type="text" required={true} value={props.name} />
-                            <InputBox label="Category" id="category" type="text" required={true} value={props.category} />
-                            <InputBox label="Child Category" id="child-category" type="text" required={true} value={props.childCategory} />
-                            <InputBox label="Profit" id="profit" type="number" required={true} value={props.profit} />
+                            <InputBox label="Template Name" id="template-name" type="text" required={true} defaultValue={ptemplate.templatename} />
+                            <InputBox label="Category" id="category" type="text" required={true} defaultValue={ptemplate.category} />
+                            <InputBox label="Child Category" id="child-category" type="text" required={true} defaultValue={ptemplate.childcategory} />
+                            <InputBox label="Profit" id="profit" type="number" required={true} defaultValue={ptemplate.profit} />
                             {/* <InputBox label="Include" id="include" type="text" required={false} value={include} onChange={handleIncludeChange} />
                             <InputBox label="Exclude" id="exclude" type="text" required={false} value={exclude} onChange={handleExcludeChange} /> */}
-                            <InputBox label="Description" id="description" type="text" required={false} value={props.description} onChange={handleDescriptionChange} />
+                            <InputBox label="Description" id="description" type="text" required={false} defaultValue={ptemplate.description} />
                             <div className="col-md-10 col-md-offset-1">
                                 <label htmlFor="attributes">Attributes</label>
                                 <div className="vertical-center">
@@ -226,6 +282,8 @@ function PopupEdit(props) {
                                     </div>
                                 </div>
                             </div>
+                            <InputBox label="Include" id="include" type="text" required={false} defaultValue={ptemplate.include.join(',')} />
+                            <InputBox label="Exclude" id="exclude" type="text" required={false} defaultValue={ptemplate.exclude.join(',')} />
                             <div className="info col-md-10 col-md-offset-1" id="info">
                             </div>
                             <div className="modal-foot text-center">
@@ -265,7 +323,7 @@ function NewPTemplateModal() {
             "attributes": attributes,
             "creator_id": Number(localStorage.getItem('id'))
         }
-        console.log(data);
+        // console.log(data);
         createPTemplate(JSON.stringify(data), () => {
             $('#info').html('<p class="text-success">New Product Template Created Successfully!</p>');
             setTimeout(() => {
@@ -294,7 +352,8 @@ function NewPTemplateModal() {
             const attr = {};
             attr['name'] = attrName[i].value;
             attr['type'] = type[i].value;
-            attr['required'] = (required[i].checked === "on");
+            // attr['required'] = (required[i].checked === "on");
+            attr['required'] = required[i].checked;
             attr['example'] = example[i].value;
             attrs['attrs'].push(attr);
         }
@@ -382,6 +441,8 @@ function NewPTemplateModal() {
                                 </div>
                                 </div>
                             </div>
+                            <InputBox label="Include" id="include" type="text" required={false} />
+                            <InputBox label="Exclude" id="exclude" type="text" required={false} />
                             <div className="info col-md-10 col-md-offset-1" id="info">
                             </div>
                             <div className="modal-foot text-center">
@@ -439,7 +500,10 @@ function Attributes(props) {
                     </select>
                 </div>
                 <div className="col-sm-4">
-                    <InputBox label="Required" id="required" type="checkbox" value={items.required} />
+                    <InputBox label="Required" id="required" type="checkbox" checked={items.required} />
+                </div>
+                <div className="col-sm-12">
+                    <input type="text" className="form-control" id="example" placeholder="Attribute Value" value={items.example} />
                 </div>
             </div>
         </div>

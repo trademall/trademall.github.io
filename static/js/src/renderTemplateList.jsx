@@ -1,4 +1,4 @@
-import { Sidebar } from "./renderAdmin.js";
+import { Sidebar } from "./sidebar.js";
 import { deleteCTemplate, updateCTemplate } from "./ctemplate.js";
 import { handleNextPage, handlePreviousPage } from "./template_manage.js";
 

@@ -173,6 +173,7 @@
 
 #details .img-main img {
     border: 1px solid #ccc;
+    width: 100%;
 }
 
 #details .img-sub label {
