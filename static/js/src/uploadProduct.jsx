@@ -171,8 +171,17 @@ function UploadProduct(props) {
         attributes[attrName] = attrType === "custom" ? attr : attr.split(',').map((item) => item.trim());
       }
     });
+    $('.custom-attributes').each(function () {
+      let attrName = $(this).find('.attr-name input').val().trim();
+      let attrValue = $(this).find('.attr-value input').val().trim().split(',').map((item) => item.trim());
+      if (attrName !== "" && attrValue !== "") {
+        attributes[attrName] = attrValue;
+      }
+    });
     return attributes;
   }
+
+  const [customAttributes, setCustomAttributes] = React.useState([]);
 
   return (
     <div className="row">
@@ -192,15 +201,22 @@ function UploadProduct(props) {
           <InputBox id="profit" label="Profit" type="number" required={true} value={template.profit} disabled={true} />
           <InputBox id="volume" label="Volume" type="number" required={true} />
           <InputBox id="weight" label="Weight" type="number" required={true} />
-          <div className="form-group col-sm-10 col-sm-offset-1" id="attributesWrapper">
+          <div className="form-group col-md-10 col-md-offset-1" id="attributesWrapper">
             <label htmlFor="attributes">Attributes</label>
             <Attributes attributes={template.attributes} />
+            {customAttributes.map((attribute) => (
+              attribute
+            ))}
+            <div className="col-md-10 col-md-offset-1 text-center">
+              <button className="btn btn-default btn-sm" onClick={() => setCustomAttributes([...customAttributes, <EmptyAttributes key={customAttributes.length} />])}>Add Attribute</button>
+              <button className="btn btn-default btn-sm" onClick={() => setCustomAttributes(customAttributes.slice(0, -1))}>Remove Attribute</button>
+            </div>
           </div>
           <InputBox id="price-model" label="Price Model" type="text" required={true} value={template.attributes.price} disabled={true} />
           {/* <InputBox id="quantity" type="number" name="quantity" label="Quantity" required={true} /> */}
           <InputBox id="include" type="text" name="include" label="Include" required={false} defaultValue={template.include.join()} disabled={false} />
           <InputBox id="exclude" type="text" name="exclude" label="Exclude" required={false} defaultValue={template.exclude.join()} disabled={false} />
-          <div className="form-group col-sm-10 col-sm-offset-1" id="statusWrapper">
+          <div className="form-group col-md-10 col-md-offset-1" id="statusWrapper">
             <label htmlFor="status">Status</label>
             <select className="form-control" id="status" defaultValue={1}>
               <option value="2">Inactive</option>
@@ -227,6 +243,23 @@ function Attributes(props) {
           <InputBox type="text" name={attribute.name} label={attribute.name} required={attribute.required} data-type={attribute.type} placeholder={attribute.type === "custom" ? "Input custom attribute" : "Input attributes, separated by comma"} defaultValue={attribute.example} />
         </div>
       ))}
+    </div>
+  );
+}
+
+function EmptyAttributes() {
+  return (
+    <div className="custom-attributes">
+      <div className="form-group">
+        <div className="col-md-10 col-md-offset-1">
+          <div className="col-md-4 row attr-name">
+            <input type="text" className="form-control" name="attr-name" placeholder="Attr Name" />
+          </div>
+          <div className="attr-value">
+            <input type="text" className="form-control" name="attr-value" placeholder="Attr Value" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

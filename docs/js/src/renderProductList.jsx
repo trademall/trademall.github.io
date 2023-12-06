@@ -159,7 +159,7 @@ function PopupEdit(props) {
         console.log(data);
         updateProduct(data, (data) => {
             alert('Update success');
-            // location.reload();
+            location.reload();
         }, (err) => {
             alert('Update failed: ' + err);
         });

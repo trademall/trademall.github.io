@@ -166,8 +166,16 @@ function UploadProduct(props) {
         attributes[attrName] = attrType === "custom" ? attr : attr.split(',').map(item => item.trim());
       }
     });
+    $('.custom-attributes').each(function () {
+      let attrName = $(this).find('.attr-name input').val().trim();
+      let attrValue = $(this).find('.attr-value input').val().trim().split(',').map(item => item.trim());
+      if (attrName !== "" && attrValue !== "") {
+        attributes[attrName] = attrValue;
+      }
+    });
     return attributes;
   };
+  const [customAttributes, setCustomAttributes] = React.useState([]);
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -231,13 +239,23 @@ function UploadProduct(props) {
     type: "number",
     required: true
   }), /*#__PURE__*/React.createElement("div", {
-    className: "form-group col-sm-10 col-sm-offset-1",
+    className: "form-group col-md-10 col-md-offset-1",
     id: "attributesWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "attributes"
   }, "Attributes"), /*#__PURE__*/React.createElement(Attributes, {
     attributes: template.attributes
-  })), /*#__PURE__*/React.createElement(InputBox, {
+  }), customAttributes.map(attribute => attribute), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1 text-center"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-default btn-sm",
+    onClick: () => setCustomAttributes([...customAttributes, /*#__PURE__*/React.createElement(EmptyAttributes, {
+      key: customAttributes.length
+    })])
+  }, "Add Attribute"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-default btn-sm",
+    onClick: () => setCustomAttributes(customAttributes.slice(0, -1))
+  }, "Remove Attribute"))), /*#__PURE__*/React.createElement(InputBox, {
     id: "price-model",
     label: "Price Model",
     type: "text",
@@ -261,7 +279,7 @@ function UploadProduct(props) {
     defaultValue: template.exclude.join(),
     disabled: false
   }), /*#__PURE__*/React.createElement("div", {
-    className: "form-group col-sm-10 col-sm-offset-1",
+    className: "form-group col-md-10 col-md-offset-1",
     id: "statusWrapper"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "status"
@@ -300,6 +318,29 @@ function Attributes(props) {
     placeholder: attribute.type === "custom" ? "Input custom attribute" : "Input attributes, separated by comma",
     defaultValue: attribute.example
   }))));
+}
+function EmptyAttributes() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "custom-attributes"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-4 row attr-name"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    name: "attr-name",
+    placeholder: "Attr Name"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "attr-value"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    name: "attr-value",
+    placeholder: "Attr Value"
+  })))));
 }
 renderCategorySelect();
 export { renderCategorySelect, Attributes };
