@@ -13,7 +13,7 @@ function ImgDiv(props) {
     return (
         <div className="image">
             <a href={"details?id=" + props.id}>
-                <img src={imageURL} alt={props.name} className="img-responsive" loading="lazy"/>
+                <img src={imageURL} alt={props.name} className="img img-responsive" loading="lazy"/>
             </a>
         </div>
     );

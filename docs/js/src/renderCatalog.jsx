@@ -73,7 +73,7 @@ function FootBtns(props) {
 
 function ProductDiv(props) {
     return (
-        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" id={props.cid}>
+        <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-md-4 col-lg-4" id={props.cid}>
             <div className="commodity">
                 <ImgDiv image={props.image} name={props.name} id={props.pid} />
                 <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} num={props.num} />

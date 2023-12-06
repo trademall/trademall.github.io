@@ -18,7 +18,7 @@ function ImgDiv(props) {
   }, /*#__PURE__*/React.createElement("img", {
     src: imageURL,
     alt: props.name,
-    className: "img-responsive",
+    className: "img img-responsive",
     loading: "lazy"
   })));
 }
