@@ -28,7 +28,7 @@ function CategorySelectContainer() {
       $(this).parents('.dropdown-menu').find('li').removeClass('active');
       $(this).parent('li').addClass('active');
       $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
-      if (target !== "category") {
+      if (target !== "category" && $(this).parents('.dropdown').find('.dropdown-toggle').attr('id') === "category") {
         const childcategories = ptemplates.list.filter(ptemplate => ptemplate.category === target).map(ptemplate => ({
           id: ptemplate.id,
           name: ptemplate.childcategory

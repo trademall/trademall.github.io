@@ -302,6 +302,10 @@ function NewPTemplateModal() {
     }
 
     const handleClick = (e) => {
+        console.log(e.target.classList);
+        if (e.target.parentElement.parentElement.classList.contains('disabled')) {
+            return;
+        }
         const sel = e.target.dataset.title;
         const tog = e.target.dataset.toggle;
         $('#' + tog).prop('value', sel);
@@ -350,15 +354,15 @@ function NewPTemplateModal() {
                                 <div className="form-group">
                                     <label htmlFor="price-model">Price Model*</label>
                                     <div className="input-group">
-                                        <div className="btn-group" id="radioBtn" onClick={handleClick}>
+                                        <div className="btn-group disabled" id="radioBtn" onClick={handleClick}>
                                             <div className="btn-group">
-                                                <a type="button" className="btn btn-success btn-lg active" data-toggle="price-model" data-title="flat">Flat</a>
+                                                <a type="button" className="btn btn-default btn-lg notActive" data-toggle="price-model" data-title="flat">Flat</a>
                                             </div>
                                             <div className="btn-group">
-                                                <a type="button" className="btn btn-default btn-lg notActive" data-toggle="price-model" data-title="tier">Tier</a>
+                                                <a type="button" className="btn btn-success btn-lg active" data-toggle="price-model" data-title="tier">Tier</a>
                                             </div>
                                         </div>
-                                        <input type="hidden" id="price-model" name="price-model" value="flat" />
+                                        <input type="hidden" id="price-model" name="price-model" value="tier" />
                                     </div>
                                 </div>
                             </div>

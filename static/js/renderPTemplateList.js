@@ -323,6 +323,10 @@ function NewPTemplateModal() {
     return attrs;
   };
   const handleClick = e => {
+    console.log(e.target.classList);
+    if (e.target.parentElement.parentElement.classList.contains('disabled')) {
+      return;
+    }
     const sel = e.target.dataset.title;
     const tog = e.target.dataset.toggle;
     $('#' + tog).prop('value', sel);
@@ -401,28 +405,28 @@ function NewPTemplateModal() {
   }, "Price Model*"), /*#__PURE__*/React.createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "btn-group",
+    className: "btn-group disabled",
     id: "radioBtn",
     onClick: handleClick
   }, /*#__PURE__*/React.createElement("div", {
     className: "btn-group"
   }, /*#__PURE__*/React.createElement("a", {
     type: "button",
-    className: "btn btn-success btn-lg active",
+    className: "btn btn-default btn-lg notActive",
     "data-toggle": "price-model",
     "data-title": "flat"
   }, "Flat")), /*#__PURE__*/React.createElement("div", {
     className: "btn-group"
   }, /*#__PURE__*/React.createElement("a", {
     type: "button",
-    className: "btn btn-default btn-lg notActive",
+    className: "btn btn-success btn-lg active",
     "data-toggle": "price-model",
     "data-title": "tier"
   }, "Tier"))), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     id: "price-model",
     name: "price-model",
-    value: "flat"
+    value: "tier"
   })))), /*#__PURE__*/React.createElement(InputBox, {
     label: "Description",
     id: "description",
