@@ -51,6 +51,7 @@ function updatePTemplate(data, successCallback = console.log, errorCallback=cons
         url: server + '/v1/admin/ptemplate/',
         type: 'PATCH',
         dataType: 'json',
+        contentType: 'application/json',
         data: JSON.stringify(data),
         headers: {
             'token': localStorage.getItem('token'),
@@ -75,6 +76,7 @@ function setPTemplateStatus(ptid, status, successCallback = console.log, errorCa
         url: server + '/v1/admin/ptemplate/',
         type: 'PATCH',
         dataType: 'json',
+        contentType: 'application/json',
         data: JSON.stringify({
             id: Number(ptid),
             status: Number(status)

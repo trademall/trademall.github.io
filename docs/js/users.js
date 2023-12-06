@@ -29,7 +29,7 @@ function handleNextPage() {
 
 function deleteUser(id) {
     $.ajax({
-        url: 'http://54.79.139.73:80/v1/root/user/' + id,
+        url: 'http://47.89.209.202:80/v1/root/user/' + id,
         type: 'DELETE',
         headers: {
             "token": localStorage.getItem('token')
@@ -51,12 +51,13 @@ function deleteUser(id) {
 
 function updateUser(data) {
     $.ajax({
-        url: 'http://54.79.139.73:80/v1/root/user',
+        url: 'http://47.89.209.202:80/v1/root/user',
         type: 'PATCH',
         data: JSON.stringify(data),
         contentType: 'application/json',
         headers: {
-            "token": localStorage.getItem('token')
+            "token": localStorage.getItem('token'),
+            "Content-Type": "application/json"
         },
         success: function (result) {
             if (result.code === 200) {
@@ -66,16 +67,20 @@ function updateUser(data) {
             else {
                 showErrorMessage(result.message);
             }
+            setTimeout(function () {
+                $('#userEditModal').modal('hide');
+            }, 1000);
         },
         error: function (error) {
             console.log(error);
+            showErrorMessage(error.responseJSON.message);
         }
     });
 }
 
 function activeUser(id) {
     $.ajax({
-        url: 'http://54.79.139.73:80/v1/admin/user/' + id,
+        url: 'http://47.89.209.202:80/v1/admin/user/' + id,
         type: 'GET',
         headers: {
             "token": localStorage.getItem('token')
