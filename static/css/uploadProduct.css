@@ -86,3 +86,7 @@ div.caption {
 div.attr-name {
     margin-bottom: 4px;
 }
+
+div.attr-value {
+    margin-bottom: 20px;
+}

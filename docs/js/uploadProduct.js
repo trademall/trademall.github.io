@@ -41,7 +41,11 @@ function CategorySelectContainer() {
       const childcategory = $('#childcategory').text().trim();
       if (category !== "category" && childcategory !== "childcategory") {
         const ptemplate = ptemplates.list.filter(ptemplate => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
-        console.log(ptemplate);
+        // console.log(ptemplate);
+        if (ptemplate.isactive === 0) {
+          alert("This template is inactive");
+          return;
+        }
         ReactDOM.render( /*#__PURE__*/React.createElement(UploadProduct, {
           ptemplate: ptemplate
         }), $("#upload-product")[0]);
@@ -248,14 +252,18 @@ function UploadProduct(props) {
   }), customAttributes.map(attribute => attribute), /*#__PURE__*/React.createElement("div", {
     className: "col-md-10 col-md-offset-1 text-center"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-default btn-sm",
+    className: "btn btn-primary btn-sm",
     onClick: () => setCustomAttributes([...customAttributes, /*#__PURE__*/React.createElement(EmptyAttributes, {
       key: customAttributes.length
     })])
-  }, "Add Attribute"), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-default btn-sm",
+  }, "Add new", /*#__PURE__*/React.createElement("span", {
+    className: "hidden-xs"
+  }, " Attribute")), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-danger btn-sm",
     onClick: () => setCustomAttributes(customAttributes.slice(0, -1))
-  }, "Remove Attribute"))), /*#__PURE__*/React.createElement(InputBox, {
+  }, "Remove", /*#__PURE__*/React.createElement("span", {
+    className: "hidden-xs"
+  }, " Attribute")))), /*#__PURE__*/React.createElement(InputBox, {
     id: "price-model",
     label: "Price Model",
     type: "text",

@@ -52,7 +52,12 @@ function CategorySelectContainer() {
       const childcategory = $('#childcategory').text().trim();
       if (category !== "category" && childcategory !== "childcategory") {
         const ptemplate = ptemplates.list.filter((ptemplate) => ptemplate.category === category && ptemplate.childcategory === childcategory)[0];
-        console.log(ptemplate);
+        // console.log(ptemplate);
+        if (ptemplate.isactive === 0) {
+          alert("This template is inactive");
+          return;
+        }
+
         ReactDOM.render(
           <UploadProduct ptemplate={ptemplate} />,
           $("#upload-product")[0]
@@ -208,8 +213,8 @@ function UploadProduct(props) {
               attribute
             ))}
             <div className="col-md-10 col-md-offset-1 text-center">
-              <button className="btn btn-default btn-sm" onClick={() => setCustomAttributes([...customAttributes, <EmptyAttributes key={customAttributes.length} />])}>Add Attribute</button>
-              <button className="btn btn-default btn-sm" onClick={() => setCustomAttributes(customAttributes.slice(0, -1))}>Remove Attribute</button>
+              <button className="btn btn-primary btn-sm" onClick={() => setCustomAttributes([...customAttributes, <EmptyAttributes key={customAttributes.length} />])}>Add new<span className="hidden-xs"> Attribute</span></button>
+              <button className="btn btn-danger btn-sm" onClick={() => setCustomAttributes(customAttributes.slice(0, -1))}>Remove<span className="hidden-xs"> Attribute</span></button>
             </div>
           </div>
           <InputBox id="price-model" label="Price Model" type="text" required={true} value={template.attributes.price} disabled={true} />
