@@ -32,6 +32,11 @@
 
 #details .card .card-header h4 {
     border-bottom: 0;
+    margin-top: 12px;
+}
+
+#details .card .card-footer {
+    border-top: 1px solid #ccc;
 }
 
 #details .card .row.selector {

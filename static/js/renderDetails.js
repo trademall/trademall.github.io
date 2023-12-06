@@ -130,9 +130,9 @@ function CustomizerBody(props) {
   })), /*#__PURE__*/React.createElement("div", {
     className: "row selector"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-md-2"
+    className: "col-md-3"
   }, /*#__PURE__*/React.createElement("h4", null, "Quantity: ")), /*#__PURE__*/React.createElement("div", {
-    className: "col-md-10"
+    className: "col-md-9"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "quantity",
     className: "active"
@@ -150,9 +150,9 @@ function CustomizerOption(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "row selector color-select"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-md-2"
+    className: "col-md-3"
   }, /*#__PURE__*/React.createElement("h4", null, props.title + ": ")), /*#__PURE__*/React.createElement("div", {
-    className: "btn-group col-md-10",
+    className: "btn-group col-md-9",
     "data-toggle": "buttons"
   }, Object.values(props.option).map(value => /*#__PURE__*/React.createElement(CustomizerValue, {
     key: value,

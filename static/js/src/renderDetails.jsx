@@ -132,10 +132,10 @@ function CustomizerBody(props) {
                 <CustomizerOption key={attr} title={attr} option={props.product.attributes[attr]} />
             ))}
             <div className="row selector">
-                <div className="col-md-2">
+                <div className="col-md-3">
                     <h4>Quantity: </h4>
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-9">
                     <label htmlFor="quantity" className="active">
                         <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} />
                     </label>
@@ -148,10 +148,10 @@ function CustomizerBody(props) {
 function CustomizerOption(props) {
     return (
         <div className="row selector color-select">
-            <div className="col-md-2">
+            <div className="col-md-3">
                 <h4>{props.title+": "}</h4>
             </div>
-            <div className="btn-group col-md-10" data-toggle="buttons">
+            <div className="btn-group col-md-9" data-toggle="buttons">
                 {Object.values(props.option).map((value) => (
                     <CustomizerValue key={value} value={value} />
                 ))}
