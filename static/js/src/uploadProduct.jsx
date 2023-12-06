@@ -193,7 +193,7 @@ function UploadProduct(props) {
           <h4 className="template-title">{props.ptemplate.category} &gt; {props.ptemplate.childcategory} : {props.ptemplate.templatename}</h4>
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
-          <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={1} max={6} />
+          <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={3} max={6} />
           <InputBox id="pid" type="number" name="pid" label="Product ID" required={false} defaultValue={template.id} disabled={false} />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />

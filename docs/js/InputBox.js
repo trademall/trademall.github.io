@@ -96,6 +96,8 @@ function ImageBox(props) {
     }
   }, "Upload"), /*#__PURE__*/React.createElement("p", {
     className: "text-center"
+  }, "You can upload ", props.min, " to ", props.max, " pictures"), /*#__PURE__*/React.createElement("p", {
+    className: "text-center"
   }, "The first picture is the main picture of the product"))));
 }
 function FileBox(props) {

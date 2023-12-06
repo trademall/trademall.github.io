@@ -193,7 +193,7 @@ function UploadProduct(props) {
     text: "upload image",
     src: image,
     id: "uploadImg",
-    min: 1,
+    min: 3,
     max: 6
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "pid",

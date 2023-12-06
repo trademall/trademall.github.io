@@ -82,6 +82,7 @@ function ImageBox(props) {
                             }
                         }
                     }>Upload</button>
+                    <p className="text-center">You can upload {props.min} to {props.max} pictures</p>
                     <p className="text-center">The first picture is the main picture of the product</p>
                 </div>
             </div>
