@@ -194,9 +194,11 @@ function StageManage() {
       created: ''
     }]
   });
+  const [stageList, setStageList] = React.useState([]);
   React.useEffect(() => {
     PModel.getStageList(type, data => {
       let curStage = data;
+      setStageList(curStage.list);
       setStage(curStage);
       console.log(curStage);
     }, error => {
@@ -205,7 +207,7 @@ function StageManage() {
         total: 1,
         list: [{
           id: 0,
-          deliverytype: 1,
+          deliverytype: type,
           start: 1,
           to: 999999,
           price: 0.0,
@@ -213,6 +215,7 @@ function StageManage() {
           created: ''
         }]
       });
+      setStageList([]);
     });
   }, []);
   function handleTypeChange(e) {
@@ -220,6 +223,7 @@ function StageManage() {
     PModel.getStageList(Number(e.target.querySelector('input').value) + 1, data => {
       let curStage = data;
       setStage(curStage);
+      setStageList(curStage.list);
       console.log(curStage);
     }, error => {
       alert(error);
@@ -227,7 +231,7 @@ function StageManage() {
         total: 1,
         list: [{
           id: 0,
-          deliverytype: 1,
+          deliverytype: Number(e.target.querySelector('input').value) + 1,
           start: 1,
           to: 999999,
           price: 0.0,
@@ -235,6 +239,7 @@ function StageManage() {
           created: ''
         }]
       });
+      setStageList([]);
     });
   }
   function handleStartChange(e) {
@@ -297,19 +302,51 @@ function StageManage() {
     });
   }
   function handleUpdate() {
-    let data = {
+    let newStage = {
       username: localStorage.getItem('username'),
       list: stage.list
     };
-    console.log(data);
-    PModel.createStage(data, data => {
-      alert('Update Success!');
-      location.reload();
-      // setModel(data);
-    }, error => {
-      console.log(error);
-      alert('Update Failed: ' + error);
-    });
+    let deleted = 0;
+    if (stageList.length === 0) {
+      let created = 0;
+      for (let i = 0; i < newStage.list.length; i++) {
+        PModel.createStage(newStage.list[i], data => {
+          created++;
+          if (created === newStage.list.length) {
+            alert('Update Success!');
+            location.reload();
+            return;
+          }
+        }, error => {
+          console.log(error);
+          alert('Update Failed: ' + error);
+          return;
+        });
+      }
+    }
+    for (let i = 0; i < stageList.length; i++) {
+      PModel.deleteStage(Number(stageList[i].id), data => {
+        deleted++;
+        if (deleted === stageList.length) {
+          let updated = 0;
+          for (let i = 0; i < newStage.list.length; i++) {
+            PModel.createStage(newStage.list[i], data => {
+              updated++;
+              if (updated === newStage.list.length) {
+                alert('Update Success!');
+                location.reload();
+              }
+            }, error => {
+              console.log(error);
+              alert('Update Failed: ' + error);
+            });
+          }
+        }
+      }, error => {
+        console.log(error);
+        alert('Update Failed: ' + error);
+      });
+    }
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "row"
