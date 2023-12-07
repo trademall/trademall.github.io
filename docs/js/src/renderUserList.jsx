@@ -12,7 +12,7 @@ function renderUserList(props) {
         ReactDOM.render(
             <div className="row">
                 <Sidebar />
-                <div className="col-sm-10">
+                <div className="col-sm-11 col-md-10">
                     <UserList users={props.list} />
                 </div>
             </div>,

@@ -3,7 +3,10 @@ import { InputBox } from './InputBox.js';
 
 function renderPriceModel() {
     ReactDOM.render(
-        <PriceModel />,
+        <>
+            <PriceModel />
+            <StageManage />
+        </>,
         document.getElementById('price-model')
     );
 }
@@ -109,6 +112,178 @@ function DeliverGroup(props) {
                     </div>
                 </div>
             </div>
+    );
+}
+
+// TODO: Stage Manage
+function StageManage() {
+    const [type, setType] = React.useState(1);
+    const [stage, setStage] = React.useState({
+        total: 1,
+        list: [{
+            id: 0,
+            deliverytype: 1,
+            start: 1,
+            to: 999999,
+            price: 0.0,
+            username: '',
+            created: ''
+        },]
+    });
+    React.useEffect(() => {
+        PModel.getStageList(type, (data) => {
+            let curStage = data;
+            setStage(curStage);
+            console.log(curStage);
+        }, (error) => {
+            alert(error);
+            setStage({
+                total: 1,
+                list: [{
+                    id: 0,
+                    deliverytype: 1,
+                    start: 1,
+                    to: 999999,
+                    price: 0.0,
+                    username: '',
+                    created: ''
+                },]
+            });
+        });
+    }, []);
+
+    function handleTypeChange(e) {
+        setType(Number(e.target.querySelector('input').value)+1);
+        PModel.getStageList(Number(e.target.querySelector('input').value)+1, (data) => {
+            let curStage = data;
+            setStage(curStage);
+            console.log(curStage);
+        }, (error) => {
+            alert(error);
+            setStage({
+                total: 1,
+                list: [{
+                    id: 0,
+                    deliverytype: 1,
+                    start: 1,
+                    to: 999999,
+                    price: 0.0,
+                    username: '',
+                    created: ''
+                }]
+            });
+        });
+    }
+
+    function handleStartChange(e) {
+        let newStage = stage.list;
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).start = Number(e.target.value);
+        setStage({ ...stage, list: newStage });
+    }
+
+    function handleEndChange(e) {
+        let newStage = stage.list;
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).to = Number(e.target.value);
+        setStage({ ...stage, list: newStage });
+    }
+
+    function handlePriceChange(e) {
+        let newStage = stage.list;
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).price = Number(e.target.value);
+        setStage({ ...stage, list: newStage });
+    }
+    
+    function handleNewStage() {
+        let newStage = {
+            id: 0,
+            deliverytype: type,
+            start: stage.list[stage.list.length - 1].to,
+            to: 999999,
+            price: stage.list[stage.list.length - 1].price,
+            username: localStorage.getItem('username'),
+            created: ''
+        };
+        setStage({ ...stage, list: [...stage.list, newStage], total: stage.total + 1 });
+    }
+
+    function deleteLastStage() {
+        let newStage = stage.list;
+        if (newStage.length === 1) {
+            alert('Cannot delete the last stage!');
+            return;
+        }
+        newStage.pop();
+        setStage({ ...stage, list: newStage, total: stage.total - 1 });
+    }
+
+    function handleUpdate() {
+        let data = {
+            username: localStorage.getItem('username'),
+            list: stage.list
+        };
+        console.log(data);
+        PModel.createStage(data, (data) => {
+            alert('Update Success!');
+            location.reload();
+            // setModel(data);
+        }, (error) => {
+            console.log(error);
+            alert('Update Failed: ' + error);
+        });
+    }
+    
+    return (
+        <div className="row">
+            <div className="col-md-10 col-md-offset-1 heading">
+                <h3>Stage Manage</h3>
+            </div>
+            <div className="col-md-10 col-md-offset-1">
+                <div className='alert alert-info'>
+                    <p>The start of next stage should be the <strong>SAME</strong> as the end of previous stage!</p>
+                </div>
+                <div className='btn-group-justified mb-small' data-toggle="buttons" onClick={handleTypeChange}>
+                <label className='btn btn-default active'>
+                        <input type='radio' name='stage-type' value='0' autocomplete="off" /> Express
+                </label>
+                <label className='btn btn-default'>
+                        <input type='radio' name='stage-type' value='1' autocomplete="off" /> Air Exp
+                </label>
+                <label className='btn btn-default'>
+                        <input type='radio' name='stage-type' value='2' autocomplete="off" /> Sea Exp
+                </label>
+                <label className='btn btn-default'>
+                        <input type='radio' name='stage-type' value='3' autocomplete="off" /> Sea <span className='hidden-xs'>Freight</span><span className='visible-xs-inline'>Frt</span>
+                    </label>
+                    </div>
+            </div>
+            <div className="col-xs-12 vertical-center">
+                <div className='col-xs-11 col-sm-9 col-sm-offset-1 row'>
+                    <div className='form-group'>
+                        {
+                            stage.list.map((item, index) => {
+                                return (
+                                    <div className='input-group mb-xs' key={index} data-id={item.id}>
+                                        <span className='input-group-addon'>{'S'+(index+1)}: </span>
+                                        <input type="number" className="form-control" id={'stage-' + index + '-start'} value={item.start} onChange={handleStartChange} />
+                                        <span className='input-group-addon'>to</span>
+                                        <input type="number" className="form-control" id={'stage-' + index + '-to'} value={item.to} onChange={handleEndChange} />
+                                        <span className='input-group-addon'><span className='hidden-xs'>Price</span><span className='visible-xs-inline'>$</span></span>
+                                        <input type="number" className="form-control" id={'stage-' + index + '-price'} value={item.price} onChange={handlePriceChange} />
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="col-xs-2 col-sm-1">
+                    <button className="btn btn-primary" onClick={handleNewStage}>+</button>
+                    <button className="btn btn-danger" onClick={deleteLastStage}>-</button>
+                </div>
+            </div>
+            <div className="col-xs-12 text-center">
+                <button className="btn btn-primary btn-lg" onClick={handleUpdate}>Update</button>
+            </div>
+        </div>
     );
 }
 

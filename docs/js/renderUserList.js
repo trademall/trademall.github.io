@@ -11,7 +11,7 @@ function renderUserList(props) {
     ReactDOM.render( /*#__PURE__*/React.createElement("div", {
       className: "row"
     }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement("div", {
-      className: "col-sm-10"
+      className: "col-sm-11 col-md-10"
     }, /*#__PURE__*/React.createElement(UserList, {
       users: props.list
     }))), userList[0]);

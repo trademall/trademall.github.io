@@ -412,7 +412,7 @@ function StageSet(props) {
     className: "col-xs-10 col-sm-9 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement("div", {
     className: "alert alert-info"
-  }, /*#__PURE__*/React.createElement("strong", null, "The start of next stage should be the SAME as the end of previous stage!")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("p", null, "The start of next stage should be the ", /*#__PURE__*/React.createElement("strong", null, "SAME"), " as the end of previous stage!")), /*#__PURE__*/React.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "stage"

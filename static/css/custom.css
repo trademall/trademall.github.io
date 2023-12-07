@@ -232,7 +232,7 @@ th {
 
 @media (min-width: 768px) {
   .col-sm-1.mysidebar {
-    width: unset;
+    /* width: unset; */
   }
 }
 
@@ -397,4 +397,8 @@ section.post {
 
 select#status {
   border-radius: var(--radius);
+}
+
+.mb-xs {
+  margin-bottom: 5px!important;
 }

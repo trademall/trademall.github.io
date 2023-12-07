@@ -116,7 +116,7 @@ function SelectBtn(props) {
       </button>
       <ul className="dropdown-menu" aria-labelledby={props.name}>
         {props.options.map((option) => (
-          <li key={option.id} className={option.id===0?'disabled':'able'}><a>{option.name}</a></li>
+          <li key={option.id} className={option.id === 0 ? 'disabled' : 'able'}><a>{option.name}</a></li>
         ))}
       </ul>
     </div>
@@ -334,47 +334,47 @@ function StageSet(props) {
         <div className="vertical-center">
           <div className="col-xs-10 col-sm-9 col-sm-offset-1">
             <div className="alert alert-info">
-              <strong>The start of next stage should be the SAME as the end of previous stage!</strong>
+              <p>The start of next stage should be the <strong>SAME</strong> as the end of previous stage!</p>
             </div>
-          <div className="form-group">
-            <label htmlFor="stage">Stage</label>
-            {stage.map((item, index) => (
-              <div className="row mb-small" key={index}>
-                <div className="col-sm-4">
-                  <InputBox type="number" name="start" label="Start" required={true} min={1} max={999999} defaultValue={item.start} onChange={(e) => {
-                    let newStage = [...stage];
-                    newStage[index].start = Number(e.target.value);
-                    setStage(newStage);
-                  }} />
+            <div className="form-group">
+              <label htmlFor="stage">Stage</label>
+              {stage.map((item, index) => (
+                <div className="row mb-small" key={index}>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="start" label="Start" required={true} min={1} max={999999} defaultValue={item.start} onChange={(e) => {
+                      let newStage = [...stage];
+                      newStage[index].start = Number(e.target.value);
+                      setStage(newStage);
+                    }} />
+                  </div>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="end" label="End" required={true} min={1} max={999999} defaultValue={item.end} onChange={(e) => {
+                      let newStage = [...stage];
+                      newStage[index].end = Number(e.target.value);
+                      setStage(newStage);
+                    }} />
+                  </div>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="price" label="Price" required={true} defaultValue={item.price} onChange={(e) => {
+                      let newStage = [...stage];
+                      newStage[index].price = Number(e.target.value);
+                      setStage(newStage);
+                    }} />
+                  </div>
                 </div>
-                <div className="col-sm-4">
-                  <InputBox type="number" name="end" label="End" required={true} min={1} max={999999} defaultValue={item.end} onChange={(e) => {
-                    let newStage = [...stage];
-                    newStage[index].end = Number(e.target.value);
-                    setStage(newStage);
-                  }} />
-                </div>
-                <div className="col-sm-4">
-                  <InputBox type="number" name="price" label="Price" required={true} defaultValue={item.price} onChange={(e) => {
-                    let newStage = [...stage];
-                    newStage[index].price = Number(e.target.value);
-                    setStage(newStage);
-                  }} />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="col-xs-2 col-sm-1">
+            <button className="btn btn-primary" onClick={() => setStage([...stage, {
+              id: stage.length + 1,
+              start: stage[stage.length - 1].end,
+              end: 99999,
+              price: props.price
+            }])}>+</button>
+            <button className="btn btn-danger" onClick={() => (stage.length > 1) ? setStage(stage.slice(0, -1)) : null}>-</button>
           </div>
         </div>
-        <div className="col-xs-2 col-sm-1">
-          <button className="btn btn-primary" onClick={() => setStage([...stage, {
-            id: stage.length + 1,
-            start: stage[stage.length - 1].end,
-            end: 99999,
-            price: props.price
-          }])}>+</button>
-          <button className="btn btn-danger" onClick={() => (stage.length > 1) ? setStage(stage.slice(0, -1)) : null}>-</button>
-          </div>
-          </div>
         <div className="col-xs-6 col-xs-offset-2 col-sm-4 col-sm-offset-3 row">
           <button className="btn btn-success btn-lg col-xs-12" onClick={handleStageSubmit}>Confirm!</button>
         </div>
