@@ -182,19 +182,19 @@ function StageManage() {
 
     function handleStartChange(e) {
         let newStage = stage.list;
-        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).start = Number(e.target.value);
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).start = Number(e.target.value) === 0 ? null : Number(e.target.value);
         setStage({ ...stage, list: newStage });
     }
 
     function handleEndChange(e) {
         let newStage = stage.list;
-        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).to = Number(e.target.value);
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).to = Number(e.target.value) === 0 ? null : Number(e.target.value);
         setStage({ ...stage, list: newStage });
     }
 
     function handlePriceChange(e) {
         let newStage = stage.list;
-        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).price = Number(e.target.value);
+        newStage.find((item) => { return item.id === Number(e.target.parentNode.dataset.id); }).price = Number(e.target.value) === 0 ? null : Number(e.target.value);
         setStage({ ...stage, list: newStage });
     }
     

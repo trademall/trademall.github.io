@@ -246,7 +246,7 @@ function StageManage() {
     let newStage = stage.list;
     newStage.find(item => {
       return item.id === Number(e.target.parentNode.dataset.id);
-    }).start = Number(e.target.value);
+    }).start = Number(e.target.value) === 0 ? null : Number(e.target.value);
     setStage({
       ...stage,
       list: newStage
@@ -256,7 +256,7 @@ function StageManage() {
     let newStage = stage.list;
     newStage.find(item => {
       return item.id === Number(e.target.parentNode.dataset.id);
-    }).to = Number(e.target.value);
+    }).to = Number(e.target.value) === 0 ? null : Number(e.target.value);
     setStage({
       ...stage,
       list: newStage
@@ -266,7 +266,7 @@ function StageManage() {
     let newStage = stage.list;
     newStage.find(item => {
       return item.id === Number(e.target.parentNode.dataset.id);
-    }).price = Number(e.target.value);
+    }).price = Number(e.target.value) === 0 ? null : Number(e.target.value);
     setStage({
       ...stage,
       list: newStage
