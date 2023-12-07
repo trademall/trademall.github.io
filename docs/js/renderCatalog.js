@@ -116,6 +116,24 @@ function ProductCatalog(props) {
   }));
   return /*#__PURE__*/React.createElement("div", {
     className: "commodities"
-  }, catalogItems);
+  }, catalogItems, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-template-main btn-circle btn-lg",
+    id: "printBtn",
+    onClick: handlePrint
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa fa-print"
+  })));
+}
+function handlePrint() {
+  $('#printBtn').addClass('hidden');
+  window.jsPDF = window.jspdf.jsPDF;
+  let pdf = new jsPDF('p', 'pt', 'a4');
+  let options = {
+    pagesplit: true
+  };
+  pdf.addHTML($('.commodities')[0], options, function () {
+    pdf.save('catalog.pdf');
+  });
+  $('#printBtn').removeClass('hidden');
 }
 export { RenderCatalog };

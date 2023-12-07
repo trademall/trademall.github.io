@@ -91,9 +91,22 @@ function ProductCatalog(props) {
     return (
         <div className="commodities">
             {catalogItems}
+            <button className="btn btn-template-main btn-circle btn-lg" id="printBtn" onClick={handlePrint}><i className="fa fa-print"></i></button>
         </div>
     );
 }
 
+function handlePrint() {
+    $('#printBtn').addClass('hidden');
+    window.jsPDF = window.jspdf.jsPDF;
+    let pdf = new jsPDF('p', 'pt', 'a4');
+    let options = {
+        pagesplit: true
+    };
+    pdf.addHTML($('.commodities')[0], options, function () {
+        pdf.save('catalog.pdf');
+    });
+    $('#printBtn').removeClass('hidden');
+}
 
 export { RenderCatalog };

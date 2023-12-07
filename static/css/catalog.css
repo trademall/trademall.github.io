@@ -26,3 +26,44 @@
 .catalog .textDiv {
     padding: 6px 16px;
 }
+
+#printBtn {
+    position: fixed;
+    color: var(--primary-accent);
+    background-color: #ffffff;
+    opacity: 0.5;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+#printBtn::after {
+    content: "Print";
+    padding: 5px 10px;
+    color: transparent;
+    transition: all 0.1s ease-in-out;
+    /* transition-delay: 0.1s; */
+}
+
+#printBtn:hover {
+    opacity: 1;
+    color: #ffffff;
+    background-color: var(--primary-accent);
+    width: 110px;
+    transition: all 0.2s ease-in-out;
+}
+
+#printBtn:hover::after {
+    /* content: "Print"; */
+    color: #ffffff;
+    transition: all 0.1s ease-in-out;
+    transition-delay: 0.1s;
+}
+
+.btn.btn-circle {
+    border-radius: 50px;
+}
