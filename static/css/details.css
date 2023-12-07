@@ -197,11 +197,11 @@
     margin-left: -5px;
 }
 
-#details .table-hover tr>td:hover {
+#details .table-hover tr>td:not(:first-child):hover {
     background-color: var(--hover-bg);
 }
 
-#details .table-hover tr>th:hover {
+#details .table-hover tr>th:not(:first-child):hover {
     background-color: var(--hover-bg);
 }
 
