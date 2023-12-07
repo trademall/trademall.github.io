@@ -11,7 +11,7 @@ function TextDiv(props) {
             <h4><a href={"/products/details/?id=" + props.id}>{props.name}</a></h4>
             <p><span>{Object.values(props.attributes).join(', ')}</span>
             <span className="number pull-right text-large text-primary" id="number">× {props.num}</span></p>
-            {/* <h4 className="price" id="price"><span className="price-symbol">$</span>{props.price}</h4> */}
+            <h4 className="price" id="price"><span className="price-symbol">$</span>{props.price}</h4>
         </div >
     );
 }
@@ -86,7 +86,7 @@ function ProductDiv(props) {
 function ProductCatalog(props) {
     const catalog = props.catalog;
     const catalogItems = catalog.map((product) =>
-        <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } num={product.attributes.num} />
+        <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.attributes.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } num={product.attributes.num} />
     );
     return (
         <div className="commodities">

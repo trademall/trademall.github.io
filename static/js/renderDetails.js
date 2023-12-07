@@ -295,16 +295,6 @@ function initCustomizer() {
     const selector = selectors[i];
     const radios = selector.querySelectorAll('input[type="radio"]');
     radios[0].click();
-    // radios[0].checked = true;
-    // radios[0].parentElement.classList.add('active');
-    // for (let j = 0; j < radios.length; j++) {
-    //     const radio = radios[j];
-    //     radio.addEventListener('change', updatePrice);
-    // }
   }
 }
-
-// function updatePrice() {
-// }
-
 export { RenderDetails };

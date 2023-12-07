@@ -80,6 +80,7 @@ function getSKU() {
     attributes["name"] = product.name;
     attributes["pid"] = Number(product.id);
     attributes["num"] = Number($('#quantity').val());
+    attributes["price"] = Number($('.total-price.bg-info.blockquote-reverse').text().split('$')[1]);
     attributes["attributes"] = {};
 
     const selectors = document.querySelectorAll('.selector');

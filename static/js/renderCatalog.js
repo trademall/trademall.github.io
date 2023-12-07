@@ -13,7 +13,12 @@ function TextDiv(props) {
   }, props.name)), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("span", null, Object.values(props.attributes).join(', ')), /*#__PURE__*/React.createElement("span", {
     className: "number pull-right text-large text-primary",
     id: "number"
-  }, "\xD7 ", props.num)));
+  }, "\xD7 ", props.num)), /*#__PURE__*/React.createElement("h4", {
+    className: "price",
+    id: "price"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "price-symbol"
+  }, "$"), props.price));
 }
 function FootBtns(props) {
   function confirmDelete() {
@@ -104,7 +109,7 @@ function ProductCatalog(props) {
     cid: product.id,
     image: product.attributes.image,
     name: product.attributes.name,
-    price: product.price,
+    price: product.attributes.price,
     pid: product.attributes.pid,
     attributes: product.attributes.attributes,
     num: product.attributes.num

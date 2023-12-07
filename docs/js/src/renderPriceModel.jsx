@@ -34,13 +34,15 @@ function PriceModel() {
         PModel.getModel((data) => {
             let curModel = data;
             setModel(curModel);
-            console.log(curModel);
+            // console.log(curModel);
         }, (error) => {
             console.log(error);
         });
     }, []);
 
     function handleUpdate() {
+        $('#updateModel').attr('disabled', true);
+        $('#updateModel').html('Updating...');
         let data = {
             rate: Number($('#rate').val()),
             taxrate: Number($('#taxrate').val()),
@@ -53,13 +55,17 @@ function PriceModel() {
             seafreightfee: Number($('#seafreightfee').val()),
             username: localStorage.getItem('username'),
         };
-        console.log(data);
+        // console.log(data);
         PModel.createModel(data, (data) => {
+            $('#updateModel').attr('disabled', false);
+            $('#updateModel').html('Update');
             alert('Update Success!');
             location.reload();
             // setModel(data);
         }, (error) => {
             console.log(error);
+            $('#updateModel').attr('disabled', false);
+            $('#updateModel').html('Update');
             alert('Update Failed: ' + error);
         });
     }
@@ -78,7 +84,7 @@ function PriceModel() {
                 <DeliverGroup label="Sea" id="sea" value={model.seastrategy} strategy={model.seastrategy} fee={model.seafee} />
                 <InputBox label="Sea Freight Fee" id="seafreightfee" value={model.seafreightfee} required={true} type="number" name="seafreightfee" onChange={(e) => { setModel({ ...model, seafreightfee: e.target.value }); }} />
                 <div className="col-sm-12 text-center">
-                    <button className="btn btn-primary btn-lg" onClick={handleUpdate}>Update</button>
+                    <button className="btn btn-primary btn-lg" onClick={handleUpdate} id='updateModel'>Update</button>
                 </div>
 
             </div>
@@ -225,6 +231,8 @@ function StageManage() {
             username: localStorage.getItem('username'),
             list: stage.list
         };
+        $('#updateStage').attr('disabled', true);
+        $('#updateStage').html('Updating...');
         let deleted = 0;
         if (stageList.length === 0) {
             let created = 0;
@@ -232,12 +240,16 @@ function StageManage() {
                 PModel.createStage(newStage.list[i], (data) => {
                     created++;
                     if (created === newStage.list.length) {
+                        $('#updateStage').attr('disabled', false);
+                        $('#updateStage').html('Update');
                         alert('Update Success!');
                         location.reload();
                         return;
                     }
                 }, (error) => {
                     console.log(error);
+                    $('#updateStage').attr('disabled', false);
+                    $('#updateStage').html('Update');
                     alert('Update Failed: ' + error);
                     return;
                 });
@@ -252,17 +264,23 @@ function StageManage() {
                         PModel.createStage(newStage.list[i], (data) => {
                             updated++;
                             if (updated === newStage.list.length) {
+                                $('#updateStage').attr('disabled', false);
+                                $('#updateStage').html('Update');
                                 alert('Update Success!');
                                 location.reload();
                             }
                         }, (error) => {
                             console.log(error);
+                            $('#updateStage').attr('disabled', false);
+                            $('#updateStage').html('Update');
                             alert('Update Failed: ' + error);
                         });
                     }
                 }
             }, (error) => {
                 console.log(error);
+                $('#updateStage').attr('disabled', false);
+                $('#updateStage').html('Update');
                 alert('Update Failed: ' + error);
             });
         }
@@ -317,7 +335,7 @@ function StageManage() {
                 </div>
             </div>
             <div className="col-xs-12 text-center">
-                <button className="btn btn-primary btn-lg" onClick={handleUpdate}>Update</button>
+                <button className="btn btn-primary btn-lg" onClick={handleUpdate} id='updateStage'>Update</button>
             </div>
         </div>
     );
