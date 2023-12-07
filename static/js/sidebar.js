@@ -32,7 +32,7 @@ function Sidebar(props) {
   }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/products/"
   }, /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-list"
+    className: "fa fa-cubes"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
   }, "Products"))), /*#__PURE__*/React.createElement("li", {
@@ -40,15 +40,15 @@ function Sidebar(props) {
   }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/templates/"
   }, /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-file"
+    className: "fa fa-print"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
-  }, "Templates"))), /*#__PURE__*/React.createElement("li", {
+  }, "Catalog Templates"))), /*#__PURE__*/React.createElement("li", {
     className: window.location.pathname === '/admin/ptemplates/' ? 'active' : ''
   }, /*#__PURE__*/React.createElement("a", {
     href: "/admin/ptemplates/"
   }, /*#__PURE__*/React.createElement("i", {
-    className: "fa fa-file"
+    className: "fa fa-database"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
   }, "Product Templates"))), /*#__PURE__*/React.createElement("li", {
