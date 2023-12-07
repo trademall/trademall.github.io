@@ -65,7 +65,7 @@ function PriceModel() {
     }
 
     return (
-        <div className="row">
+        <div className="row mb-small">
             <div className="col-sm-12 heading">
                 <h3>Price Model</h3>
             </div>
@@ -270,7 +270,7 @@ function StageManage() {
     }
     
     return (
-        <div className="row">
+        <div className="row mb-small">
             <div className="col-md-10 col-md-offset-1 heading">
                 <h3>Stage Manage</h3>
             </div>

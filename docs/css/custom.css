@@ -402,3 +402,11 @@ select#status {
 .mb-xs {
   margin-bottom: 5px!important;
 }
+
+.btn-group-justified *:first-child {
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.btn-group-justified *:last-child {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}

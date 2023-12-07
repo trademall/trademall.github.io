@@ -54,7 +54,7 @@ function PriceModel() {
     });
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: "row"
+    className: "row mb-small"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-sm-12 heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Price Model")), /*#__PURE__*/React.createElement("div", {
@@ -349,7 +349,7 @@ function StageManage() {
     }
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: "row"
+    className: "row mb-small"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-md-10 col-md-offset-1 heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Stage Manage")), /*#__PURE__*/React.createElement("div", {
