@@ -21,7 +21,7 @@ function ProductDetails(props) {
 function LeftColumn(props) {
     return (
         <div className="row col-sm-6 col-md-6">
-            <Pid pid={props.product.id} />
+            <Pname pname={props.product.name} />
 
             <Pimage product={props.product} />
 
@@ -30,10 +30,10 @@ function LeftColumn(props) {
     );
 }
 
-function Pid(props) {
+function Pname(props) {
     return (
         <p className="text-uppercase col-xs-10 col-xs-offset-1 col-sm-12 col-md-12" id="product-id">
-            item #{props.pid}
+            item #{props.pname}
         </p>
     );
 }

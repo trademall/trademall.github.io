@@ -22,19 +22,19 @@ function ProductDetails(props) {
 function LeftColumn(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "row col-sm-6 col-md-6"
-  }, /*#__PURE__*/React.createElement(Pid, {
-    pid: props.product.id
+  }, /*#__PURE__*/React.createElement(Pname, {
+    pname: props.product.name
   }), /*#__PURE__*/React.createElement(Pimage, {
     product: props.product
   }), /*#__PURE__*/React.createElement(Pdescription, {
     description: props.product.detailinfo
   }));
 }
-function Pid(props) {
+function Pname(props) {
   return /*#__PURE__*/React.createElement("p", {
     className: "text-uppercase col-xs-10 col-xs-offset-1 col-sm-12 col-md-12",
     id: "product-id"
-  }, "item #", props.pid);
+  }, "item #", props.pname);
 }
 function Pimage(props) {
   const imageURL = JSON.parse(props.product.image);
