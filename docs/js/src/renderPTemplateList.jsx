@@ -302,14 +302,14 @@ function PopupEdit(props) {
 function NewPTemplateModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
-        const templateName = $('#template-name').val();
-        const category = $('#category').val();
-        const childCategory = $('#child-category').val();
-        const profit = Number($('#profit').val());
+        const templateName = $('#new-template-name').val();
+        const category = $('#new-category').val();
+        const childCategory = $('#new-child-category').val();
+        const profit = Number($('#new-profit').val());
         const status = 1;
-        const include = $('#include').val() || [];
-        const exclude = $('#exclude').val() || [];
-        const description = $('#description').val() || '';
+        const include = $('#new-include').val() || [];
+        const exclude = $('#new-exclude').val() || [];
+        const description = $('#new-description').val() || '';
         const attributes = getAttributes();
         const data = {
             "templatename": templateName,
@@ -337,13 +337,14 @@ function NewPTemplateModal() {
     }
 
     const getAttributes = () => {
+        const modal = document.querySelector('#newPTemplateModal');
         const attrs = {};
-        const price = $('#price-model').val();
+        const price = $('#new-price-model').val();
         attrs['price'] = price;
-        const attrName = document.querySelectorAll('#attr-name');
-        const type = document.querySelectorAll('#type');
-        const required = document.querySelectorAll('#required');
-        const example = document.querySelectorAll('#example');
+        const attrName = modal.querySelectorAll('#attr-name');
+        const type = modal.querySelectorAll('#type');
+        const required = modal.querySelectorAll('#required');
+        const example = modal.querySelectorAll('#example');
         attrs['attrs'] = [];
         for (let i = 0; i < attrName.length; i++) {
             if (attrName[i].value === '') {
@@ -404,10 +405,10 @@ function NewPTemplateModal() {
                     </div>
                     <div className="modal-body">
                         <form>
-                            <InputBox label="Template Name" id="template-name" type="text" required={true} />
-                            <InputBox label="Category" id="category" type="text" required={true} />
-                            <InputBox label="Child Category" id="child-category" type="text" required={true} />
-                            <InputBox label="Profit" id="profit" type="number" required={true} />
+                            <InputBox label="Template Name" id="new-template-name" type="text" required={true} />
+                            <InputBox label="Category" id="new-category" type="text" required={true} />
+                            <InputBox label="Child Category" id="new-child-category" type="text" required={true} />
+                            <InputBox label="Profit" id="new-profit" type="number" required={true} />
                             <div className="col-md-10 col-md-offset-1">
                                 <div className="form-group">
                                     <label htmlFor="price-model">Price Model*</label>
@@ -420,17 +421,17 @@ function NewPTemplateModal() {
                                                 <a type="button" className="btn btn-success btn-lg active" data-toggle="price-model" data-title="tier">Tier</a>
                                             </div>
                                         </div>
-                                        <input type="hidden" id="price-model" name="price-model" value="tier" />
+                                        <input type="hidden" id="new-price-model" name="price-model" value="tier" />
                                     </div>
                                 </div>
                             </div>
                             {/* <InputBox label="Include" id="include" type="text" required={false} />
                             <InputBox label="Exclude" id="exclude" type="text" required={false} /> */}
-                            <InputBox label="Description" id="description" type="text" required={false} />
+                            <InputBox label="Description" id="new-description" type="text" required={false} />
                             <div className="col-md-10 col-md-offset-1">
                                 <label htmlFor="attributes">Attributes</label>
                                 <div className="vertical-center">
-                                <div className="col-xs-11" id="attributes">
+                                    <div className="col-xs-11" id="new-attributes">
                                     {attributes.map((attribute) => {
                                         return attribute;
                                     })}
@@ -441,9 +442,9 @@ function NewPTemplateModal() {
                                 </div>
                                 </div>
                             </div>
-                            <InputBox label="Include" id="include" type="text" required={false} />
-                            <InputBox label="Exclude" id="exclude" type="text" required={false} />
-                            <div className="info col-md-10 col-md-offset-1" id="info">
+                            <InputBox label="Include" id="new-include" type="text" required={false} />
+                            <InputBox label="Exclude" id="new-exclude" type="text" required={false} />
+                            <div className="info col-md-10 col-md-offset-1" id="new-info">
                             </div>
                             <div className="modal-foot text-center">
                                 <button type="submit" className="btn btn-lg btn-primary" onClick={handleSubmit}>Submit</button>
@@ -490,11 +491,11 @@ function Attributes(props) {
             <div className="row">
                 <div className="col-sm-4">
                     <label htmlFor="attr-name">Name</label>
-                    <input type="text" className="form-control" id="attr-name" placeholder="Attribute Name" value={items.name} />
+                    <input type="text" className="form-control" id="attr-name" placeholder="Attribute Name" defaultValue={items.name} />
                 </div>
                 <div className="col-sm-4">
                     <label htmlFor="type">Type</label>
-                    <select className="form-control" id="type" value={items.type}>
+                    <select className="form-control" id="type" defaultValue={items.type}>
                         <option value="multiple">Multiple</option>
                         <option value="custom">Custom</option>
                     </select>
@@ -503,7 +504,7 @@ function Attributes(props) {
                     <InputBox label="Required" id="required" type="checkbox" checked={items.required} />
                 </div>
                 <div className="col-sm-12">
-                    <input type="text" className="form-control" id="example" placeholder="Attribute Value" value={items.example} />
+                    <input type="text" className="form-control" id="example" placeholder="Attribute Value" defaultValue={items.example} />
                 </div>
             </div>
         </div>

@@ -340,14 +340,14 @@ function PopupEdit(props) {
 function NewPTemplateModal() {
   const handleSubmit = e => {
     e.preventDefault();
-    const templateName = $('#template-name').val();
-    const category = $('#category').val();
-    const childCategory = $('#child-category').val();
-    const profit = Number($('#profit').val());
+    const templateName = $('#new-template-name').val();
+    const category = $('#new-category').val();
+    const childCategory = $('#new-child-category').val();
+    const profit = Number($('#new-profit').val());
     const status = 1;
-    const include = $('#include').val() || [];
-    const exclude = $('#exclude').val() || [];
-    const description = $('#description').val() || '';
+    const include = $('#new-include').val() || [];
+    const exclude = $('#new-exclude').val() || [];
+    const description = $('#new-description').val() || '';
     const attributes = getAttributes();
     const data = {
       "templatename": templateName,
@@ -374,13 +374,14 @@ function NewPTemplateModal() {
     });
   };
   const getAttributes = () => {
+    const modal = document.querySelector('#newPTemplateModal');
     const attrs = {};
-    const price = $('#price-model').val();
+    const price = $('#new-price-model').val();
     attrs['price'] = price;
-    const attrName = document.querySelectorAll('#attr-name');
-    const type = document.querySelectorAll('#type');
-    const required = document.querySelectorAll('#required');
-    const example = document.querySelectorAll('#example');
+    const attrName = modal.querySelectorAll('#attr-name');
+    const type = modal.querySelectorAll('#type');
+    const required = modal.querySelectorAll('#required');
+    const example = modal.querySelectorAll('#example');
     attrs['attrs'] = [];
     for (let i = 0; i < attrName.length; i++) {
       if (attrName[i].value === '') {
@@ -451,22 +452,22 @@ function NewPTemplateModal() {
     className: "modal-body"
   }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputBox, {
     label: "Template Name",
-    id: "template-name",
+    id: "new-template-name",
     type: "text",
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Category",
-    id: "category",
+    id: "new-category",
     type: "text",
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Child Category",
-    id: "child-category",
+    id: "new-child-category",
     type: "text",
     required: true
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Profit",
-    id: "profit",
+    id: "new-profit",
     type: "number",
     required: true
   }), /*#__PURE__*/React.createElement("div", {
@@ -497,12 +498,12 @@ function NewPTemplateModal() {
     "data-title": "tier"
   }, "Tier"))), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
-    id: "price-model",
+    id: "new-price-model",
     name: "price-model",
     value: "tier"
   })))), /*#__PURE__*/React.createElement(InputBox, {
     label: "Description",
-    id: "description",
+    id: "new-description",
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement("div", {
@@ -513,7 +514,7 @@ function NewPTemplateModal() {
     className: "vertical-center"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-xs-11",
-    id: "attributes"
+    id: "new-attributes"
   }, attributes.map(attribute => {
     return attribute;
   })), /*#__PURE__*/React.createElement("div", {
@@ -528,17 +529,17 @@ function NewPTemplateModal() {
     onClick: handleDeleteAttribute
   }, "-")))), /*#__PURE__*/React.createElement(InputBox, {
     label: "Include",
-    id: "include",
+    id: "new-include",
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement(InputBox, {
     label: "Exclude",
-    id: "exclude",
+    id: "new-exclude",
     type: "text",
     required: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "info col-md-10 col-md-offset-1",
-    id: "info"
+    id: "new-info"
   }), /*#__PURE__*/React.createElement("div", {
     className: "modal-foot text-center"
   }, /*#__PURE__*/React.createElement("button", {
@@ -607,7 +608,7 @@ function Attributes(props) {
     className: "form-control",
     id: "attr-name",
     placeholder: "Attribute Name",
-    value: items.name
+    defaultValue: items.name
   })), /*#__PURE__*/React.createElement("div", {
     className: "col-sm-4"
   }, /*#__PURE__*/React.createElement("label", {
@@ -615,7 +616,7 @@ function Attributes(props) {
   }, "Type"), /*#__PURE__*/React.createElement("select", {
     className: "form-control",
     id: "type",
-    value: items.type
+    defaultValue: items.type
   }, /*#__PURE__*/React.createElement("option", {
     value: "multiple"
   }, "Multiple"), /*#__PURE__*/React.createElement("option", {
@@ -634,7 +635,7 @@ function Attributes(props) {
     className: "form-control",
     id: "example",
     placeholder: "Attribute Value",
-    value: items.example
+    defaultValue: items.example
   }))));
 }
 function CreatePTmplateBtn() {
