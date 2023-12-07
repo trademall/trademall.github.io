@@ -153,22 +153,22 @@ function DeliverGroup(props) {
     onClick: () => {
       $('#' + deliver.id + '-strategy').html('0 <span class="caret"></span>');
     }
-  }, "Weight")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Strategy 0")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#",
     onClick: () => {
       $('#' + deliver.id + '-strategy').html('1 <span class="caret"></span>');
     }
-  }, "Volume")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Strategy 1")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#",
     onClick: () => {
       $('#' + deliver.id + '-strategy').html('2 <span class="caret"></span>');
     }
-  }, "Weight & Volume")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Strategy 2")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "#",
     onClick: () => {
       $('#' + deliver.id + '-strategy').html('3 <span class="caret"></span>');
     }
-  }, "Weight or Volume")))), /*#__PURE__*/React.createElement("input", {
+  }, "Strategy 3")))), /*#__PURE__*/React.createElement("input", {
     type: "number",
     className: "form-control",
     id: deliver.id,

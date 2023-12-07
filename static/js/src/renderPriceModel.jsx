@@ -99,10 +99,10 @@ function DeliverGroup(props) {
                             {deliver.strategy} <span className="caret"></span>
                             </button>
                             <ul className="dropdown-menu">
-                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('0 <span class="caret"></span>'); }}>Weight</a></li>
-                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('1 <span class="caret"></span>'); }}>Volume</a></li>
-                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('2 <span class="caret"></span>'); }}>Weight & Volume</a></li>
-                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('3 <span class="caret"></span>'); }}>Weight or Volume</a></li>
+                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('0 <span class="caret"></span>'); }}>Strategy 0</a></li>
+                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('1 <span class="caret"></span>'); }}>Strategy 1</a></li>
+                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('2 <span class="caret"></span>'); }}>Strategy 2</a></li>
+                            <li><a href="#" onClick={() => { $('#' + deliver.id + '-strategy').html('3 <span class="caret"></span>'); }}>Strategy 3</a></li>
                             </ul>
                         </div>
                     <input type="number" className="form-control" id={deliver.id} value={fee} onChange={(e) => { setFee(e.target.value); }} />
