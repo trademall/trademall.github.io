@@ -193,7 +193,9 @@ function CustomizerBody(props) {
 }
 function StageTable(props) {
   const price = props.price;
-  return /*#__PURE__*/React.createElement("table", {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "table-responsive"
+  }, /*#__PURE__*/React.createElement("table", {
     className: "table table-hover table-bordered"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Quantity"), Object.keys(price).map(key => /*#__PURE__*/React.createElement("th", {
     key: key,
@@ -207,7 +209,7 @@ function StageTable(props) {
   }, "Price"), Object.keys(price).map(key => /*#__PURE__*/React.createElement("td", {
     key: key,
     className: "text-center"
-  }, "$", price[key].toFixed(2))))));
+  }, "$", price[key].toFixed(2)))))));
 }
 function CustomizerOption(props) {
   return /*#__PURE__*/React.createElement("div", {
