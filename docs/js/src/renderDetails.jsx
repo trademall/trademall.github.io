@@ -227,7 +227,7 @@ function CustomizerOption(props) {
 
 function CustomizerValue(props) {
     return (
-        <label className="btn btn-default col-md-3">
+        <label className="btn btn-default">
             <input type="radio" name={props.value} id={props.value} autocomplete="off" /> {props.value}
         </label>
     );

@@ -224,7 +224,7 @@ function CustomizerOption(props) {
 }
 function CustomizerValue(props) {
   return /*#__PURE__*/React.createElement("label", {
-    className: "btn btn-default col-md-3"
+    className: "btn btn-default"
   }, /*#__PURE__*/React.createElement("input", {
     type: "radio",
     name: props.value,
