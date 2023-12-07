@@ -51,6 +51,14 @@ function Sidebar(props) {
     className: "fa fa-file"
   }, "\xA0"), /*#__PURE__*/React.createElement("span", {
     className: "hidden-sm"
-  }, "Product Templates")))))));
+  }, "Product Templates"))), /*#__PURE__*/React.createElement("li", {
+    className: window.location.pathname === '/admin/price-model/' ? 'active' : ''
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/admin/price-model/"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "fa fa-chart-line"
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "hidden-sm"
+  }, "Price Model")))))));
 }
 export { Sidebar };

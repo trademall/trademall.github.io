@@ -164,7 +164,7 @@ function UploadProduct(props) {
       $('#upload.btn-upload').html('Create');
       // window.location.href = "/products/";
       getProduct("list", localStorage.getItem('id'), (data) => {
-        const pid = data.list.find((item) => item.productid === product.ProductID && item.creatorid === product.CreatorID && item.name === product.name && item.category === product.category && item.childcategory === product.childcategory && item.detailinfo === product.DetailInfo).id;
+        const pid = data.list.find((item) => item.productid === product.ProductID && item.creatorid === product.CreatorID && item.name === product.name && item.category === product.category && item.childcategory === product.childcategory && item.detailinfo === product.DetailInfo).id || data.list[data.total - 1].id;
         renderStageSet(pid, product.Price);
       }, (err) => {
         alert(err);

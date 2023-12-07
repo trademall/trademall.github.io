@@ -22,6 +22,9 @@ function Sidebar(props) {
                         <li className={window.location.pathname === '/admin/ptemplates/' ? 'active' : ''}>
                             <a href="/admin/ptemplates/"><i className="fa fa-file">&nbsp;</i><span className="hidden-sm">Product Templates</span></a>
                         </li>
+                        <li className={window.location.pathname === '/admin/price-model/' ? 'active' : ''}>
+                            <a href="/admin/price-model/"><i className="fa fa-chart-line">&nbsp;</i><span className="hidden-sm">Price Model</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
