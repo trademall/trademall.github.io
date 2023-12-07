@@ -1,5 +1,6 @@
 import { getPrice } from "./product_api.js";
-import { submit } from "./details.js";
+import { getPStageList } from "./pstage_api.js";
+// import { submit } from "./details.js";
 
 function RenderDetails(data, callback) {
     const details = $('.content')[0];
@@ -124,13 +125,53 @@ function CustomizerBody(props) {
         trigger? clearTimeout(timer): trigger = true;
         timer = setTimeout(() => {
             getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
-        }, 200);
+        }, 500);
     };
+    const handleTableClick = (event) => {
+        props.setNum(event.target.innerText);
+        getPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
+    }
+    const [price, setPrice] = React.useState({
+        1: 0.00,
+    });
+    React.useEffect(() => {
+        let stages = {};
+        let stage = {};
+        let stageNum = 1;
+        getPStageList(Number(props.product.id), (data) => {
+            stageNum = data.total;
+            data.list.forEach((item) => {
+                getPrice(Number(props.product.id), Number(item.start), (data) => {
+                    let shipping = document.querySelector('.shipping-selector label.active input').id;
+                    stage[item.start] = data[shipping];
+                    stages[item.start] = data;
+                    stageNum--;
+                    if (stageNum === 0) {
+                        setPrice(stage);
+                        console.log(stages);
+                    }
+                });
+            });
+            console.log(data);
+        });
+        $('.shipping-selector label').click((event) => {
+            let shipping = event.target.querySelector('input').id;
+            console.log(shipping);
+            let stage = {};
+            for (let key in stages) {
+                stage[key] = stages[key][shipping];
+            }
+            setPrice(stage);
+        });
+    }, []);
+
     return (
         <div className="card-body">
             {attrs.map((attr) => (
                 <CustomizerOption key={attr} title={attr} option={props.product.attributes[attr]} />
             ))}
+            <CustomizerOption title="Shipping" option={["express", "airexpress", "seaexpress", "seatrans"]} />
+            <StageTable price={price} onClick={handleTableClick} />
             <div className="row selector">
                 <div className="col-md-3">
                     <h4>Quantity: </h4>
@@ -145,9 +186,33 @@ function CustomizerBody(props) {
     );
 }
 
+function StageTable(props) {
+    const price = props.price;
+    return (
+        <table className="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    {Object.keys(price).map((key) => (
+                        <th key={key} className="text-center" onClick={props.onClick} style={{cursor: "pointer"}}>{key}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td className="text-center">Price</td>
+                    {Object.keys(price).map((key) => (
+                        <td key={key} className="text-center">${price[key].toFixed(2)}</td>
+                    ))}
+                </tr>
+            </tbody>
+        </table>
+    );
+}
+
 function CustomizerOption(props) {
     return (
-        <div className="row selector color-select">
+        <div className={"row selector "+props.title.toLowerCase()+"-selector"}>
             <div className="col-md-3">
                 <h4>{props.title+": "}</h4>
             </div>
@@ -175,7 +240,7 @@ function CustomizerFooter(props) {
                 <div className="col-md-12">
                     <h4>Total Price: </h4>
                     {Object.keys(props.price).map((key) => (
-                        <div>
+                        <div className="total-price col-xs-12" key={key} style={{transition: "all 0.3s ease"}}>
                             <div className="col-xs-6">
                                 <p key={key} className="text-uppercase text-left">{key}: </p>
                             </div>
@@ -227,16 +292,17 @@ function initCustomizer() {
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
         const radios = selector.querySelectorAll('input[type="radio"]');
-        radios[0].checked = true;
-        radios[0].parentElement.classList.add('active');
-        for (let j = 0; j < radios.length; j++) {
-            const radio = radios[j];
-            radio.addEventListener('change', updatePrice);
-        }
+        radios[0].click();
+        // radios[0].checked = true;
+        // radios[0].parentElement.classList.add('active');
+        // for (let j = 0; j < radios.length; j++) {
+        //     const radio = radios[j];
+        //     radio.addEventListener('change', updatePrice);
+        // }
     }
 }
 
-function updatePrice() {
-}
+// function updatePrice() {
+// }
 
 export { RenderDetails };

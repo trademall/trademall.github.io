@@ -185,3 +185,18 @@
 #details .img-sub label:hover {
     border-color: var(--active-bg);
 }
+
+#details .total-price {
+    border-radius: var(--radius) 0 0 var(--radius);
+    padding-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#details .total-price.blockquote-reverse {
+    margin-left: -5px;
+}
+
+#details .table-hover>tbody>tr:hover {
+    background-color: var(--hover-bg);
+}

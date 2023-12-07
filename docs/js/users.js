@@ -2,7 +2,7 @@
 import { renderUserList } from './renderUserList.js';
 import { getUserList } from './getUserList.js';
 
-const pageSize = 10;
+const pageSize = 100;
 let page = 1;
 
 getUserList(page, pageSize, receiveUsers, receiveError);

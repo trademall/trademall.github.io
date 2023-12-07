@@ -13,7 +13,7 @@ function renderAdmin() {
     ReactDOM.render( /*#__PURE__*/React.createElement(Admin, null), container[0]);
   }
   getUserList(1, 5, renderUserPanel);
-  getProduct("list", 0, renderProductPanel);
+  getProduct("list", Number(localStorage.getItem('id')), renderProductPanel);
   getCTemplateList(1, 5, renderCTemplatePanel, console.log);
   getPTemplateList(1, 5, renderPTemplatePanel, console.log);
 }

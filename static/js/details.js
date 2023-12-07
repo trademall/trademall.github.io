@@ -18,6 +18,17 @@ function renderProduct(data) {
             $('#submitBtn > span').text(' Update cart');
         }
         $('#submitBtn').click(submit);
+        $('.selector.shipping-selector').click(function () {
+            setTimeout(() => {
+            document.querySelectorAll('.total-price').forEach((element) => {
+                if (element.firstChild.textContent.startsWith(document.querySelector('.shipping-selector label.active input').id)) {
+                    element.classList.add('bg-info', 'blockquote-reverse');
+                } else {
+                    element.classList.remove('bg-info', 'blockquote-reverse');
+                }
+            });
+            }, 100);
+        });
     });
 }
 
