@@ -197,6 +197,14 @@
     margin-left: -5px;
 }
 
-#details .table-hover>tbody>tr:hover {
+#details .table-hover tr>td:hover {
     background-color: var(--hover-bg);
+}
+
+#details .table-hover tr>th:hover {
+    background-color: var(--hover-bg);
+}
+
+#details .table-hover tr:hover {
+    background-color: #eeeeee;
 }
