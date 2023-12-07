@@ -179,7 +179,8 @@ function DeliverGroup(props) {
   }))));
 }
 
-// TODO: Stage Manage
+//---------------------Stage Manage---------------------
+
 function StageManage() {
   const [type, setType] = React.useState(1);
   const [stage, setStage] = React.useState({
@@ -200,7 +201,6 @@ function StageManage() {
       let curStage = data;
       setStageList(curStage.list);
       setStage(curStage);
-      console.log(curStage);
     }, error => {
       alert(error);
       setStage({
@@ -224,7 +224,6 @@ function StageManage() {
       let curStage = data;
       setStage(curStage);
       setStageList(curStage.list);
-      console.log(curStage);
     }, error => {
       alert(error);
       setStage({
