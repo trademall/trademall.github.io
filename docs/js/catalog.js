@@ -1,6 +1,6 @@
 import { RenderCatalog } from "./renderCatalog.js";
 
-function getCatalog() {
+function getCatalog(uid, successCallback = console.log, errorCallback = console.log) {
     $.ajax({
         url: 'http://47.89.209.202:80/v1/catalog/' + uid,
         type: 'GET',
@@ -9,15 +9,15 @@ function getCatalog() {
             'token': token
         },
         success: function (res) {
-            console.log(res.data.list);
+            // console.log(res.data.list);
             if (!res.data.list) {
                 $('.catalog').html('<h3 class="text-center">Catalog is empty. <a href="/products/">Browse our products!</a></h3>');
                 return;
             }
-            RenderCatalog(res.data.list);
+            successCallback(res.data.list);
         },
         error: function (error) {
-            console.log(error);
+            errorCallback(error);
         }
     });
 }
@@ -29,5 +29,7 @@ if (!token) {
     $('.content').html('<h3 class="text-center" style="line-height:80px;">Please <a href="/login">login</a> to view your catalog</h3>');
 }
 else {
-    getCatalog();
+    getCatalog(uid, (products) => RenderCatalog(products));
 }
+
+export { getCatalog };

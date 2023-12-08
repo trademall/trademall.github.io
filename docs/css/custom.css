@@ -179,7 +179,7 @@ p.lead {
 .commodity .image {
   border-radius: var(--radius);
   min-width: 100%;
-  min-height: 160px;
+  /* min-height: 160px; */
   background-color: #dedede;
   /* border-bottom: #333 1px solid; */
   overflow: clip;

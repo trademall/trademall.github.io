@@ -6,14 +6,25 @@ function RenderList(data) {
 function ImgDiv(props) {
     var imageURL = "";
     try {
-        imageURL = JSON.parse(props.image)[0];
+        if (typeof (JSON.parse(props.image)) == "string") {
+            imageURL = JSON.parse(props.image);
+        } else {
+            imageURL = JSON.parse(props.image)[0];
+        }
+        if (imageURL == "") {
+            imageURL = "/img/placeholder.png"
+        }
+        if (props.toBase64) {
+            imageURL = "data:image/png;base64," + imageURL;
+        }
     } catch (error) {
+        imageURL = "/img/placeholder.png"
         console.log(error);
     }
     return (
         <div className="image">
             <a href={"details?id=" + props.id}>
-                <img src={imageURL} alt={props.name} className="img img-responsive" loading="lazy"/>
+                <img src={imageURL} alt={props.name} className="img img-responsive" loading={props.loading||""} />
             </a>
         </div>
     );
@@ -40,7 +51,7 @@ function ProductDiv(props) {
 }
 
 function ProductList(props) {
-    const products = props.products.list;
+    const products = props.products;
     const listItems = products.map((product) =>
         <ProductDiv key={product.id} image={product.image} name={product.name} price={product.price} id={product.id} />
     );

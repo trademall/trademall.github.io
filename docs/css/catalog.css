@@ -10,6 +10,10 @@
     border-color: var(--primary-accent);
 }
 
+.catalog .commodity {
+    min-width: 250px;
+}
+
 .commodity a {
     color: unset;
 }
@@ -25,6 +29,10 @@
 
 .catalog .textDiv {
     padding: 6px 16px;
+}
+
+.catalog .footBtn .btn {
+    margin: 5px;
 }
 
 #printBtn {
