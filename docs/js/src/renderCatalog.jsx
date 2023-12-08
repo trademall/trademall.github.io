@@ -112,8 +112,8 @@ function generatePDF() {
             }).join(', ');
             return [product.attributes.name, attributes, product.attributes.attributes.Shipping[0], product.attributes.num, '$'+product.attributes.price];
         });
-        try {
 
+        try {
             const doc = new jsPDF();
             const header = function (data) {
                 doc.setFontSize(24);
@@ -134,8 +134,11 @@ function generatePDF() {
             console.log(error);
             alert('Failed to generate catalog!');
         }
-
-        $('#printBtn').html('<i class="fa fa-print"></i>');
+        // show success icon
+        $('#printBtn').html('<i class="fa fa-check"></i>');
+        setTimeout(function () {
+            $('#printBtn').html('<i class="fa fa-print"></i>');
+        }, 2000);
         $('#printBtn').attr('disabled', false);
     }, function () {
         $('#printBtn').html('<i class="fa fa-print"></i>');
@@ -143,60 +146,5 @@ function generatePDF() {
         alert('Failed to get catalog!');
     });
 }
-
-// function printCatalog() {
-//     const scrollHeight = $(document).height();
-//     // scroll to top
-//     window.scrollTo(0, 0);
-//     const catalog = $('#content')[0];
-//     const width = catalog.clientWidth;
-//     const height = catalog.clientHeight;
-//     const offsetTop = catalog.offsetTop;
-//     const offsetLeft = catalog.offsetLeft;
-//     const scale = 2;
-
-//     const canvas = document.createElement('canvas');
-//     canvas.width = width * scale;
-//     canvas.height = height * scale;
-//     canvas.getContext('2d').scale(scale, scale);
-//     canvas.getContext('2d').translate(-offsetLeft, -offsetTop);
-//     const options = {
-//         background: '#fff',
-//         scale: scale,
-//         canvas: canvas,
-//         width: width,
-//         height: height,
-//         dpi: 172,
-//         onrendered: function (canvas) {
-//             const contentWidth = canvas.width;
-//             const contentHeight = canvas.height;
-//             const pageHeight = contentWidth / 592.28 * 841.89;
-//             let leftHeight = contentHeight;
-//             let position = 0;
-//             const imgWidth = 595.28;
-//             const imgHeight = 592.28 / contentWidth * contentHeight;
-//             const pageData = canvas.toDataURL('image/jpeg', 1.0);
-//             const pdf = new jsPDF('', 'pt', 'a4');
-//             if (leftHeight < pageHeight) {
-//                 pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
-//             } else {
-//                 while (leftHeight > 0) {
-//                     pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight);
-//                     leftHeight -= pageHeight;
-//                     position -= 841.89;
-//                     if (leftHeight > 0) {
-//                         pdf.addPage();
-//                     }
-//                 }
-//             }
-//             pdf.save('catalog.pdf');
-//             // scroll back
-//             window.scrollTo(0, scrollHeight);
-//         }
-//     };
-
-//     html2canvas(catalog, options);
-
-// }
 
 export { RenderCatalog };
