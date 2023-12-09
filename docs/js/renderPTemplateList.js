@@ -258,7 +258,7 @@ function PopupEdit(props) {
     className: "modal-title",
     id: "editPTemplateModalLabel"
   }, "Edit Product Template")), /*#__PURE__*/React.createElement("div", {
-    className: "modal-body"
+    className: "modal-body row"
   }, /*#__PURE__*/React.createElement(InputBox, {
     label: "Template Name",
     id: "template-name",
@@ -449,7 +449,7 @@ function NewPTemplateModal() {
     className: "modal-title",
     id: "newPTemplateModalLabel"
   }, "New Product Template")), /*#__PURE__*/React.createElement("div", {
-    className: "modal-body"
+    className: "modal-body row"
   }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputBox, {
     label: "Template Name",
     id: "new-template-name",

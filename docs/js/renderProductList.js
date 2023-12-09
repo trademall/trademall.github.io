@@ -17,7 +17,7 @@ function renderProductList(props) {
 function ProductList(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(ProductListTable, {
     products: props.products
-  }));
+  }), /*#__PURE__*/React.createElement(UploadProductBtn, null));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -191,7 +191,7 @@ function PopupEdit(props) {
     className: "modal-title",
     id: "productEditModalLabel"
   }, "Edit Product")), /*#__PURE__*/React.createElement("div", {
-    className: "modal-body"
+    className: "modal-body row"
   }, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", {
     className: "form-group col-sm-10 col-sm-offset-1"
   }, /*#__PURE__*/React.createElement("label", {
@@ -304,5 +304,15 @@ function PopupEdit(props) {
     onClick: handleUpdate,
     "data-id": product.id
   }, "Update")))));
+}
+function UploadProductBtn() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-12 text-center"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/products/upload/",
+    className: "btn btn-lg btn-primary"
+  }, "Upload Product")));
 }
 export { renderProductList, ProductListTable };

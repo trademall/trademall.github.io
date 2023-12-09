@@ -410,3 +410,19 @@ select#status {
 .btn-group-justified *:last-child {
   border-radius: 0 var(--radius) var(--radius) 0;
 }
+
+.modal-foot {
+  padding: 15px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.file-upload.thumbnail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  padding: 10px;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0;
+  justify-items: center;
+  align-items: center;
+}

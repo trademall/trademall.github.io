@@ -24,6 +24,7 @@ function ProductList(props) {
             <Heading />
             <ProductListTable products={props.products} />
             {/* <Pagination /> */}
+            <UploadProductBtn />
         </div>
     );
 }
@@ -204,7 +205,7 @@ function PopupEdit(props) {
                         </button>
                         <h4 className="modal-title" id="productEditModalLabel">Edit Product</h4>
                     </div>
-                    <div className="modal-body">
+                    <div className="modal-body row">
                         <form>
                             <div className="form-group col-sm-10 col-sm-offset-1">
                                 <label htmlFor="image">Image</label>
@@ -253,4 +254,14 @@ function PopupEdit(props) {
     );
 }
 
-export { renderProductList, ProductListTable }
+function UploadProductBtn() {
+    return (
+        <div className="row">
+            <div className="col-sm-12 text-center">
+                <a href="/products/upload/" className="btn btn-lg btn-primary">Upload Product</a>
+            </div>
+        </div>
+    );
+}
+
+export { renderProductList, ProductListTable };

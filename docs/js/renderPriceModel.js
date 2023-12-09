@@ -1,7 +1,12 @@
 import * as PModel from './price_api.js';
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from './InputBox.js';
 function renderPriceModel() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PriceModel, null), /*#__PURE__*/React.createElement(StageManage, null)), document.getElementById('price-model'));
+  ReactDOM.render( /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement(Sidebar, null), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-10"
+  }, /*#__PURE__*/React.createElement(PriceModel, null), /*#__PURE__*/React.createElement(StageManage, null))), document.getElementById('price-model'));
 }
 function emptyModel() {
   return {
@@ -369,7 +374,7 @@ function StageManage() {
   return /*#__PURE__*/React.createElement("div", {
     className: "row mb-small"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "col-md-10 col-md-offset-1 heading"
+    className: "col-md-12 heading"
   }, /*#__PURE__*/React.createElement("h3", null, "Stage Manage")), /*#__PURE__*/React.createElement("div", {
     className: "col-md-10 col-md-offset-1"
   }, /*#__PURE__*/React.createElement("div", {

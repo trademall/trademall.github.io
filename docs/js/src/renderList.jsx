@@ -14,9 +14,6 @@ function ImgDiv(props) {
         if (imageURL == "") {
             imageURL = "/img/placeholder.png"
         }
-        if (props.toBase64) {
-            imageURL = "data:image/png;base64," + imageURL;
-        }
     } catch (error) {
         imageURL = "/img/placeholder.png"
         console.log(error);

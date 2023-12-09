@@ -36,7 +36,7 @@ function ImageBox(props) {
     }
 
     return (
-        <div className=" col-md-10 col-md-offset-1">
+        <div className="col-md-10 col-md-offset-1">
             <label htmlFor="image-upload">Product Image*</label>
             <div className="image-upload">
                 <div className="file-upload thumbnail" id="image-upload" onChange={handleChange}>
@@ -90,6 +90,35 @@ function ImageBox(props) {
     );
 }
 
+function SingleImageBox(props) {
+    const size = props.size || 200;
+    const text = props.text || 'select image';
+    const [filename, setFilename] = React.useState('');
+    const [src, setSrc] = React.useState('http://iph.href.lu/' + size + 'x' + size + '?text=' + text);
+    const [alt, setAlt] = React.useState('upload file');
+    const [hasFile, setHasFile] = React.useState("no-file");
+
+    return (
+        <label className="btn-file">
+            <img src={src} alt={alt} className="img-thumbnail clickable" draggable="false" />
+            <input type="file" id={props.id} style={{ opacity: 0 }} onChange={(ev) => {
+                let file = ev.target.files[0];
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    setSrc(e.target.result);
+                    setAlt(file.name);
+                    ev.target.classList.add('uploaded');
+                    setHasFile("has-file");
+                }
+                reader.readAsDataURL(file);
+                setFilename(file.name);
+            }} accept="image/*" />
+            <p className={"text-center img-name" + " " + hasFile} id={props.id}>{filename}</p>
+            <input type="hidden" name={props.name} id={props.id + "-url"} value={filename} />
+        </label>
+    );
+}
+
 function FileBox(props) {
     const size = props.size || 200;
     const text = props.text || 'select image';
@@ -118,4 +147,4 @@ function FileBox(props) {
     );
 }
 
-export { InputBox, ImageBox };
+export { InputBox, ImageBox, SingleImageBox, FileBox };

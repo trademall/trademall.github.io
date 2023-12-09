@@ -260,7 +260,7 @@ function PopupEdit(props) {
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleCancel}><span aria-hidden="true">&times;</span></button>
                             <h4 className="modal-title" id="editPTemplateModalLabel">Edit Product Template</h4>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body row">
                             <InputBox label="Template Name" id="template-name" type="text" required={true} defaultValue={ptemplate.templatename} />
                             <InputBox label="Category" id="category" type="text" required={true} defaultValue={ptemplate.category} />
                             <InputBox label="Child Category" id="child-category" type="text" required={true} defaultValue={ptemplate.childcategory} />
@@ -403,7 +403,7 @@ function NewPTemplateModal() {
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 className="modal-title" id="newPTemplateModalLabel">New Product Template</h4>
                     </div>
-                    <div className="modal-body">
+                    <div className="modal-body row">
                         <form>
                             <InputBox label="Template Name" id="new-template-name" type="text" required={true} />
                             <InputBox label="Category" id="new-category" type="text" required={true} />

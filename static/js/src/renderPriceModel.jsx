@@ -1,12 +1,16 @@
 import * as PModel from './price_api.js';
+import { Sidebar } from "./sidebar.js";
 import { InputBox } from './InputBox.js';
 
 function renderPriceModel() {
     ReactDOM.render(
-        <>
-            <PriceModel />
-            <StageManage />
-        </>,
+        <div className='row'>
+            <Sidebar />
+            <div className='col-sm-10'>
+                <PriceModel />
+                <StageManage />
+            </div>
+        </div>,
         document.getElementById('price-model')
     );
 }
@@ -288,7 +292,7 @@ function StageManage() {
     
     return (
         <div className="row mb-small">
-            <div className="col-md-10 col-md-offset-1 heading">
+            <div className="col-md-12 heading">
                 <h3>Stage Manage</h3>
             </div>
             <div className="col-md-10 col-md-offset-1">

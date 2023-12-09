@@ -20,7 +20,7 @@ function renderUserList(props) {
 function UserList(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(UserListTable, {
     users: props.users
-  }));
+  }), /*#__PURE__*/React.createElement(SignUpBtn, null));
 }
 function Heading() {
   return /*#__PURE__*/React.createElement("div", {
@@ -95,6 +95,16 @@ function UserListTable(props) {
   }))), /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover col-sm-12 table-condensed text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Username"), /*#__PURE__*/React.createElement("th", null, "Email"), /*#__PURE__*/React.createElement("th", null, "Role"), /*#__PURE__*/React.createElement("th", null, "Active"), /*#__PURE__*/React.createElement("th", null, "Operations"))), /*#__PURE__*/React.createElement("tbody", null, listItems)));
+}
+function SignUpBtn() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-12 text-center"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/signup",
+    className: "btn btn-lg btn-primary"
+  }, "Sign Up")));
 }
 function PopupEdit(props) {
   const user = props.user;

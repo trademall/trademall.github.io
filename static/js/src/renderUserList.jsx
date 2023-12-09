@@ -27,6 +27,7 @@ function UserList(props) {
             <Heading />
             <UserListTable users={props.users} />
             {/* <Pagination /> */}
+            <SignUpBtn />
         </div>
     );
 }
@@ -116,6 +117,16 @@ function UserListTable(props) {
                     {listItems}
                 </tbody>
             </table>
+        </div>
+    );
+}
+
+function SignUpBtn() {
+    return (
+        <div className="row">
+            <div className="col-sm-12 text-center">
+                <a href="/signup" className="btn btn-lg btn-primary">Sign Up</a>
+            </div>
         </div>
     );
 }

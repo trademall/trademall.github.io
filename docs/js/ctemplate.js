@@ -9,7 +9,11 @@ function getCTemplate(ctid, successCallback, errorCallback) {
             "token": localStorage.getItem("token")
         },
         success: function (data) {
-            successCallback(data);
+            if (data.code == 200) {
+                successCallback(data.data);
+            } else {
+                errorCallback(data.message);
+            }
         },
         error: function (data) {
             errorCallback(data);
@@ -21,13 +25,18 @@ function createCTemplate(data, successCallback, errorCallback) {
     $.ajax({
         url: root + "v1/admin/ctemplate",
         type: "POST",
-        data: data,
+        data: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json",
             "token": localStorage.getItem("token")
         },
         success: function (data) {
-            successCallback(data);
+            if (data.code == 200) {
+                successCallback(data.data);
+            }
+            else {
+                errorCallback(data.message);
+            }
         },
         error: function (data) {
             errorCallback(data);
@@ -39,13 +48,17 @@ function updateCTemplate(data, successCallback, errorCallback) {
     $.ajax({
         url: root + "v1/admin/ctemplate/",
         type: "PATCH",
-        data: data,
+        data: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json",
             "token": localStorage.getItem("token")
         },
         success: function (data) {
-            successCallback(data);
+            if (data.code == 200) {
+                successCallback(data.data);
+            } else {
+                errorCallback(data.message);
+            }
         },
         error: function (data) {
             errorCallback(data);
@@ -62,10 +75,14 @@ function deleteCTemplate(ctid, successCallback, errorCallback) {
             "token": localStorage.getItem("token")
         },
         success: function (data) {
-            successCallback(data);
+            if (data.code == 200) {
+                successCallback(data.data);
+            } else {
+                errorCallback(data.message);
+            }
         },
         error: function (data) {
-            errorCallback(data);
+            errorCallback(data.message);
         }
     });
 }
@@ -83,7 +100,11 @@ function getCTemplateList(pageNum, pageSize, successCallback, errorCallback) {
             "pageSize": pageSize
         },
         success: function (data) {
-            successCallback(data);
+            if (data.code == 200) {
+                successCallback(data.data);
+            } else {
+                errorCallback(data.message);
+            }
         },
         error: function (data) {
             errorCallback(data);
