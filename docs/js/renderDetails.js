@@ -112,7 +112,7 @@ function CustomizerHeader() {
   }, /*#__PURE__*/React.createElement("h4", null, "Product options."));
 }
 function CustomizerBody(props) {
-  const attrs = Object.keys(props.product.attributes);
+  const attrs = Object.keys(props.product.attributes).filter(attr => attr !== "Price");
   let trigger = false;
   let timer = null;
   const handleNumChange = event => {

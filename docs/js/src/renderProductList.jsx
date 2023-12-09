@@ -19,6 +19,14 @@ function renderProductList(props) {
 }
 
 function ProductList(props) {
+    if (props.products.length == 0) {
+        return (
+            <div>
+                <Heading />
+                <UploadProductBtn />
+            </div>
+        );
+    }
     return (
         <div>
             <Heading />

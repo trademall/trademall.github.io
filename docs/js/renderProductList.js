@@ -15,6 +15,9 @@ function renderProductList(props) {
   }
 }
 function ProductList(props) {
+  if (props.products.length == 0) {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(UploadProductBtn, null));
+  }
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, null), /*#__PURE__*/React.createElement(ProductListTable, {
     products: props.products
   }), /*#__PURE__*/React.createElement(UploadProductBtn, null));

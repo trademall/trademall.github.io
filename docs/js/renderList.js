@@ -59,11 +59,18 @@ function ProductDiv(props) {
 }
 function ProductList(props) {
   const products = props.products;
+  if (products.length == 0) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "commodities"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "text-center"
+    }, "No products found."));
+  }
   const listItems = products.map(product => /*#__PURE__*/React.createElement(ProductDiv, {
     key: product.id,
     image: product.image,
     name: product.name,
-    price: product.price,
+    price: product.attributes.Price,
     id: product.id
   }));
   return /*#__PURE__*/React.createElement("div", {

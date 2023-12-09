@@ -49,8 +49,16 @@ function ProductDiv(props) {
 
 function ProductList(props) {
     const products = props.products;
+    if (products.length == 0) {
+        return (
+            <div className="commodities">
+                <h4 className="text-center">No products found.</h4>
+            </div>
+        );
+    }
+    
     const listItems = products.map((product) =>
-        <ProductDiv key={product.id} image={product.image} name={product.name} price={product.price} id={product.id} />
+        <ProductDiv key={product.id} image={product.image} name={product.name} price={product.attributes.Price} id={product.id} />
     );
     return (
         <div className="commodities">

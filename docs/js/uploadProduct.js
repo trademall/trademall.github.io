@@ -186,6 +186,7 @@ function UploadProduct(props) {
         attributes[attrName] = attrValue;
       }
     });
+    attributes['Price'] = Number($('#price').val().trim());
     return attributes;
   };
   const [customAttributes, setCustomAttributes] = React.useState([]);

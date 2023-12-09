@@ -10,7 +10,7 @@ function filtProducts() {
     else {
         const type = window.location.search.split("?")[1].split("=")[0];
         const value = window.location.search.split("?")[1].split("=")[1];
-        getProduct("list", uid, (products) => RenderList(products.list.filter((product) => product[type].toLowerCase() === value.toLowerCase())));
+        getProduct("list", uid, (products) => RenderList(products.list.filter((product) => product[type].toLowerCase().trim() === value.toLowerCase().trim())));
     }
 }
 
