@@ -38,13 +38,13 @@ function renderProductPanel(props) {
   }
 }
 function renderCTemplatePanel(props) {
-  const templateList = $('#template-list');
+  const templateList = $('#ctemplate-list');
   if (templateList.length) {
     ReactDOM.render( /*#__PURE__*/React.createElement(TemplateListTable, {
-      templates: props.data.list
+      templates: props.list
     }), templateList[0]);
   } else {
-    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No templates found."), $('#template-list')[0]);
+    ReactDOM.render( /*#__PURE__*/React.createElement("p", null, "No templates found."), $('#ctemplate-list')[0]);
   }
 }
 function renderPTemplatePanel(props) {
@@ -139,7 +139,7 @@ function TemplatePanel(props) {
     className: "panel-title"
   }, "Catalog Templates")), /*#__PURE__*/React.createElement("div", {
     className: "panel-body",
-    id: "template-list"
+    id: "ctemplate-list"
   }), /*#__PURE__*/React.createElement("div", {
     className: "panel-footer"
   }, /*#__PURE__*/React.createElement("a", {

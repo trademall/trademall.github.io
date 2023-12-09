@@ -55,17 +55,17 @@ function renderProductPanel(props) {
 }
 
 function renderCTemplatePanel(props) {
-    const templateList = $('#template-list');
+    const templateList = $('#ctemplate-list');
     if (templateList.length) {
         ReactDOM.render(
-            <TemplateListTable templates={props.data.list} />,
+            <TemplateListTable templates={props.list} />,
             templateList[0]
         );
     }
     else {
         ReactDOM.render(
             <p>No templates found.</p>,
-            $('#template-list')[0]
+            $('#ctemplate-list')[0]
         );
     }
 }
@@ -164,7 +164,7 @@ function TemplatePanel(props) {
                     <div className="panel-heading">
                         <h4 className="panel-title">Catalog Templates</h4>
                     </div>
-                    <div className="panel-body" id="template-list">
+                    <div className="panel-body" id="ctemplate-list">
                     </div>
                     <div className="panel-footer">
                         <a href="/admin/templates" className="btn btn-primary"><i className="fa fa-file"></i> Catalog Template Management</a>
