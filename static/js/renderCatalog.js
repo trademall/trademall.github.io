@@ -1,5 +1,6 @@
 import { ImgDiv } from "./renderList.js";
 import { getCatalog } from "./catalog.js";
+import { getCTemplateList } from "./ctemplate.js";
 function RenderCatalog(data) {
   const catalog = $('.content')[0];
   ReactDOM.render( /*#__PURE__*/React.createElement(ProductCatalog, {
@@ -135,10 +136,10 @@ function generatePDF() {
   const uid = localStorage.getItem('id');
   getCatalog(uid, function (data) {
     const catalog = data.map(product => {
-      const attributes = Object.keys(product.attributes.attributes).map(key => {
-        return key === 'Shipping' ? '' : product.attributes.attributes[key];
+      const attributes = Object.keys(product.attributes.attributes).filter(key => key !== 'Shipping').map(key => {
+        return product.attributes.attributes[key];
       }).join(', ');
-      return [product.attributes.name, attributes, product.attributes.attributes.Shipping[0], product.attributes.num, '$' + product.attributes.price];
+      return [product.attributes.name, product.attributes.pid, attributes, product.attributes.attributes.Shipping[0], product.attributes.num, '$' + product.attributes.price];
     });
     try {
       const doc = new jsPDF();
@@ -148,15 +149,32 @@ function generatePDF() {
         doc.setFontStyle('bold');
         doc.text("Catalog", data.settings.margin.left, 20);
       };
+
+      // TODO: getCTemplateList
+
       const options = {
         beforePageContent: header,
         margin: {
           top: 30
-        }
-        // startY: doc.autoTableEndPosY() + 20
+        },
+        columnStyles: {
+          0: {
+            fontStyle: 'bold'
+          },
+          5: {
+            halign: 'right',
+            textColor: [255, 0, 0],
+            fontStyle: 'bold'
+          }
+        },
+        headStyles: {
+          Price: {
+            halign: 'right'
+          }
+        },
+        showHead: 'everyPage'
       };
-
-      doc.autoTable(['Name', 'Attributes', 'Shipping', 'Number', 'Price'], catalog, options);
+      doc.autoTable(['Name', 'Product ID', 'Attributes', 'Shipping', 'Number', 'Price'], catalog, options);
       doc.save('catalog.pdf');
     } catch (error) {
       console.log(error);

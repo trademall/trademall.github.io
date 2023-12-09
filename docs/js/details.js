@@ -78,7 +78,7 @@ function getSKU() {
 
     attributes["image"] = product.image;
     attributes["name"] = product.name;
-    attributes["pid"] = Number(product.id);
+    attributes["pid"] = Number(product.productid);
     attributes["num"] = Number($('#quantity').val());
     attributes["price"] = Number($('.total-price.bg-info.blockquote-reverse').text().split('$')[1]);
     attributes["attributes"] = {};
