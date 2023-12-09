@@ -40,7 +40,7 @@ function ProductDiv(props) {
     return (
         <div className="col-xs-6 col-sm-4 col-md-3 col-lg-3">
             <div className="commodity">
-                <ImgDiv image={props.image} name={props.name} id={props.id} />
+                <ImgDiv image={props.image} name={props.name} id={props.id} loading="lazy" />
                 <TextDiv name={props.name} price={props.price} id={props.id} />
             </div>
         </div>

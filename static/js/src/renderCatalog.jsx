@@ -77,7 +77,7 @@ function ProductDiv(props) {
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" id={props.cid}>
             <div className="commodity">
-                <ImgDiv image={props.image} name={props.name} id={props.pid} disableCache={false} />
+                <ImgDiv image={props.image} name={props.name} id={props.pid} disableCache={false} loading="lazy" />
                 <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} num={props.num} />
                 <FootBtns cid={props.cid} id={props.pid} />
             </div>
@@ -88,7 +88,7 @@ function ProductDiv(props) {
 function ProductCatalog(props) {
     const catalog = props.catalog;
     const catalogItems = catalog.map((product) =>
-        <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.attributes.price} pid={product.attributes.pid} attributes={ product.attributes.attributes } num={product.attributes.num} />
+        <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.attributes.price} pid={product.productid} attributes={ product.attributes.attributes } num={product.attributes.num} />
     );
     return (
         <div className="commodities">

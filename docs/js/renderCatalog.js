@@ -93,7 +93,8 @@ function ProductDiv(props) {
     image: props.image,
     name: props.name,
     id: props.pid,
-    disableCache: false
+    disableCache: false,
+    loading: "lazy"
   }), /*#__PURE__*/React.createElement(TextDiv, {
     name: props.name,
     price: props.price,
@@ -113,7 +114,7 @@ function ProductCatalog(props) {
     image: product.attributes.image,
     name: product.attributes.name,
     price: product.attributes.price,
-    pid: product.attributes.pid,
+    pid: product.productid,
     attributes: product.attributes.attributes,
     num: product.attributes.num
   }));

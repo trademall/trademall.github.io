@@ -50,7 +50,8 @@ function ProductDiv(props) {
   }, /*#__PURE__*/React.createElement(ImgDiv, {
     image: props.image,
     name: props.name,
-    id: props.id
+    id: props.id,
+    loading: "lazy"
   }), /*#__PURE__*/React.createElement(TextDiv, {
     name: props.name,
     price: props.price,
