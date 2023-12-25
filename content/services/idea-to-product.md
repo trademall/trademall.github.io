@@ -1,7 +1,7 @@
 ---
 title: idea to product
 categories: ["services"]
-banner: "img/banners/3.jpg"
+banner: "img/service1.png"
 summary: "We help you to turn your idea into a product.Hklasdk lasj dlsjdaj ajdl hahckjsac c sad ccs c sc sdcsd chlscl c csdccla oi09o erferkgvbn cvjvcz kjz svkj dvkj vkj v"
 ---
 

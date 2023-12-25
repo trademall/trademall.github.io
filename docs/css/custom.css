@@ -317,22 +317,22 @@ section.post {
 
 .post:first-child .banner-bg {
   margin-top: 0;
-  background-image: url("/img/banners/1.jpg");
+  background-image: url("/img/service4.jpg");
 }
 
 .post:nth-child(2) .banner-bg {
   margin-top: 0;
-  background-image: url("/img/banners/2.jpg");
+  background-image: url("/img/service2.png");
 }
 
 .post:nth-child(3) .banner-bg {
   margin-top: 0;
-  background-image: url("/img/banners/3.jpg");
+  background-image: url("/img/service1.png");
 }
 
 .post:nth-child(4) .banner-bg {
   margin-top: 0;
-  background-image: url("/img/banners/4.png");
+  background-image: url("/img/service3.png");
 }
 
 .banner-text {
