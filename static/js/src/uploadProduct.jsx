@@ -215,8 +215,8 @@ function UploadProduct(props) {
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
           <div className="col-md-10 col-md-offset-1">
             <div className="form-group">
-              <label htmlFor={props.id}>{props.label + (props.required ? "*" : "")}</label>
-              <textarea className="form-control" name="description" id="description" required={false} />
+              <label htmlFor="description">Description*</label>
+              <textarea className="form-control" name="description" id="description" rows="5" required={true}></textarea>
             </div>
           </div>
           <InputBox id="profit" label="Profit" type="number" required={true} value={template.profit} disabled={true} />

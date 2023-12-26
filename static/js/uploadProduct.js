@@ -229,13 +229,19 @@ function UploadProduct(props) {
     name: "price",
     label: "Price",
     required: true
-  }), /*#__PURE__*/React.createElement(InputBox, {
-    id: "description",
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-10 col-md-offset-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "description"
+  }, "Description*"), /*#__PURE__*/React.createElement("textarea", {
+    className: "form-control",
     name: "description",
-    type: "text",
-    label: "Description",
+    id: "description",
+    rows: "5",
     required: true
-  }), /*#__PURE__*/React.createElement(InputBox, {
+  }))), /*#__PURE__*/React.createElement(InputBox, {
     id: "profit",
     label: "Profit",
     type: "number",
