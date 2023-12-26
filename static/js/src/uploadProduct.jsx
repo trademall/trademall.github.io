@@ -213,7 +213,12 @@ function UploadProduct(props) {
           <InputBox id="pid" type="number" name="pid" label="Product ID" required={false} defaultValue={template.id} disabled={false} />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
-          <InputBox id="description" name="description" type="text" label="Description" required={true} />
+          <div className="col-md-10 col-md-offset-1">
+            <div className="form-group">
+              <label htmlFor={props.id}>{props.label + (props.required ? "*" : "")}</label>
+              <textarea className="form-control" name="description" id="description" required={false} />
+            </div>
+          </div>
           <InputBox id="profit" label="Profit" type="number" required={true} value={template.profit} disabled={true} />
           <InputBox id="volume" label="Volume" type="number" required={true} />
           <InputBox id="weight" label="Weight" type="number" required={true} />
