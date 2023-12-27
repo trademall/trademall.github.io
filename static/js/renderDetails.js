@@ -188,7 +188,8 @@ function CustomizerBody(props) {
     name: "quantity",
     min: "1",
     value: props.num,
-    onChange: handleNumChange
+    onChange: handleNumChange,
+    readOnly: true
   })))));
 }
 function StageTable(props) {

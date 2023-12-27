@@ -178,7 +178,7 @@ function CustomizerBody(props) {
                 </div>
                 <div className="col-md-9">
                     <label htmlFor="quantity" className="active">
-                        <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} />
+                        <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} readOnly/>
                     </label>
                 </div>
             </div>
