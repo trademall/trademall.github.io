@@ -4,8 +4,8 @@ import * as PTemplate from "./ptemplate_api.js";
 import * as PStage from "./pstage_api.js";
 import { InputBox, ImageBox } from "./InputBox.js";
 
-// renderCategorySelect();
-renderStageSet(1, 1);
+renderCategorySelect();
+// renderStageSet(1, 1);
 
 function renderCategorySelect() {
   const container = $("#upload-product");
