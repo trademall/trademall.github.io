@@ -171,6 +171,27 @@ function CustomizerBody(props) {
                 <CustomizerOption key={attr} title={attr} option={props.product.attributes[attr]} />
             ))}
             <CustomizerOption title="Shipping" option={["express", "airexpress", "seaexpress", "seatrans"]} />
+            <div className="row selector">
+                <div className="col-md-5">
+                    <h4>Ship to Zipcode: </h4>
+                </div>
+                <div className="col-md-7">
+                    <label htmlFor="zipcode" className="active">
+                        <input type="text" className="form-control" id="zipcode" name="zipcode" required />
+                    </label>
+                </div>
+            </div>
+            <div className="row selector">
+                <div className="col-md-4">
+                    <h4>Lead Time: </h4>
+                </div>
+                <div className="col-md-8">
+                    <label htmlFor="leadtime" className="active input-group">
+                        <input type="number" className="form-control" id="leadtime" name="leadtime" required />
+                        <span className="input-group-addon">days</span>
+                    </label>
+                </div>
+            </div>
             <StageTable price={price} onClick={handleTableClick} />
             <div className="row selector">
                 <div className="col-md-3">

@@ -169,7 +169,39 @@ function CustomizerBody(props) {
   })), /*#__PURE__*/React.createElement(CustomizerOption, {
     title: "Shipping",
     option: ["express", "airexpress", "seaexpress", "seatrans"]
-  }), /*#__PURE__*/React.createElement(StageTable, {
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "row selector"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-5"
+  }, /*#__PURE__*/React.createElement("h4", null, "Ship to Zipcode: ")), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-7"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "zipcode",
+    className: "active"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "zipcode",
+    name: "zipcode",
+    required: true
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "row selector"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-4"
+  }, /*#__PURE__*/React.createElement("h4", null, "Lead Time: ")), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-8"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "leadtime",
+    className: "active input-group"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    className: "form-control",
+    id: "leadtime",
+    name: "leadtime",
+    required: true
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "input-group-addon"
+  }, "days")))), /*#__PURE__*/React.createElement(StageTable, {
     price: price,
     onClick: handleTableClick
   }), /*#__PURE__*/React.createElement("div", {

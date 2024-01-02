@@ -4,7 +4,8 @@ import * as PTemplate from "./ptemplate_api.js";
 import * as PStage from "./pstage_api.js";
 import { InputBox, ImageBox } from "./InputBox.js";
 
-renderCategorySelect();
+// renderCategorySelect();
+renderStageSet(1, 1);
 
 function renderCategorySelect() {
   const container = $("#upload-product");
@@ -132,7 +133,7 @@ function UploadProduct(props) {
   const newProduct = () => {
     $('upload.btn-upload').click();
     const product = {
-      ProductID: Number($('#pid').val().trim()),
+      ProductID: $('#pid').val().trim(),
       name: $('#pname').val().trim(),
       image: $('#image').val(),
       Price: Number($('#price').val().trim()),
@@ -210,7 +211,7 @@ function UploadProduct(props) {
         </div>
         <div className="col-xs-12 col-sm-10 col-sm-offset-1">
           <ImageBox size={100} text="upload image" src={image} id="uploadImg" min={3} max={6} />
-          <InputBox id="pid" type="number" name="pid" label="Product ID" required={false} defaultValue={template.id} disabled={false} />
+          <InputBox id="pid" type="text" name="pid" label="Product ID" required={false} defaultValue={template.id} disabled={false} />
           <InputBox id="pname" type="text" name="pname" label="Product Name" required={true} />
           <InputBox id="price" type="number" name="price" label="Price" required={true} />
           <div className="col-md-10 col-md-offset-1">

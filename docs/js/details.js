@@ -81,13 +81,15 @@ function getSKU() {
     attributes["pid"] = Number(product.productid);
     attributes["num"] = Number($('#quantity').val());
     attributes["price"] = Number($('.total-price.bg-info.blockquote-reverse').text().split('$')[1]);
+    attributes["zipcode"] = $('#zipcode').val();
+    attributes["leadtime"] = Number($('#leadtime').val());
     attributes["attributes"] = {};
 
     const selectors = document.querySelectorAll('.selector');
     for (let i = 0; i < selectors.length; i++) {
         const selector = selectors[i];
         const name = selector.firstChild.textContent.replace(':', '').trim();
-        if (name !== "Quantity") {
+        if (name !== "Quantity" && name !== "Ship to Zipcode" && name !== "Lead Time") {
             const value = selector.querySelector('label.active input').id;
             attributes["attributes"][name] = [value];
         } else {

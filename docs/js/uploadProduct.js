@@ -3,7 +3,9 @@ import { getProduct } from "./getProduct.js";
 import * as PTemplate from "./ptemplate_api.js";
 import * as PStage from "./pstage_api.js";
 import { InputBox, ImageBox } from "./InputBox.js";
-renderCategorySelect();
+
+// renderCategorySelect();
+renderStageSet(1, 1);
 function renderCategorySelect() {
   const container = $("#upload-product");
   if (container.length) {
@@ -126,7 +128,7 @@ function UploadProduct(props) {
   const newProduct = () => {
     $('upload.btn-upload').click();
     const product = {
-      ProductID: Number($('#pid').val().trim()),
+      ProductID: $('#pid').val().trim(),
       name: $('#pname').val().trim(),
       image: $('#image').val(),
       Price: Number($('#price').val().trim()),
@@ -211,7 +213,7 @@ function UploadProduct(props) {
     max: 6
   }), /*#__PURE__*/React.createElement(InputBox, {
     id: "pid",
-    type: "number",
+    type: "text",
     name: "pid",
     label: "Product ID",
     required: false,
