@@ -1,5 +1,5 @@
-import { getPrice } from "./product_api.js";
-import { getPStageList } from "./pstage_api.js";
+import { getPrice, getFobPrice } from "./product_api.js";
+import { getPStageList, getFobStageList } from "./pstage_api.js";
 // import { submit } from "./details.js";
 
 function RenderDetails(data, callback) {
@@ -87,14 +87,19 @@ function RightColumn(props) {
 
 function Customizer(props) {
     const [num, setNum] = React.useState(1);
+    // const [price, setPrice] = React.useState({
+    //     "express": 0.00,
+    //     "airexpress": 0.00,
+    //     "seaexpress": 0.00,
+    //     "seatrans": 0.00
+    // });
     const [price, setPrice] = React.useState({
-        "express": 0.00,
-        "airexpress": 0.00,
-        "seaexpress": 0.00,
-        "seatrans": 0.00
+        "fobla": 0.00,
+        "fobcn": 0.00,
     });
     const initPrice = () => {
-        getPrice(Number(props.product.id), 1, setPrice);
+        // getPrice(Number(props.product.id), 1, setPrice);
+        getFobPrice(Number(props.product.id), 1, setPrice);
     };
     React.useEffect(initPrice, []);
 
@@ -116,7 +121,7 @@ function CustomizerHeader() {
 }
 
 function CustomizerBody(props) {
-    const attrs = Object.keys(props.product.attributes).filter((attr) => attr !== "Price");
+    const attrs = Object.keys(props.product.attributes).filter((attr) => attr !== "Price" && attr !== "LeadTime");
     let trigger = false;
     let timer = null;
     const handleNumChange = (event) => {
@@ -124,12 +129,14 @@ function CustomizerBody(props) {
         console.log(trigger);
         trigger ? clearTimeout(timer) : trigger = true;
         timer = setTimeout(() => {
-            getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+            // getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+            getFobPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
         }, 500);
     };
     const handleTableClick = (event) => {
         props.setNum(event.target.innerText);
-        getPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
+        // getPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
+        getFobPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
     }
     const [price, setPrice] = React.useState({
         1: 0.00,
@@ -138,13 +145,30 @@ function CustomizerBody(props) {
         let stages = {};
         let stage = {};
         let stageNum = 1;
-        getPStageList(Number(props.product.id), (data) => {
+        // getPStageList(Number(props.product.id), (data) => {
+        //     stageNum = data.total;
+        //     data.list.forEach((item) => {
+        //         getPrice(Number(props.product.id), Number(item.start), (data) => {
+        //             let shipping = document.querySelector('.shipping-selector label.active input').id;
+        //             stage[item.start] = data[shipping];
+        //             stages[item.start] = data;
+        //             stageNum--;
+        //             if (stageNum === 0) {
+        //                 setPrice(stage);
+        //                 console.log(stages);
+        //             }
+        //         });
+        //     });
+        //     console.log(data);
+        // });
+        getFobStageList(Number(props.product.id), (data) => {
             stageNum = data.total;
             data.list.forEach((item) => {
-                getPrice(Number(props.product.id), Number(item.start), (data) => {
-                    let shipping = document.querySelector('.shipping-selector label.active input').id;
-                    stage[item.start] = data[shipping];
-                    stages[item.start] = data;
+                getFobPrice(Number(props.product.id), Number(item.start), (data) => {
+                    // let shipping = document.querySelector('.shipping-selector label.active input').id;
+                    // stage[item.start] = data[shipping];
+                    stage[item.quantity] = data["fobla"];
+                    stages[item.quantity] = data;
                     stageNum--;
                     if (stageNum === 0) {
                         setPrice(stage);
@@ -154,15 +178,16 @@ function CustomizerBody(props) {
             });
             console.log(data);
         });
-        $('.shipping-selector label').click((event) => {
-            let shipping = event.target.querySelector('input').id;
-            console.log(shipping);
-            let stage = {};
-            for (let key in stages) {
-                stage[key] = stages[key][shipping];
-            }
-            setPrice(stage);
-        });
+
+        // $('.shipping-selector label').click((event) => {
+        //     let shipping = event.target.querySelector('input').id;
+        //     console.log(shipping);
+        //     let stage = {};
+        //     for (let key in stages) {
+        //         stage[key] = stages[key][shipping];
+        //     }
+        //     setPrice(stage);
+        // });
     }, []);
 
     return (
@@ -170,14 +195,25 @@ function CustomizerBody(props) {
             {attrs.map((attr) => (
                 <CustomizerOption key={attr} title={attr} option={props.product.attributes[attr]} />
             ))}
-            <CustomizerOption title="Shipping" option={["express", "airexpress", "seaexpress", "seatrans"]} />
+            {/* <CustomizerOption title="Shipping" option={["express", "airexpress", "seaexpress", "seatrans"]} /> */}
             <div className="row selector">
                 <div className="col-md-5">
                     <h4>Ship to Zipcode: </h4>
                 </div>
                 <div className="col-md-7">
-                    <label htmlFor="zipcode" className="active">
+                    <label htmlFor="zipcode" className="active input-group-btn">
                         <input type="text" className="form-control" id="zipcode" name="zipcode" required />
+                    </label>
+                </div>
+            </div>
+            <StageTable price={price} onClick={handleTableClick} />
+            <div className="row selector">
+                <div className="col-md-4">
+                    <h4>Quantity: </h4>
+                </div>
+                <div className="col-md-8">
+                    <label htmlFor="quantity" className="active input-group-btn">
+                        <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} readOnly/>
                     </label>
                 </div>
             </div>
@@ -187,19 +223,8 @@ function CustomizerBody(props) {
                 </div>
                 <div className="col-md-8">
                     <label htmlFor="leadtime" className="active input-group">
-                        <input type="number" className="form-control" id="leadtime" name="leadtime" required />
+                        <input type="number" className="form-control" id="leadtime" name="leadtime" readOnly value={props.product.attributes.LeadTime} />
                         <span className="input-group-addon">days</span>
-                    </label>
-                </div>
-            </div>
-            <StageTable price={price} onClick={handleTableClick} />
-            <div className="row selector">
-                <div className="col-md-3">
-                    <h4>Quantity: </h4>
-                </div>
-                <div className="col-md-9">
-                    <label htmlFor="quantity" className="active">
-                        <input type="number" className="form-control" id="quantity" name="quantity" min="1" value={props.num} onChange={handleNumChange} readOnly/>
                     </label>
                 </div>
             </div>
@@ -262,7 +287,7 @@ function CustomizerFooter(props) {
             <div className="row">
                 <div className="col-md-12">
                     <h4>Total Price: </h4>
-                    {Object.keys(props.price).map((key) => (
+                    {/* {Object.keys(props.price).map((key) => showla ? (
                         <div className="total-price col-xs-12" key={key} style={{ transition: "all 0.3s ease" }}>
                             <div className="col-xs-6">
                                 <p key={key} className="text-uppercase text-left">{key}: </p>
@@ -271,7 +296,15 @@ function CustomizerFooter(props) {
                                 <p key={key} className="text-uppercase text-right">$<strong>{props.price[key].toFixed(2)}</strong></p>
                             </div>
                         </div>
-                    ))}
+                    ) : null)} */}
+                    <div className="total-price col-xs-12">
+                        <div className="col-xs-6">
+                            <p className="text-uppercase text-left">FOB LA: </p>
+                        </div>
+                        <div className="col-xs-6">
+                            <p className="text-uppercase text-right">$<strong>{props.price.fobla.toFixed(2)}</strong></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

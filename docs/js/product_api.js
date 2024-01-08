@@ -137,4 +137,32 @@ function getPrice(id, num, callback, errorcallback = console.log) {
     });
 }
 
-export { getProductInfo, getProductList, createProduct, updateProduct, deleteProduct, getPrice };
+function getFobPrice(pid, num, successcallback, errorcallback = console.log) {
+    $.ajax({
+        url: server + "/product/fobprice",
+        type: "POST",
+        dataType: "json",
+        headers: {
+            "token": localStorage.getItem("token"),
+            "Content-Type": "application/json"
+        },
+        data: JSON.stringify({
+            id: Number(pid),
+            num: Number(num),
+            userid: Number(localStorage.getItem("id"))
+        }),
+        success: function (data) {
+            if (data.code == 200) {
+                successcallback(data.data);
+            }
+            else {
+                errorcallback(data.message);
+            }
+        },
+        error: function (data) {
+            errorcallback(data.message);
+        }
+    });
+}
+
+export { getProductInfo, getProductList, createProduct, updateProduct, deleteProduct, getPrice, getFobPrice };

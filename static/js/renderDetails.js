@@ -1,5 +1,5 @@
-import { getPrice } from "./product_api.js";
-import { getPStageList } from "./pstage_api.js";
+import { getPrice, getFobPrice } from "./product_api.js";
+import { getPStageList, getFobStageList } from "./pstage_api.js";
 // import { submit } from "./details.js";
 
 function RenderDetails(data, callback) {
@@ -83,14 +83,19 @@ function RightColumn(props) {
 }
 function Customizer(props) {
   const [num, setNum] = React.useState(1);
+  // const [price, setPrice] = React.useState({
+  //     "express": 0.00,
+  //     "airexpress": 0.00,
+  //     "seaexpress": 0.00,
+  //     "seatrans": 0.00
+  // });
   const [price, setPrice] = React.useState({
-    "express": 0.00,
-    "airexpress": 0.00,
-    "seaexpress": 0.00,
-    "seatrans": 0.00
+    "fobla": 0.00,
+    "fobcn": 0.00
   });
   const initPrice = () => {
-    getPrice(Number(props.product.id), 1, setPrice);
+    // getPrice(Number(props.product.id), 1, setPrice);
+    getFobPrice(Number(props.product.id), 1, setPrice);
   };
   React.useEffect(initPrice, []);
   return /*#__PURE__*/React.createElement("div", {
@@ -112,7 +117,7 @@ function CustomizerHeader() {
   }, /*#__PURE__*/React.createElement("h4", null, "Product options."));
 }
 function CustomizerBody(props) {
-  const attrs = Object.keys(props.product.attributes).filter(attr => attr !== "Price");
+  const attrs = Object.keys(props.product.attributes).filter(attr => attr !== "Price" && attr !== "LeadTime");
   let trigger = false;
   let timer = null;
   const handleNumChange = event => {
@@ -120,12 +125,14 @@ function CustomizerBody(props) {
     console.log(trigger);
     trigger ? clearTimeout(timer) : trigger = true;
     timer = setTimeout(() => {
-      getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+      // getPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
+      getFobPrice(Number(props.product.id), Number(event.target.value), props.setPrice);
     }, 500);
   };
   const handleTableClick = event => {
     props.setNum(event.target.innerText);
-    getPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
+    // getPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
+    getFobPrice(Number(props.product.id), Number(event.target.innerText), props.setPrice);
   };
   const [price, setPrice] = React.useState({
     1: 0.00
@@ -134,13 +141,30 @@ function CustomizerBody(props) {
     let stages = {};
     let stage = {};
     let stageNum = 1;
-    getPStageList(Number(props.product.id), data => {
+    // getPStageList(Number(props.product.id), (data) => {
+    //     stageNum = data.total;
+    //     data.list.forEach((item) => {
+    //         getPrice(Number(props.product.id), Number(item.start), (data) => {
+    //             let shipping = document.querySelector('.shipping-selector label.active input').id;
+    //             stage[item.start] = data[shipping];
+    //             stages[item.start] = data;
+    //             stageNum--;
+    //             if (stageNum === 0) {
+    //                 setPrice(stage);
+    //                 console.log(stages);
+    //             }
+    //         });
+    //     });
+    //     console.log(data);
+    // });
+    getFobStageList(Number(props.product.id), data => {
       stageNum = data.total;
       data.list.forEach(item => {
-        getPrice(Number(props.product.id), Number(item.start), data => {
-          let shipping = document.querySelector('.shipping-selector label.active input').id;
-          stage[item.start] = data[shipping];
-          stages[item.start] = data;
+        getFobPrice(Number(props.product.id), Number(item.start), data => {
+          // let shipping = document.querySelector('.shipping-selector label.active input').id;
+          // stage[item.start] = data[shipping];
+          stage[item.quantity] = data["fobla"];
+          stages[item.quantity] = data;
           stageNum--;
           if (stageNum === 0) {
             setPrice(stage);
@@ -150,15 +174,16 @@ function CustomizerBody(props) {
       });
       console.log(data);
     });
-    $('.shipping-selector label').click(event => {
-      let shipping = event.target.querySelector('input').id;
-      console.log(shipping);
-      let stage = {};
-      for (let key in stages) {
-        stage[key] = stages[key][shipping];
-      }
-      setPrice(stage);
-    });
+
+    // $('.shipping-selector label').click((event) => {
+    //     let shipping = event.target.querySelector('input').id;
+    //     console.log(shipping);
+    //     let stage = {};
+    //     for (let key in stages) {
+    //         stage[key] = stages[key][shipping];
+    //     }
+    //     setPrice(stage);
+    // });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     className: "card-body"
@@ -166,10 +191,7 @@ function CustomizerBody(props) {
     key: attr,
     title: attr,
     option: props.product.attributes[attr]
-  })), /*#__PURE__*/React.createElement(CustomizerOption, {
-    title: "Shipping",
-    option: ["express", "airexpress", "seaexpress", "seatrans"]
-  }), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     className: "row selector"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-md-5"
@@ -177,13 +199,34 @@ function CustomizerBody(props) {
     className: "col-md-7"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "zipcode",
-    className: "active"
+    className: "active input-group-btn"
   }, /*#__PURE__*/React.createElement("input", {
     type: "text",
     className: "form-control",
     id: "zipcode",
     name: "zipcode",
     required: true
+  })))), /*#__PURE__*/React.createElement(StageTable, {
+    price: price,
+    onClick: handleTableClick
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "row selector"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-md-4"
+  }, /*#__PURE__*/React.createElement("h4", null, "Quantity: ")), /*#__PURE__*/React.createElement("div", {
+    className: "col-md-8"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "quantity",
+    className: "active input-group-btn"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    className: "form-control",
+    id: "quantity",
+    name: "quantity",
+    min: "1",
+    value: props.num,
+    onChange: handleNumChange,
+    readOnly: true
   })))), /*#__PURE__*/React.createElement("div", {
     className: "row selector"
   }, /*#__PURE__*/React.createElement("div", {
@@ -198,31 +241,11 @@ function CustomizerBody(props) {
     className: "form-control",
     id: "leadtime",
     name: "leadtime",
-    required: true
+    readOnly: true,
+    value: props.product.attributes.LeadTime
   }), /*#__PURE__*/React.createElement("span", {
     className: "input-group-addon"
-  }, "days")))), /*#__PURE__*/React.createElement(StageTable, {
-    price: price,
-    onClick: handleTableClick
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "row selector"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "col-md-3"
-  }, /*#__PURE__*/React.createElement("h4", null, "Quantity: ")), /*#__PURE__*/React.createElement("div", {
-    className: "col-md-9"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "quantity",
-    className: "active"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "number",
-    className: "form-control",
-    id: "quantity",
-    name: "quantity",
-    min: "1",
-    value: props.num,
-    onChange: handleNumChange,
-    readOnly: true
-  })))));
+  }, "days")))));
 }
 function StageTable(props) {
   const price = props.price;
@@ -274,23 +297,17 @@ function CustomizerFooter(props) {
     className: "row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-md-12"
-  }, /*#__PURE__*/React.createElement("h4", null, "Total Price: "), Object.keys(props.price).map(key => /*#__PURE__*/React.createElement("div", {
-    className: "total-price col-xs-12",
-    key: key,
-    style: {
-      transition: "all 0.3s ease"
-    }
+  }, /*#__PURE__*/React.createElement("h4", null, "Total Price: "), /*#__PURE__*/React.createElement("div", {
+    className: "total-price col-xs-12"
   }, /*#__PURE__*/React.createElement("div", {
     className: "col-xs-6"
   }, /*#__PURE__*/React.createElement("p", {
-    key: key,
     className: "text-uppercase text-left"
-  }, key, ": ")), /*#__PURE__*/React.createElement("div", {
+  }, "FOB LA: ")), /*#__PURE__*/React.createElement("div", {
     className: "col-xs-6"
   }, /*#__PURE__*/React.createElement("p", {
-    key: key,
     className: "text-uppercase text-right"
-  }, "$", /*#__PURE__*/React.createElement("strong", null, props.price[key].toFixed(2)))))))));
+  }, "$", /*#__PURE__*/React.createElement("strong", null, props.price.fobla.toFixed(2))))))));
 }
 function SubmitButton(props) {
   return /*#__PURE__*/React.createElement("button", {

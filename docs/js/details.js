@@ -82,7 +82,7 @@ function getSKU() {
     attributes["num"] = Number($('#quantity').val());
     attributes["price"] = Number($('.total-price.bg-info.blockquote-reverse').text().split('$')[1]);
     attributes["zipcode"] = $('#zipcode').val();
-    attributes["leadtime"] = Number($('#leadtime').val());
+    // attributes["leadtime"] = Number($('#leadtime').val());
     attributes["attributes"] = {};
 
     const selectors = document.querySelectorAll('.selector');

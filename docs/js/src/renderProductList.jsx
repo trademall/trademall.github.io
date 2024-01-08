@@ -2,6 +2,7 @@ import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 // import { Attributes } from "./uploadProduct.js";
 import { getProductInfo, getProductList, updateProduct, createProduct, deleteProduct } from "./product_api.js";
+import { getFobStageList } from "./pstage_api.js";
 
 function renderProductList(props) {
     const productList = $('#product-list');
@@ -81,8 +82,12 @@ function emptyProduct() {
 function ProductListTable(props) {
     const products = props.products;
     const [productEdit, setProductEdit] = React.useState(emptyProduct);
+    const [pid, setPid] = React.useState(0);
 
     const handleDelete = (e) => {
+        if (!confirm('Are you sure you want to delete this product?')) {
+            return;
+        }
         const id = e.target.dataset.id;
         deleteProduct(id, (data) => {
             alert('Delete success');
@@ -91,6 +96,7 @@ function ProductListTable(props) {
             alert('Delete failed: ' + err);
         });
     }
+
     const handleUpdate = (e) => {
         const id = e.target.dataset.id;
         const product = products.find(product => product.id == id);
@@ -102,6 +108,23 @@ function ProductListTable(props) {
         $('#productEditModal').modal('show');
     }
 
+    const handleStageEdit = (e) => {
+        const id = e.target.dataset.id;
+        const product = products.find(product => product.id == id);
+        if (!product) {
+            alert('Product not found');
+            return;
+        }
+        setPid(id);
+        $('#productStageModal').modal('show');
+        // getFobStageList(id, (data) => {
+        //     setPid(id);
+        //     $('#productStageModal').modal('show');
+        // }, (err) => {
+        //     alert('Get stage list failed: ' + err);
+        // });
+    }
+
     const rows = products.map((product) =>
         <tr key={product.id}>
             <td>{product.id}</td>
@@ -111,6 +134,7 @@ function ProductListTable(props) {
             <td>{product.profit}</td>
             <td>
                 <button className="btn btn-primary" data-id={product.id} onClick={handleUpdate}>Update</button>
+                <button className="btn btn-warning" data-id={product.id} onClick={handleStageEdit}>Stage</button>
                 <button className="btn btn-danger" data-id={product.id} onClick={handleDelete}>Delete</button>
             </td>
         </tr>
@@ -122,6 +146,9 @@ function ProductListTable(props) {
                 <div className="col-sm-10">
                     <div id="popup-edit-product">
                         <PopupEdit product={productEdit} />
+                    </div>
+                    <div id="popup-stage-product">
+                        <PopupStage pid={pid} />
                     </div>
                 </div>
                 <table className="table table-striped table-hover text-center">
@@ -178,8 +205,12 @@ function PopupEdit(props) {
         let attributes = {};
         $('#attributesWrapper input').each(function (index, element) {
             const key = element.id;
-            const value = element.value.split(',').map((item) => item.trim());
-            attributes[key] = value;
+            if (element.value.indexOf(',') == -1) {
+                attributes[key] = Number(element.value);
+            } else {
+                const value = element.value.split(',').map((item) => item.trim());
+                attributes[key] = value;
+            }
         });
         return attributes;
     }
@@ -197,7 +228,7 @@ function PopupEdit(props) {
     const attributes = Object.keys(product.attributes).map((key) => (
         <div className="">
             <div className="form-group col-12" key={key}>
-                <InputBox id={key} label={key} type="text" defaultValue={product.attributes[key].join()} required={false} />
+                <InputBox id={key} label={key} type="text" defaultValue={typeof product.attributes[key] == 'object' ? product.attributes[key].join() : product.attributes[key]} required={true} />
             </div>
         </div>
     ));
@@ -255,6 +286,116 @@ function PopupEdit(props) {
                     </div>
                     <div className="modal-footer text-center">
                         <button type="button" className="btn btn-primary" onClick={handleUpdate} data-id={product.id}>Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function PopupStage(props) {
+    const [fob, setFOB] = React.useState([
+        {
+            pid: props.pid,
+            quantity: 1,
+            fobla: 0.0000,
+            fobcn: 0.0000,
+            username: localStorage.getItem('username')
+        }
+    ]);
+    const [oldFOB, setOldFOB] = React.useState([]);
+
+    getFobStageList(props.pid, (data) => {
+        setFOB(data.list);
+        setOldFOB(data.list);
+    }, (err) => {
+        // alert('Get stage list failed: ' + err);
+        console.log(err);
+        console.log(props.pid);
+    });
+
+    const handleFOBSubmit = () => {
+        const fobNum = fob.length;
+        let createdNum = 0;
+        let deletedNum = 0;
+        let originalNum = oldFOB.length;
+        oldFOB.forEach((item) => {
+            PStage.deleteFobStage(item.id, (data) => {
+                deletedNum++;
+                if (deletedNum === originalNum) {
+                    fob.forEach((item) => {
+                        console.log(item);
+                        PStage.createFobStage(item, (data) => {
+                            createdNum++;
+                            if (createdNum === fobNum) {
+                                alert(data.message);
+                                location.reload();
+                            }
+                        }, (err) => {
+                            alert(err);
+                        });
+                    });
+                }
+            });
+        });
+    }
+
+    return (
+        <div className="modal fade" id="productStageModal" tabIndex="-1" role="dialog" aria-labelledby="productStageModalLabel">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header bg-primary">
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" className="text-danger">&times;</span>
+                        </button>
+                        <h4 className="modal-title" id="productStageModalLabel">Edit Stage</h4>
+                    </div>
+                    <div className="modal-body row">
+                        <div className="vertical-center">
+                            <div className="col-xs-10 col-sm-9 col-sm-offset-1">
+                                <div className="form-group">
+                                    <label htmlFor="stage">Set FOB Stage</label>
+                                    {fob.map((item, index) => (
+                                        <div className="row mb-small" key={index}>
+                                            <div className="col-sm-4">
+                                                <InputBox type="number" name="quantity" label="Quantity" required={true} min={1} max={999999} defaultValue={item.quantity} onChange={(e) => {
+                                                    let newFOB = [...fob];
+                                                    newFOB[index].quantity = Number(e.target.value);
+                                                    setFOB(newFOB);
+                                                }} />
+                                            </div>
+                                            <div className="col-sm-4">
+                                                <InputBox type="number" name="fobla" label="FOB LA" required={true} min={1} max={999999} defaultValue={item.fobla} onChange={(e) => {
+                                                    let newFOB = [...fob];
+                                                    newFOB[index].fobla = Number(e.target.value);
+                                                    setFOB(newFOB);
+                                                }} />
+                                            </div>
+                                            <div className="col-sm-4">
+                                                <InputBox type="number" name="fobcn" label="FOB CN" required={true} defaultValue={item.fobcn} onChange={(e) => {
+                                                    let newFOB = [...fob];
+                                                    newFOB[index].fobcn = Number(e.target.value);
+                                                    setFOB(newFOB);
+                                                }} />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="col-xs-2 col-sm-1">
+                                <button className="btn btn-primary" onClick={() => setFOB([...fob, {
+                                    pid: props.pid,
+                                    quantity: 1,
+                                    fobla: 0.0000,
+                                    fobcn: 0.0000,
+                                    username: localStorage.getItem('username')
+                                }])}>+</button>
+                                <button className="btn btn-danger" onClick={() => (fob.length > 1) ? setFOB(fob.slice(0, -1)) : null}>-</button>
+                            </div>
+                        </div>
+                        <div className="col-xs-6 col-xs-offset-2 col-sm-4 col-sm-offset-3 row">
+                            <button className="btn btn-success btn-lg col-xs-12" onClick={handleFOBSubmit}>Confirm!</button>
+                        </div>
                     </div>
                 </div>
             </div>

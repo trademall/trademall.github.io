@@ -2,6 +2,7 @@ import { Sidebar } from "./sidebar.js";
 import { InputBox } from "./InputBox.js";
 // import { Attributes } from "./uploadProduct.js";
 import { getProductInfo, getProductList, updateProduct, createProduct, deleteProduct } from "./product_api.js";
+import { getFobStageList } from "./pstage_api.js";
 function renderProductList(props) {
   const productList = $('#product-list');
   if (productList.length) {
@@ -68,7 +69,11 @@ function emptyProduct() {
 function ProductListTable(props) {
   const products = props.products;
   const [productEdit, setProductEdit] = React.useState(emptyProduct);
+  const [pid, setPid] = React.useState(0);
   const handleDelete = e => {
+    if (!confirm('Are you sure you want to delete this product?')) {
+      return;
+    }
     const id = e.target.dataset.id;
     deleteProduct(id, data => {
       alert('Delete success');
@@ -87,6 +92,23 @@ function ProductListTable(props) {
     setProductEdit(product);
     $('#productEditModal').modal('show');
   };
+  const handleStageEdit = e => {
+    const id = e.target.dataset.id;
+    const product = products.find(product => product.id == id);
+    if (!product) {
+      alert('Product not found');
+      return;
+    }
+    setPid(id);
+    $('#productStageModal').modal('show');
+    // getFobStageList(id, (data) => {
+    //     setPid(id);
+    //     $('#productStageModal').modal('show');
+    // }, (err) => {
+    //     alert('Get stage list failed: ' + err);
+    // });
+  };
+
   const rows = products.map(product => /*#__PURE__*/React.createElement("tr", {
     key: product.id
   }, /*#__PURE__*/React.createElement("td", null, product.id), /*#__PURE__*/React.createElement("td", null, product.name), /*#__PURE__*/React.createElement("td", null, product.status == 2 ? 'Inactive' : product.status == 1 ? 'Public' : 'Private'), /*#__PURE__*/React.createElement("td", null, product.price), /*#__PURE__*/React.createElement("td", null, product.profit), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
@@ -94,6 +116,10 @@ function ProductListTable(props) {
     "data-id": product.id,
     onClick: handleUpdate
   }, "Update"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-warning",
+    "data-id": product.id,
+    onClick: handleStageEdit
+  }, "Stage"), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-danger",
     "data-id": product.id,
     onClick: handleDelete
@@ -108,6 +134,10 @@ function ProductListTable(props) {
     id: "popup-edit-product"
   }, /*#__PURE__*/React.createElement(PopupEdit, {
     product: productEdit
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "popup-stage-product"
+  }, /*#__PURE__*/React.createElement(PopupStage, {
+    pid: pid
   }))), /*#__PURE__*/React.createElement("table", {
     className: "table table-striped table-hover text-center"
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Profit"), /*#__PURE__*/React.createElement("th", null, "Actions"))), /*#__PURE__*/React.createElement("tbody", null, rows))));
@@ -144,8 +174,12 @@ function PopupEdit(props) {
     let attributes = {};
     $('#attributesWrapper input').each(function (index, element) {
       const key = element.id;
-      const value = element.value.split(',').map(item => item.trim());
-      attributes[key] = value;
+      if (element.value.indexOf(',') == -1) {
+        attributes[key] = Number(element.value);
+      } else {
+        const value = element.value.split(',').map(item => item.trim());
+        attributes[key] = value;
+      }
     });
     return attributes;
   }
@@ -166,8 +200,8 @@ function PopupEdit(props) {
     id: key,
     label: key,
     type: "text",
-    defaultValue: product.attributes[key].join(),
-    required: false
+    defaultValue: typeof product.attributes[key] == 'object' ? product.attributes[key].join() : product.attributes[key],
+    required: true
   }))));
   return /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
@@ -307,6 +341,153 @@ function PopupEdit(props) {
     onClick: handleUpdate,
     "data-id": product.id
   }, "Update")))));
+}
+function PopupStage(props) {
+  const [fob, setFOB] = React.useState([{
+    pid: props.pid,
+    quantity: 1,
+    fobla: 0.0000,
+    fobcn: 0.0000,
+    username: localStorage.getItem('username')
+  }]);
+  const [oldFOB, setOldFOB] = React.useState([]);
+
+  // React.useEffect(() => {
+  getFobStageList(props.pid, data => {
+    setFOB(data.list);
+    setOldFOB(data.list);
+  }, err => {
+    // alert('Get stage list failed: ' + err);
+    console.log(err);
+    console.log(props.pid);
+  });
+  // }, []);
+
+  const handleFOBSubmit = () => {
+    const fobNum = fob.length;
+    let createdNum = 0;
+    let deletedNum = 0;
+    let originalNum = oldFOB.length;
+    oldFOB.forEach(item => {
+      PStage.deleteFobStage(item.id, data => {
+        deletedNum++;
+        if (deletedNum === originalNum) {
+          fob.forEach(item => {
+            console.log(item);
+            PStage.createFobStage(item, data => {
+              createdNum++;
+              if (createdNum === fobNum) {
+                alert(data.message);
+                // window.location.href = "/products/";
+              }
+            }, err => {
+              alert(err);
+            });
+          });
+        }
+      });
+    });
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "modal fade",
+    id: "productStageModal",
+    tabIndex: "-1",
+    role: "dialog",
+    "aria-labelledby": "productStageModalLabel"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-dialog",
+    role: "document"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-content"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "modal-header bg-primary"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "close",
+    "data-dismiss": "modal",
+    "aria-label": "Close"
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    className: "text-danger"
+  }, "\xD7")), /*#__PURE__*/React.createElement("h4", {
+    className: "modal-title",
+    id: "productStageModalLabel"
+  }, "Edit Stage")), /*#__PURE__*/React.createElement("div", {
+    className: "modal-body row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "vertical-center"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-10 col-sm-9 col-sm-offset-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "stage"
+  }, "Set FOB Stage"), fob.map((item, index) => /*#__PURE__*/React.createElement("div", {
+    className: "row mb-small",
+    key: index
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    type: "number",
+    name: "quantity",
+    label: "Quantity",
+    required: true,
+    min: 1,
+    max: 999999,
+    defaultValue: item.quantity,
+    onChange: e => {
+      let newFOB = [...fob];
+      newFOB[index].quantity = Number(e.target.value);
+      setFOB(newFOB);
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    type: "number",
+    name: "fobla",
+    label: "FOB LA",
+    required: true,
+    min: 1,
+    max: 999999,
+    defaultValue: item.fobla,
+    onChange: e => {
+      let newFOB = [...fob];
+      newFOB[index].fobla = Number(e.target.value);
+      setFOB(newFOB);
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/React.createElement(InputBox, {
+    type: "number",
+    name: "fobcn",
+    label: "FOB CN",
+    required: true,
+    defaultValue: item.fobcn,
+    onChange: e => {
+      let newFOB = [...fob];
+      newFOB[index].fobcn = Number(e.target.value);
+      setFOB(newFOB);
+    }
+  })))))), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-2 col-sm-1"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: () => setFOB([...fob, {
+      pid: props.pid,
+      quantity: 1,
+      fobla: 0.0000,
+      fobcn: 0.0000,
+      username: localStorage.getItem('username')
+    }])
+  }, "+"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-danger",
+    onClick: () => fob.length > 1 ? setFOB(fob.slice(0, -1)) : null
+  }, "-"))), /*#__PURE__*/React.createElement("div", {
+    className: "col-xs-6 col-xs-offset-2 col-sm-4 col-sm-offset-3 row"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-success btn-lg col-xs-12",
+    onClick: handleFOBSubmit
+  }, "Confirm!"))))));
 }
 function UploadProductBtn() {
   return /*#__PURE__*/React.createElement("div", {

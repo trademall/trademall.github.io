@@ -6,6 +6,7 @@ import { InputBox, ImageBox } from "./InputBox.js";
 
 renderCategorySelect();
 // renderStageSet(1, 1);
+// renderFOB();
 
 function renderCategorySelect() {
   const container = $("#upload-product");
@@ -148,6 +149,7 @@ function UploadProduct(props) {
       // quantity: $('#quantity').val().trim(),
       Include: $('#include').val().trim().split(",").filter((item) => item !== "").map((item) => Number(item)),
       Exclude: $('#exclude').val().trim().split(",").filter((item) => item !== "").map((item) => Number(item)),
+      templateid: Number(template.id),
       Status: Number($('#status').val().trim()),
       CreatorID: Number(localStorage.getItem('id')),
     };
@@ -165,8 +167,12 @@ function UploadProduct(props) {
       $('#upload.btn-upload').html('Create');
       // window.location.href = "/products/";
       getProduct("list", localStorage.getItem('id'), (data) => {
-        const pid = data.list.find((item) => item.productid === product.ProductID && item.creatorid === product.CreatorID && item.name === product.name && item.category === product.category && item.childcategory === product.childcategory && item.detailinfo === product.DetailInfo).id || data.list[data.total - 1].id;
-        renderStageSet(pid, product.Price);
+        const p = data.list.find((item) => item.productid === product.ProductID && item.creatorid === product.CreatorID && item.name === product.name && item.category === product.category && item.childcategory === product.childcategory && item.detailinfo === product.DetailInfo) || data.list[data.total - 1];
+        console.log(p);
+        const pid = p.id;
+
+        // renderStageSet(pid, product.Price);
+        renderFOB(pid);
       }, (err) => {
         alert(err);
       });
@@ -195,6 +201,7 @@ function UploadProduct(props) {
       }
     });
     attributes['Price'] = Number($('#price').val().trim());
+    attributes['LeadTime'] = Number($('#leadtime').val().trim());
     return attributes;
   }
 
@@ -236,6 +243,7 @@ function UploadProduct(props) {
           </div>
           <InputBox id="price-model" label="Price Model" type="text" required={true} value={template.attributes.price} disabled={true} />
           {/* <InputBox id="quantity" type="number" name="quantity" label="Quantity" required={true} /> */}
+          <InputBox id="leadtime" type="number" name="leadtime" label="Lead Time" required={true} defaultValue={0} disabled={false} />
           <InputBox id="include" type="text" name="include" label="Include" required={false} defaultValue={template.include.join()} disabled={false} />
           <InputBox id="exclude" type="text" name="exclude" label="Exclude" required={false} defaultValue={template.exclude.join()} disabled={false} />
           <div className="form-group col-md-10 col-md-offset-1" id="statusWrapper">
@@ -289,7 +297,7 @@ function EmptyAttributes() {
 //--------------------------------------------------------------
 function renderStageSet(pid, price) {
   const container = $("#upload-product");
-  console.log(pid, price);
+  // console.log(pid, price);
 
   if (container.length) {
     ReactDOM.render(
@@ -384,6 +392,101 @@ function StageSet(props) {
         </div>
         <div className="col-xs-6 col-xs-offset-2 col-sm-4 col-sm-offset-3 row">
           <button className="btn btn-success btn-lg col-xs-12" onClick={handleStageSubmit}>Confirm!</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function renderFOB(pid) {
+  const container = $("#upload-product");
+
+  if (container.length) {
+    ReactDOM.render(
+      <FOB pid={pid} />,
+      container[0]
+    );
+  }
+}
+
+function FOB(props) {
+  const [fob, setFOB] = React.useState([
+    {
+      pid: props.pid,
+      quantity: 1,
+      fobla: 0.0000,
+      fobcn: 0.0000,
+      username: localStorage.getItem('username')
+    }
+  ]);
+
+  const handleFOBSubmit = () => {
+    const fobNum = fob.length;
+    let createdNum = 0;
+    fob.forEach((item) => {
+      console.log(item);
+      PStage.createFobStage(item, (data) => {
+        createdNum++;
+        if (createdNum === fobNum) {
+          alert(data.message);
+          window.location.href = "/products/";
+        }
+      }, (err) => {
+        alert(err);
+      });
+    });
+  }
+
+  return (
+    <div className="row">
+      <div className="col-md-10 col-md-offset-1">
+        <div className="heading">
+          <h3>FOB Stage</h3>
+        </div>
+        <div className="vertical-center">
+          <div className="col-xs-10 col-sm-9 col-sm-offset-1">
+            <div className="form-group">
+              <label htmlFor="stage">Set FOB Stage</label>
+              {fob.map((item, index) => (
+                <div className="row mb-small" key={index}>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="quantity" label="Quantity" required={true} min={1} max={999999} defaultValue={item.quantity} onChange={(e) => {
+                      let newFOB = [...fob];
+                      newFOB[index].quantity = Number(e.target.value);
+                      setFOB(newFOB);
+                    }} />
+                  </div>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="fobla" label="FOB LA" required={true} min={1} max={999999} defaultValue={item.fobla} onChange={(e) => {
+                      let newFOB = [...fob];
+                      newFOB[index].fobla = Number(e.target.value);
+                      setFOB(newFOB);
+                    }} />
+                  </div>
+                  <div className="col-sm-4">
+                    <InputBox type="number" name="fobcn" label="FOB CN" required={true} defaultValue={item.fobcn} onChange={(e) => {
+                      let newFOB = [...fob];
+                      newFOB[index].fobcn = Number(e.target.value);
+                      setFOB(newFOB);
+                    }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="col-xs-2 col-sm-1">
+            <button className="btn btn-primary" onClick={() => setFOB([...fob, {
+              pid: props.pid,
+              quantity: 1,
+              fobla: 0.0000,
+              fobcn: 0.0000,
+              username: localStorage.getItem('username')
+            }])}>+</button>
+            <button className="btn btn-danger" onClick={() => (fob.length > 1) ? setFOB(fob.slice(0, -1)) : null}>-</button>
+          </div>
+        </div>
+        <div className="col-xs-6 col-xs-offset-2 col-sm-4 col-sm-offset-3 row">
+          <button className="btn btn-success btn-lg col-xs-12" onClick={handleFOBSubmit}>Confirm!</button>
         </div>
       </div>
     </div>
