@@ -351,8 +351,6 @@ function PopupStage(props) {
     username: localStorage.getItem('username')
   }]);
   const [oldFOB, setOldFOB] = React.useState([]);
-
-  // React.useEffect(() => {
   getFobStageList(props.pid, data => {
     setFOB(data.list);
     setOldFOB(data.list);
@@ -361,8 +359,6 @@ function PopupStage(props) {
     console.log(err);
     console.log(props.pid);
   });
-  // }, []);
-
   const handleFOBSubmit = () => {
     const fobNum = fob.length;
     let createdNum = 0;
@@ -378,7 +374,7 @@ function PopupStage(props) {
               createdNum++;
               if (createdNum === fobNum) {
                 alert(data.message);
-                // window.location.href = "/products/";
+                location.reload();
               }
             }, err => {
               alert(err);

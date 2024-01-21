@@ -77,7 +77,7 @@ function ProductDiv(props) {
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" id={props.cid}>
             <div className="commodity">
-                <ImgDiv image={props.image} name={props.name} id={props.pid} disableCache={false} loading="lazy" />
+                <ImgDiv image={props.image} name={props.name} id={props.pid} disableCache={false} />
                 <TextDiv name={props.name} price={props.price} id={props.pid} attributes={props.attributes} num={props.num} />
                 <FootBtns cid={props.cid} id={props.pid} />
             </div>
@@ -91,10 +91,12 @@ function ProductCatalog(props) {
         <ProductDiv key={product.id} cid={product.id} image={product.attributes.image} name={product.attributes.name} price={product.attributes.price} pid={product.productid} attributes={ product.attributes.attributes } num={product.attributes.num} />
     );
     return (
-        <div className="commodities">
-            {catalogItems}
+        <>
+            <div className="commodities">
+                {catalogItems}
+            </div>
             <button className="btn btn-template-main btn-circle btn-lg" id="printBtn" onClick={handlePrint}><i className="fa fa-print"></i></button>
-        </div>
+        </>
     );
 }
 
@@ -105,6 +107,8 @@ function handlePrint() {
 function generatePDF() {
     $('#printBtn').html('<i class="fa fa-spinner fa-spin"></i>');
     $('#printBtn').attr('disabled', true);
+    let scroll = document.documentElement.scrollTop || document.body.scrollTop;
+    document.body.scrollIntoView();
     const uid = localStorage.getItem('id');
     getCatalog(uid, function (data) {
         const catalog = data.map((product) => {
@@ -114,34 +118,118 @@ function generatePDF() {
             return [product.attributes.name, product.attributes.pid, attributes, product.attributes.attributes.Shipping[0], product.attributes.num, '$'+product.attributes.price];
         });
 
+        // const images = document.querySelectorAll('div.commodity .img');
+        // images.forEach((image) => {
+        //     // var img = new Image();
+        //     // img.crossOrigin = "Anonymous";
+        //     // img.src = image.src + '?t=' + new Date().getTime();
+        //     image.src = image.src + '?t=' + new Date().getTime();
+        //     image.crossOrigin = "Anonymous";
+        // });
+
         try {
-            const doc = new jsPDF();
-            const header = function (data) {
-                doc.setFontSize(24);
-                doc.setTextColor(40);
-                doc.setFontStyle('bold');
-                doc.text("Catalog", data.settings.margin.left, 20);
-            };
+            let ctemplateinfo = undefined;
+            getCTemplateList(1, 10086, function (data) {
+                const ctemplates = data.list;
+                ctemplateinfo = ctemplates.filter((ctemplate) => ctemplate.user_id == uid);
+            });
 
-            // TODO: getCTemplateList
+            // html2canvas
+            const catalogDiv = document.querySelector('#commodities').cloneNode(true);
+            const item_height = document.querySelector('.commodity').offsetHeight;
+            console.log(item_height);
+            catalogDiv.style.position = 'absolute';
+            catalogDiv.style.top = '0';
+            catalogDiv.style.left = '0';
+            catalogDiv.style.zIndex = '-1';
+            catalogDiv.style.opacity = '0';
+            document.body.appendChild(catalogDiv);
+            html2canvas(catalogDiv, {
+                allowTaint: false,
+                useCORS: true,
+                scale: 4
+            }).then(function (canvas) {
+                const contentWidth = canvas.width;
+                const contentHeight = canvas.height;
+                const pageHeight = contentWidth / 592.28 * 841.89;
+                let leftHeight = contentHeight;
+                let position = 0;
+                const imgWidth = 595.28;
+                const imgHeight = 592.28 / contentWidth * contentHeight;
+                const pageData = canvas.toDataURL('image/png', 1.0);
+                const pdf = new jsPDF('', 'pt', 'a4');
 
-            const options = {
-                beforePageContent: header,
-                margin: {
-                    top: 30
-                },
-                columnStyles: {
-                    0: { fontStyle: 'bold' },
-                    5: { halign: 'right', textColor: [255, 0, 0], fontStyle: 'bold' }
-                },
-                headStyles: {
-                    Price: { halign: 'right' }
-                },
-                showHead: 'everyPage',
-            };
-            doc.autoTable(['Name', 'Product ID', 'Attributes', 'Shipping', 'Number', 'Price'], catalog, options);
+                if (ctemplateinfo != undefined && ctemplateinfo.length > 0) {
+                    const merchant = (
+                        <>
+                            <h4>Merchant</h4>
+                            <p>Merchant:&nbsp;{ctemplateinfo[0].mname}</p>
+                            <p>Address:&nbsp;{ctemplateinfo[0].maddress}</p>
+                            <p>Title:&nbsp;{ctemplateinfo[0].mtitle}</p>
+                            <hr />
+                            <h4>Customer</h4>
+                            <p>Customer:&nbsp;{ctemplateinfo[0].cname}</p>
+                            <p>Address:&nbsp;{ctemplateinfo[0].caddress}</p>
+                            <p>Title:&nbsp;{ctemplateinfo[0].ctitle}</p>
+                        </>
+                    );
+                    pdf.html(merchant, { margin: [80, 40, 40, 80] });
+                    pdf.addPage();
+                }
+                if (leftHeight < pageHeight) {
+                    pdf.addImage(pageData, 'PNG', 0, 0, imgWidth, imgHeight);
+                } else {
+                    const pcontentHeight = Math.floor(pageHeight / item_height) * item_height;
+                    const pimgHeight = pcontentHeight / contentHeight * imgHeight;
 
-            doc.save('catalog.pdf');
+                    const scale = 592.28 / contentWidth;
+
+                    let first_page = true;
+
+                    while (leftHeight > 0) {
+                        pdf.addImage(pageData, 'PNG', 0, first_page?0:position-100*scale, imgWidth, imgHeight);
+                        pdf.setFillColor(255, 255, 255);
+                        pdf.rect(0, pimgHeight+30*scale+(first_page?100*scale:0), 595.28, 841.9, 'F');
+                        leftHeight -= pcontentHeight;
+                        position -= pimgHeight+35*scale;
+                        if (leftHeight > 0) {
+                            pdf.addPage();
+                        }
+                        first_page = false;
+                    }
+                }
+                pdf.save('catalog.pdf');
+                document.body.removeChild(catalogDiv);
+            });
+
+            // const doc = new jsPDF();
+            // const header = function (data) {
+            //     doc.setFontSize(24);
+            //     doc.setTextColor(40);
+            //     doc.setFontStyle('bold');
+            //     doc.text("Catalog", data.settings.margin.left, 20);
+            // };
+
+            // const options = {
+            //     beforePageContent: header,
+            //     margin: {
+            //         top: 30
+            //     },
+            //     columnStyles: {
+            //         0: { fontStyle: 'bold' },
+            //         5: { halign: 'right', textColor: [255, 0, 0], fontStyle: 'bold' }
+            //     },
+            //     headStyles: {
+            //         Price: { halign: 'right' }
+            //     },
+            //     showHead: 'everyPage',
+            // };
+            // doc.autoTable(['Name', 'Product ID', 'Attributes', 'Shipping', 'Number', 'Price'], catalog, options);
+
+            // doc.addImage(images[0], 'JPEG', 15, 40, 180, 180);
+
+            // doc.save('catalog.pdf');
+
         } catch (error) {
             console.log(error);
             alert('Failed to generate catalog!');
@@ -152,6 +240,7 @@ function generatePDF() {
             $('#printBtn').html('<i class="fa fa-print"></i>');
         }, 2000);
         $('#printBtn').attr('disabled', false);
+        document.documentElement.scrollTop = scroll;
     }, function () {
         $('#printBtn').html('<i class="fa fa-print"></i>');
         $('#printBtn').attr('disabled', false);

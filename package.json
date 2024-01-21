@@ -5,6 +5,7 @@
     "build": "babel ./static/js/src/*.jsx -d ./static/js/"
   },
   "dependencies": {
+    "editor.md": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

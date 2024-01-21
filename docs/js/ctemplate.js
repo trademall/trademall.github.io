@@ -89,7 +89,7 @@ function deleteCTemplate(ctid, successCallback, errorCallback) {
 
 function getCTemplateList(pageNum, pageSize, successCallback, errorCallback) {
     $.ajax({
-        url: root + "v1/admin/ctemplate",
+        url: root + "admin/ctemplate",
         type: "GET",
         headers: {
             "Content-Type": "application/json",
