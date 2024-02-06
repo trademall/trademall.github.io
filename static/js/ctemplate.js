@@ -1,4 +1,4 @@
-const root = "http://47.89.209.202:80/";
+const root = "http://47.89.209.202:8080/";
 
 function getCTemplate(ctid, successCallback, errorCallback) {
     $.ajax({

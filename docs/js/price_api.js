@@ -1,4 +1,4 @@
-const server = "http://47.89.209.202:80";
+const server = "http://47.89.209.202:8080";
 
 function getModel(successcallback = console.log, errorcallback = console.log) {
     $.ajax({

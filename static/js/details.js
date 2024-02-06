@@ -43,7 +43,7 @@ function submit(event) {
     } else {
         disableBtn();
         $.ajax({
-            url: "http://47.89.209.202:80/v1/catalog/" + uid,
+            url: "http://47.89.209.202:8080/v1/catalog/" + uid,
             type: "GET",
             headers: {
                 "token": localStorage.getItem("token"),
@@ -111,7 +111,7 @@ function addToCart() {
     const data = JSON.stringify(item);
     console.log(data);
     $.ajax({
-        url: "http://47.89.209.202:80/v1/catalog",
+        url: "http://47.89.209.202:8080/v1/catalog",
         type: "POST",
         headers: {
             "token": localStorage.getItem("token"),
@@ -144,7 +144,7 @@ function updateCart() {
     const data = JSON.stringify(item);
     console.log(data);
     $.ajax({
-        url: "http://47.89.209.202:80/v1/catalog",
+        url: "http://47.89.209.202:8080/v1/catalog",
         type: "PATCH",
         headers: {
             "token": localStorage.getItem("token"),

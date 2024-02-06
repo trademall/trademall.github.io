@@ -28,7 +28,7 @@ signupForm.addEventListener("submit", (e) => {
   signupButton.textContent = "Signing up...";
 
   $.ajax({
-    url: "http://47.89.209.202:80/user/signup",
+    url: "http://47.89.209.202:8080/user/signup",
     type: "POST",
     data: JSON.stringify({
       "username": username,

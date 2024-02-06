@@ -1,4 +1,4 @@
-const server = "http://47.89.209.202:80";
+const server = "http://47.89.209.202:8080";
 
 function createPStage(pstage, successcallback, errorcallback = console.log) {
     $.ajax({

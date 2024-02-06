@@ -29,7 +29,7 @@ function handleNextPage() {
 
 function deleteUser(id) {
     $.ajax({
-        url: 'http://47.89.209.202:80/v1/root/user/' + id,
+        url: 'http://47.89.209.202:8080/v1/root/user/' + id,
         type: 'DELETE',
         headers: {
             "token": localStorage.getItem('token')
@@ -51,7 +51,7 @@ function deleteUser(id) {
 
 function updateUser(data) {
     $.ajax({
-        url: 'http://47.89.209.202:80/v1/root/user',
+        url: 'http://47.89.209.202:8080/v1/root/user',
         type: 'PATCH',
         data: JSON.stringify(data),
         contentType: 'application/json',
@@ -80,7 +80,7 @@ function updateUser(data) {
 
 function activeUser(id) {
     $.ajax({
-        url: 'http://47.89.209.202:80/v1/admin/user/' + id,
+        url: 'http://47.89.209.202:8080/v1/admin/user/' + id,
         type: 'GET',
         headers: {
             "token": localStorage.getItem('token')

@@ -30,7 +30,7 @@ function FootBtns(props) {
     }
 
     function deleteCatalog() {
-        const url = 'http://47.89.209.202:80/v1/catalog/' + props.cid;
+        const url = 'http://47.89.209.202:8080/v1/catalog/' + props.cid;
         $.ajax({
             url: url,
             type: 'DELETE',
